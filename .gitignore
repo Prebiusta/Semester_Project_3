@@ -1,0 +1,5 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SEP3client/.vs/SEP3client/v16/Server/sqlite3/db.lock
