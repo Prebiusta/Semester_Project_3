@@ -2,16 +2,17 @@ package hello.Controllers;
 
 import hello.JPA.TaskRepository;
 import hello.Model.Tasks;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 public class TaskController {
-    @Autowired
-    TaskRepository taskRepository;
+    private TaskRepository taskRepository;
+
+    public TaskController(TaskRepository taskRepository){
+        this.taskRepository = taskRepository;
+    }
 
     /**
      * Http method with two nullable parameters. Its not possible to specify both parameters.
@@ -23,7 +24,7 @@ public class TaskController {
      * @param id id of the task
      * @return returns array of Tasks
      */
-    @GetMapping("/task")
+    @RequestMapping(value = "/task", method = RequestMethod.GET)
     public List<Tasks> getTasks(
             @RequestParam(value = "status", required = false) String status,
             @RequestParam(value = "id", required = false) Integer id) {
@@ -33,16 +34,5 @@ public class TaskController {
             return taskRepository.findByTaskId(id);
         }
         return taskRepository.findAll();
-
-
     }
-
-//    @GetMapping("/query")
-//    public Tasks getTaskById(@RequestParam(value = "taskId") int id){
-//        return taskRepository.findByTaskId(id);
-//    }
-
-//    public List<Task> tasks(@RequestParam(value="project_id", required = false) Integer project_id, @RequestParam(value="sprint_number", required = false) Integer sprint_number){
-//
-//    }
 }
