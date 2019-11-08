@@ -10,9 +10,7 @@ using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers
 {
-    public class LoginController : Controller
-    {
-        private readonly HttpClient client = new HttpClient();
+    public class LoginController : CustomController {
         public IActionResult Index()
         {
             return View();
