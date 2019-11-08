@@ -39,8 +39,7 @@ namespace WebCoreMVC.NET.Controllers
             */
             if(ModelState.IsValid)
             {
-                WebRequest request = WebRequest.Create("http://10.152.220.131:8080/api/task");
-                request.Method = "GET";
+                
 
 
 
