@@ -9,7 +9,7 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
     List<Project> findAllByStatus(String string);
-    List<Project> findByProjectkId(int id);
+    List<Project> findByProjectId(int id);
 }
 
 

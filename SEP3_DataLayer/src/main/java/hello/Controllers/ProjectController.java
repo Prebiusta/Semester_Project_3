@@ -10,22 +10,21 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class ProjectController {
-    @Autowired
-    ProjectRepository projectRepository;
+    private ProjectRepository projectRepository;
 
+    public ProjectController(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
 
-    @GetMapping("/project")
+    @RequestMapping(value = "/project", method = RequestMethod.GET)
     public List<Project> getProject(
             @RequestParam(value = "status", required = false) String status,
             @RequestParam(value = "id", required = false) Integer id) {
         if (status != null) {
             return projectRepository.findAllByStatus(status);
         } else if (id != null) {
-            return projectRepository.findByProjectkId(id);
+            return projectRepository.findByProjectId(id);
         }
         return projectRepository.findAll();
-
-
     }
-
 }

@@ -1,52 +1,60 @@
 package hello.Model;
 
 import javax.persistence.*;
-import java.sql.Date;
 
+/**
+ *  Entity class referencing table in the database
+ */
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private long userId;
-
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "password")
     private String password;
 
+    @Column(name = "first_name")
+    private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "birthday")
+    private String birthday;
 
     @Column(name = "date_joined")
-    private Date dateJoined;
-
-    @Column(name = "birthday")
-    private Date birthday;
+    private String dateJoined;
 
     @Column(name = "profile_picture")
     private String profilePicture;
 
-    public User(){
+    public User() {
 
     }
 
-    public User(String firstName, String password, String lastName, String username, Date dateJoined, Date birthday, String profilePicture) {
-        this.firstName = firstName;
-        this.password = password;
-        this.lastName = lastName;
+    public User(String username, String password, String firstName, String lastName, String birthday, String dateJoined, String profilePicture) {
         this.username = username;
-        this.dateJoined = dateJoined;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.birthday = birthday;
+        this.dateJoined = dateJoined;
         this.profilePicture = profilePicture;
     }
 
-    public long getUserId() {
-        return userId;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.firstName = "firstName";
+        this.lastName = "lastName";
+        this.birthday = "birthday";
+        this.dateJoined = "dateJoined";
+        this.profilePicture = "profilePicture";
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getPassword() {
@@ -61,16 +69,12 @@ public class User {
         return lastName;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public Date getDateJoined() {
-        return dateJoined;
-    }
-
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
+    }
+
+    public String getDateJoined() {
+        return dateJoined;
     }
 
     public String getProfilePicture() {

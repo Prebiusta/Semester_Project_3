@@ -2,22 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d2d97bb-edcc-416a-a815-bb849bd856aa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/Controllers/AuthenticationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/JPA/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/hello/Model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Controllers/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/Controllers/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/SprintRestServiceV2.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Controllers/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/Controllers/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Controllers/ProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/Controllers/ProjectController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Controllers/TaskController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/JPA/ProjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/JPA/ProjectRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/JPA/TaskRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/JPA/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/JPA/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Model/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/Model/Project.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Model/Tasks.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/Model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Model/UserStory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/hello/Controllers/AuthenticationController$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/hello/Controllers/AuthenticationController$UserNotVerifiedException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/hello/Controllers/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hello/Controllers/AuthenticationController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/hello/Controllers/TaskController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hello/Controllers/TaskController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hello/JPA/TaskRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hello/JPA/TaskRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/hello/JPA/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hello/JPA/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/hello/Model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hello/Model/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/hello/Model/UserStory.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="116" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -93,7 +104,9 @@
       <option name="presentableId" value="Default" />
       <updated>1572983742856</updated>
       <workItem from="1572983745928" duration="4543000" />
-      <workItem from="1573113668111" duration="11414000" />
+      <workItem from="1573113668111" duration="14583000" />
+      <workItem from="1573215122644" duration="8482000" />
+      <workItem from="1573334064094" duration="2334000" />
     </task>
     <servers />
   </component>
@@ -105,10 +118,15 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SEP3_DataLayer$Application.ic" NAME="Application Coverage Results" MODIFIED="1573218157467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
