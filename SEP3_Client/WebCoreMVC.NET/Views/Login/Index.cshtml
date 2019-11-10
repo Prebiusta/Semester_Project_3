@@ -1,6 +1,6 @@
-﻿@model SystemUser;
+﻿@model WebCoreMVC.NET.Models.LogginUser
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Login";
 }
 
     <div class="text-center">
@@ -13,14 +13,14 @@
                 <form asp-action="Authorization">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="Username" class="control-label"></label>
-                        <input asp-for="Username" class="form-control" />
-                        <span asp-validation-for="Username" class="text-danger"></span>
+                        <label class="control-label">Username</label>
+                        <input asp-for="username" class="form-control" />
+                        <span asp-validation-for="username" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Password" class="control-label"></label>
-                        <input asp-for="Password" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <label class="control-label">Password</label>
+                        <input asp-for="password" class="form-control" />
+                        <span asp-validation-for="password" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Login" class="btn btn-primary" />

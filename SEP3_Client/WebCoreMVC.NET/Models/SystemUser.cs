@@ -5,52 +5,36 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace WebCoreMVC.NET.Models {
-    public class SystemUser {
-        [Required(ErrorMessage = "Please insert your username")]
-        public string username { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime dateJoined { get; set; }
-        public DateTime birthday { get; set; }
-        public String profilePicture { get; set; }
-        [DataType(DataType.Password)]
-        [Required(ErrorMessage = "Insert your password")]
-        public string Password { get; set; }
-        private List<Project> projects { get; set; }
+    public class SystemUser: LogginUser {
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string birthday { get; set; }
+        public string dateJoined { get; set; }
 
-        public SystemUser(string username, string password, string firstName, string lastName, DateTime birthday, DateTime dateJoined, String profilePicture) {
+        public string profilePicture { get; set; }
+
+
+        public SystemUser(string username, string password, string firstName, string lastName, string birthday, string dateJoined, String profilePicture) {
             this.username=username;
-            this.Password=password;
-            this.FirstName=firstName;
-            this.LastName=lastName;
+            this.password=password;
+            this.firstName=firstName;
+            this.lastName=lastName;
             this.birthday=birthday;
             this.dateJoined=dateJoined;
             this.profilePicture=profilePicture;
         }
 
-        public List<Project> getProjectsCompleted() {
-            List<Project> completedProjects = new List<Project>();
-            foreach(var project in projects) {
-                if(project.Equals("Completed")) {
-                    completedProjects.Add(project);
-                }
-            }
-            return completedProjects;
+        public SystemUser(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
+            this.firstName = "NotValeriusMom";
+            this.lastName = "NotValeriusSister";
+            this.birthday = "28-11-08";
+            this.dateJoined = "12-03-2019";
+            this.profilePicture = "hehehe nudes";
         }
 
-        public List<Project> getWorkingProjects() {
-            List<Project> workingProjects = new List<Project>();
-
-            foreach(var project in projects) {
-                if(project.getStatus().Equals("Working")) {
-                    workingProjects.Add(project);
-                }
-            }
-            return workingProjects;
-        }
-
-        public List<Project> getAllProjects() {
-            return projects;
-        }
+       
     }
 }
