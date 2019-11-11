@@ -3,23 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8d2d97bb-edcc-416a-a815-bb849bd856aa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Controllers/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/Controllers/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Controllers/ProjectController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/Controllers/ProjectController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Controllers/TaskController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/JPA/ProjectRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/JPA/ProjectRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/JPA/TaskRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/JPA/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/JPA/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Model/Project.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/Model/Project.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Model/Tasks.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/hello/Model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/hello/Model/UserStory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hello/Controllers/AuthenticationController$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hello/Controllers/AuthenticationController$UserNotVerifiedException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hello/Controllers/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hello/Controllers/AuthenticationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hello/Controllers/TaskController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hello/Controllers/TaskController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hello/JPA/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hello/JPA/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hello/Model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/hello/Model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/hello/Model/UserStory.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,6 +52,11 @@
     </key>
   </component>
   <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
     <option name="ruleStates">
       <list>
         <RuleState>
@@ -83,7 +71,7 @@
   <component name="RunManager">
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="SprintRestService" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="hello.Application" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ApplicationServer.Application" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="ALTERNATIVE_JRE_PATH" value="12" />
       <option name="UPDATE_ACTION_UPDATE_POLICY" value="UpdateResources" />
@@ -92,6 +80,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="allServicesViewState">
+      <serviceView>
+        <treeState>
+          <expand />
+          <select />
+        </treeState>
+      </serviceView>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -107,6 +105,7 @@
       <workItem from="1573113668111" duration="14583000" />
       <workItem from="1573215122644" duration="8482000" />
       <workItem from="1573334064094" duration="2334000" />
+      <workItem from="1573461428326" duration="102000" />
     </task>
     <servers />
   </component>
