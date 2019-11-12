@@ -18,25 +18,13 @@ namespace WebCoreMVC.NET.Controllers {
 
         public IActionResult Index()
         {
-            Console.WriteLine(DateTime.Now);
-            return View();
+            return View("Index");
         }
 
         public IActionResult Privacy()
         {
-            return View();
+            return View("Privacy");
         }
-
-        public IActionResult Person()
-        {
-            List<Person> people = new List<Person>();
-            Person person = new Person("Borys", "Birthday", "Male", "Bottle of vodka");
-            Person person2 = new Person("Roxanne", "12.02.1992", "Female", "200 euro per hour");
-            people.Add(person);
-            people.Add(person2);
-            return View(people);
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

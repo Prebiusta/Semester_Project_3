@@ -40,17 +40,14 @@ namespace WebCoreMVC.NET.Controllers
             else
             {
                 ModelState.AddModelError(string.Empty, "Please insert the necessary data");
-                return View();
+                return View("Index");
             }
         }
         private async Task<HttpResponseMessage> SendRegisterData(SystemUser user)
         {
             //Remember to hash password here before creating an instance of the user
-            string userJson = JsonConvert.SerializeObject(user);
-            var content = new StringContent(userJson.ToString(), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(serverAPIurl + "auth/register", content);
-            //This if statement will be more specific after implementing server HTTP calls
-            return response;
+            var postResponse = await PostData(user, "auth/register");
+            return postResponse;
         }
     }  
 }

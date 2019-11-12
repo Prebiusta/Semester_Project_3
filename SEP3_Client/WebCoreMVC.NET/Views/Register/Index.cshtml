@@ -34,10 +34,10 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Date picker has to be implemented for now we are sending todays date</label>
-                <input asp-for="birthday" class="form-control" type="hidden" value="@DateTime.Now"/>
+                <input asp-for="birthday" class="form-control" type="hidden" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")"/>
                 <span asp-validation-for="birthday" class="text-danger"></span>
             </div> 
-                <input asp-for="dateJoined" type="hidden" class="form-control" value="@DateTime.Now"/>
+                <input asp-for="dateJoined" type="hidden" class="form-control" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")"/>
             <div class="form-group">
                 <label asp-for="profilePicture" class="control-label">Chosen profile picture will send relative path for now it sens some default data</label>
                 <input asp-for="profilePicture" class="form-control" type="hidden" value="path"/>

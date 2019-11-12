@@ -62,11 +62,9 @@ namespace WebCoreMVC.NET.Controllers
             user.password = hashedPassword;
             */
             //Remember to hash password here before creating an instance of the user
-            string userJson = JsonConvert.SerializeObject(user);
-            var content = new StringContent(userJson.ToString(), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(serverAPIurl + "auth/login", content);
-            //This if statement will be more specific after implementing server HTTP calls
-            return response;
+            
+            var variable = await PostData(user, "auth/login");
+            return variable;
            
         }
     }
