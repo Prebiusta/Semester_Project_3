@@ -51,10 +51,7 @@ namespace WebCoreMVC.NET.Controllers
             String password = user.password;
             String hashedValue = GetSha256(password);
             user.password = hashedValue;
-
-            string userJson = JsonConvert.SerializeObject(user);
-            var content = new StringContent(userJson.ToString(), Encoding.UTF8, "application/json");
-            var response = await client.PostAsync(serverAPIurl + "auth/register", content);
+            var response = await PostData(user, "auth/register");        
             //This if statement will be more specific after implementing server HTTP calls
             return response;
         }
