@@ -16,7 +16,7 @@ namespace WebCoreMVC.NET.Controllers {
         public IActionResult Projects()
         {
             string list = GetProjects().Result;
-            List<Models.Task> result = JsonConvert.DeserializeObject<List<Models.Task>>(list);
+            List<Models.Project> result = JsonConvert.DeserializeObject<List<Models.Project>>(list);
             return View(result);
         }
 

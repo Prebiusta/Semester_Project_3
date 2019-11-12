@@ -24,7 +24,7 @@ namespace WebCoreMVC.NET.Controllers {
 
         public async Task<string> GetJsonData(string GetFromWhere)
         {
-            Task<string> getStringTask = client.GetStringAsync("http://" + serverUrl + ":8080/");
+            Task<string> getStringTask = client.GetStringAsync(serverUrl + GetFromWhere);
             string content = await getStringTask;
             return content;
         }
