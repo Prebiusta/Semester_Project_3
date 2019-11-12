@@ -1,0 +1,62 @@
+﻿@model WebCoreMVC.NET.Models.SystemUser
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Register</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Register">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Username</label>
+                <input asp-for="username" class="form-control" />
+                <span asp-validation-for="username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Password</label>
+                <input asp-for="password" class="form-control" />
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">First name</label>
+                <input asp-for="firstName" class="form-control" />
+                <span asp-validation-for="firstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Last name</label>
+                <input asp-for="lastName" class="form-control" />
+                <span asp-validation-for="lastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Birthday</label>
+                <input asp-for="birthday" class="form-control" />
+                <span asp-validation-for="birthday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Date joined</label>
+                <input asp-for="dateJoined" class="form-control" />
+                <span asp-validation-for="dateJoined" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Profile picture</label>
+                <input asp-for="profilePicture" class="form-control" />
+                <span asp-validation-for="profilePicture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
