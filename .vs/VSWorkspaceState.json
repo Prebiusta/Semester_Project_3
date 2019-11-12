@@ -1,9 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\SEP3_Client",
-    "\\SEP3_Client\\WebCoreMVC.NET"
+    "\\SEP3_Client\\WebCoreMVC.NET",
+    "\\SEP3_Client\\WebCoreMVC.NET\\Controllers",
+    "\\SEP3_Client\\WebCoreMVC.NET\\Views",
+    "\\SEP3_Client\\WebCoreMVC.NET\\Views\\Home",
+    "\\SEP3_Client\\WebCoreMVC.NET\\Views\\List",
+    "\\SEP3_Client\\WebCoreMVC.NET\\Views\\Login",
+    "\\SEP3_Client\\WebCoreMVC.NET\\Views\\Shared"
   ],
-  "SelectedNode": "\\SEP3_Client\\WebCoreMVC.NET\\WebCoreMVC.NET.csproj",
+  "SelectedNode": "\\SEP3_Client",
   "PreviewInSolutionExplorer": false
 }
