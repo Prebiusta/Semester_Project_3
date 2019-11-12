@@ -25,6 +25,7 @@ namespace WebCoreMVC.NET.Controllers {
         {
             return View("Privacy");
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
