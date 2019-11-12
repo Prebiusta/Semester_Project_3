@@ -12,16 +12,23 @@ namespace WebCoreMVC.NET.Controllers {
     public class CustomController : Controller {
         //All controllers are reusing the same http client and server ip so there is no need to create them multiple times
         protected readonly HttpClient client = new HttpClient();
-        protected readonly string serverAPIurl = "http://" + "10.152.204.51" + ":8080/";
+        protected readonly string serverUrl = "http://" + "10.152.204.51" + ":8080/";
     
         public async Task<HttpResponseMessage> PostData(Object data, string PostWhere)
         {
                 string json = JsonConvert.SerializeObject(data);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(serverAPIurl + PostWhere, content);
+                var response = await client.PostAsync(serverUrl + PostWhere, content);
                 return response;
         }
-   
+
+        public async Task<string> GetJsonData(string GetFromWhere)
+        {
+            Task<string> getStringTask = client.GetStringAsync(serverUrl + GetFromWhere);
+            string content = await getStringTask;
+            return content;
+        }
+
 
         public static string GetSha256(string text)
         {
