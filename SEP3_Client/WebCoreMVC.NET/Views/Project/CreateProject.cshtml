@@ -1,0 +1,42 @@
+﻿@model WebCoreMVC.NET.Models.Project
+
+@{
+    ViewData["Title"] = "CreateProject";
+}
+
+<h1>CreateProject</h1>
+
+<h4>Project</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PostProject">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="projectId" type="hidden" class="form-control" value=-1 />
+            <div class="form-group">
+                <label class="control-label">Name</label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+                <input asp-for="status" class="form-control" type="hidden" value="ongoing" />
+            <div class="form-group">
+                <label class="control-label">Number of iterations in the project</label>
+                <input asp-for="numberOfIterations" class="form-control" />
+                <span asp-validation-for="numberOfIterations" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Length of the sprint in days</label>
+                <input asp-for="lengthOfSprint" class="form-control" />
+                <span asp-validation-for="lengthOfSprint" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

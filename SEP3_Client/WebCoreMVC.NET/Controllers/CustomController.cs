@@ -13,7 +13,9 @@ namespace WebCoreMVC.NET.Controllers {
         //All controllers are reusing the same http client and server ip so there is no need to create them multiple times
         protected readonly HttpClient client = new HttpClient();
         protected readonly string serverUrl = "http://" +"10.152.204.101"+ ":8080/";
+        protected string username;
     
+        //Generic Post and Get methods
         public async Task<HttpResponseMessage> PostData(Object data, string PostWhere)
         {
                 string json = JsonConvert.SerializeObject(data);
@@ -29,7 +31,7 @@ namespace WebCoreMVC.NET.Controllers {
             return content;
         }
 
-
+        //Cryptography methods
         public static string GetSha256(string text)
         {
             if (text == null)
