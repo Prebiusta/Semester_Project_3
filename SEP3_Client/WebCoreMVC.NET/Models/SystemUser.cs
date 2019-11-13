@@ -10,7 +10,6 @@ namespace WebCoreMVC.NET.Models {
         public string lastName { get; set; }
         public string birthday { get; set; }
         public string dateJoined { get; set; }
-
         public string profilePicture { get; set; }       
     }
-}
+}   

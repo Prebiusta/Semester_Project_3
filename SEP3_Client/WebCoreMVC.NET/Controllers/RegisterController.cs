@@ -20,7 +20,7 @@ namespace WebCoreMVC.NET.Controllers
             return View();
         }
 
-        public IActionResult Register(SystemUser user)
+        public IActionResult Register(ValidatedUser user)
         {
             if (ModelState.IsValid)
             {
@@ -46,13 +46,22 @@ namespace WebCoreMVC.NET.Controllers
             }
         }
 
-        private async Task<HttpResponseMessage> SendRegisterData(SystemUser user)
+        private async Task<HttpResponseMessage> SendRegisterData(ValidatedUser user)
         {
             //Remember to hash password here before creating an instance of the user
             String password = user.password;
             String hashedValue = GetSha256(password);
-            user.password = hashedValue;
-            var response = await PostData(user, "auth/register");        
+
+            SystemUser systemUser = new SystemUser();
+            systemUser.username=user.username;
+            systemUser.password = hashedValue;
+            systemUser.firstName=user.firstName;
+            systemUser.lastName=user.lastName;
+            systemUser.birthday=user.birthday;
+            systemUser.dateJoined=user.dateJoined;
+            systemUser.profilePicture=user.profilePicture;
+
+            var response = await PostData(systemUser, "auth/register");        
             //This if statement will be more specific after implementing server HTTP calls
             return response;
         }

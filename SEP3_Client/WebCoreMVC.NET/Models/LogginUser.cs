@@ -13,8 +13,5 @@ namespace WebCoreMVC.NET.Models {
         [Required(ErrorMessage = "Insert your password")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Min 3, max 50 letters")]
         public string password { get; set; }
-        [DataType(DataType.Password)]
-        [Compare("password", ErrorMessage = "Password doesn't match!")]
-        public string confirmPassword { get; set; }
     }
 }

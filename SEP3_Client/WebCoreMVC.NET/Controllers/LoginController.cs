@@ -59,7 +59,7 @@ namespace WebCoreMVC.NET.Controllers
 {
             String password = user.password;
             String hashedValue = GetSha256(password);
-            user.password=hashedValue;
+            user.password = hashedValue;
 
             //Remember to hash password here before creating an instance of the user
             
