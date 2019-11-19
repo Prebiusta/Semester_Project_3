@@ -3,33 +3,36 @@
     ViewData["Title"] = "Login";
 }
 
-    <div class="text-center">
-        <h1 class="display-4">Welcome to login</h1>
-        <hr />
-        <div class="row">
-            <div class="col-md-3">
+    <head>
+        <meta charset="utf-8"> 
+             <title>Login</title>
+            <link href="css/cssLogin.css" media="screen and (max-width: 2800px)" type="text/css" rel="stylesheet" />
+        </head> 
+        <div class="text-center">
+            <hr />
+            <div class="row">
+                <div class="col-md-3">
+                </div>
+                <div class=" login">
+                        <h1>VIA Scrum</h1>
+                    <form asp-action="Authorization">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <input asp-for="username" class="form-control" placeholder="Username" required="required" />
+                                <span asp-validation-for="username" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="password" class="form-control" placeholder="Password" required="required" />
+                                <span asp-validation-for="password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Login" class="btn btn-primary btn-block btn-large" />
+                            </div>
+                    </form>
+                    <br/>
+                    <p align="center" class="registerLabel">Create a new account <a asp-controller="Login" asp-action="Register">here</a>.</p>
+                </div>
+                <div class="col-md-3">
+                </div>
             </div>
-            <div class="col-md-6">
-                <form asp-action="Authorization">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label class="control-label">Username</label>
-                        <input asp-for="username" class="form-control" />
-                        <span asp-validation-for="username" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Password</label>
-                        <input asp-for="password" class="form-control" />
-                        <span asp-validation-for="password" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Login" class="btn btn-primary" />
-                    </div>
-                </form>
-                <br />
-                <p>If you don't have an account please create one <a asp-controller="Login" asp-action="Register">here</a>.</p>
-            </div>
-            <div class="col-md-3">
-            </div>          
         </div>
-    </div>

@@ -12,7 +12,7 @@ namespace WebCoreMVC.NET.Controllers {
     public class CustomController : Controller {
         //All controllers are reusing the same http client and server ip so there is no need to create them multiple times
         protected readonly HttpClient client = new HttpClient();
-        protected readonly string serverUrl = "http://" +"10.152.204.101"+ ":8080/";
+        protected readonly string serverUrl = "http://" +"localhost"+ ":8080/";
     
         public async Task<HttpResponseMessage> PostData(Object data, string PostWhere)
         {
