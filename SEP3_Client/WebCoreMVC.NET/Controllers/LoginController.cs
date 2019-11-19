@@ -29,24 +29,17 @@ namespace WebCoreMVC.NET.Controllers
             if (ModelState.IsValid)
             {
                 HttpResponseMessage response = SendLoginData(user).Result;
-                if (response.StatusCode == HttpStatusCode.OK)
+                switch(response.StatusCode)
                 {
-                    //Return system user with all the data: name, birthday etc
-                    //string systemUserJson = await response.Content.ReadAsStringAsync();
-                    //SystemUser systemUser = (SystemUser)JsonConvert.DeserializeObject(systemUserJson);
-                    return RedirectToAction("Index", "Home");
-                }
-                else if (response.StatusCode == HttpStatusCode.BadRequest)
-                {
-                    //That means server actually responded with 400
-                    ModelState.AddModelError(string.Empty, "Server sent a bad request: " + response.Content);
-                    return View("Index");
-                }
-                else
-                {
-                    //No server at all simply error
-                    ModelState.AddModelError(string.Empty, "Server is not answering");
-                    return View("Index");
+                    case System.Net.HttpStatusCode.OK:
+                        username = user.username;
+                        return RedirectToAction("Index", "Home");
+                    case System.Net.HttpStatusCode.BadRequest:
+                        ModelState.AddModelError(string.Empty, "Server sent a bad request: " + response.Content);
+                        return Index();
+                    default:
+                        ModelState.AddModelError(string.Empty, "Server is not answering");
+                        return Index();
                 }
             }
             else
@@ -63,8 +56,8 @@ namespace WebCoreMVC.NET.Controllers
 
             //Remember to hash password here before creating an instance of the user
             
-            var variable = await PostData(user, "auth/login");
-            return variable;
+            var httpContent = await PostData(user, "auth/login");
+            return httpContent;
            
         }
         

@@ -25,18 +25,17 @@ namespace WebCoreMVC.NET.Controllers
             if (ModelState.IsValid)
             {
                 HttpResponseMessage response = SendRegisterData(user).Result;
-                if (response.StatusCode == HttpStatusCode.OK)
+                switch (response.StatusCode)
                 {
-                    return RedirectToAction("Index", "Home");
-                }
-                else if (response.StatusCode == HttpStatusCode.BadRequest)
-                {
-                    ModelState.AddModelError(string.Empty, "Works but server gave bad request: " + response.Content);
-                    return View("Index");
-                } else
-                {
-                    ModelState.AddModelError(string.Empty, "Not connected to server at all");
-                    return View("Index");
+                    case System.Net.HttpStatusCode.OK:
+                        username = user.username;
+                        return RedirectToAction("Index", "Home");
+                    case System.Net.HttpStatusCode.BadRequest:
+                        ModelState.AddModelError(string.Empty, "Works but server gave bad request: " + response.Content);
+                        return Index();
+                    default:
+                        ModelState.AddModelError(string.Empty, "Not connected to server at all");
+                        return Index();
                 }
             }
             else
