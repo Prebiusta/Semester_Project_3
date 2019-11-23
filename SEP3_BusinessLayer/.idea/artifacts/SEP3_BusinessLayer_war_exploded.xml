@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="SEP3_BusinessLayer:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/SEP3_BusinessLayer_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="SEP3_BusinessLayer/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="SEP3_BusinessLayer" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
