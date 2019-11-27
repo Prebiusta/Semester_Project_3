@@ -1,7 +1,7 @@
 ﻿@model WebCoreMVC.NET.Models.Project
 
 @{
-    ViewData["Title"] = "CreateProject";
+    ViewData["Title"]="CreateProject";
 }
 <link rel="stylesheet" type="text/css" href="/css/navbar.css">
 <h1>CreateProject</h1>
@@ -18,7 +18,7 @@
                 <input asp-for="name" class="form-control" />
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
-                <input asp-for="status" class="form-control" type="hidden" value="ongoing" />
+            <input asp-for="status" class="form-control" type="hidden" value="ongoing" />
             <div class="form-group">
                 <label class="control-label">Number of iterations in the project</label>
                 <input asp-for="numberOfIterations" class="form-control" />
@@ -39,3 +39,4 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+<script src="js/navbar.js"></script>
