@@ -15,7 +15,7 @@ namespace WebCoreMVC.NET.Controllers
     public class LoginController : CustomController {
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public IActionResult Register()
@@ -58,8 +58,7 @@ namespace WebCoreMVC.NET.Controllers
             
             var httpContent = await PostData(user, "auth/login");
             return httpContent;
-           
-        }
+}
         
 
     }

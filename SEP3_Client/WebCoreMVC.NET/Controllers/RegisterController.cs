@@ -17,7 +17,7 @@ namespace WebCoreMVC.NET.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public IActionResult Register(ValidatedUser user)

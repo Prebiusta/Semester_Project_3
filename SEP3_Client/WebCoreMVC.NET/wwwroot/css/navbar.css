@@ -23,13 +23,11 @@
 .mainpage{
     height:1000px;
 }
-body {background-color: #2a2b3d;}
+body 
 #contents {
     position: relative;
     transition: .3s;
     margin-left: 290px;
-    background-color: #2a2b3d ;
-
 }
 .margin {
     margin-left: 0 !important;
