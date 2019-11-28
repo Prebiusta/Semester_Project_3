@@ -18,6 +18,31 @@ public class SprintController {
 
     public SprintController(SprintRepository sprintRepository) {this.sprintRepository = sprintRepository;}
 
+    /**
+     * HTTP Method to get the sprints by project ID.
+     * It is required to specify project ID otherwise server returns BAD REQUEST 400.
+     *
+     * Endpoint
+     * http://<b>{host}</b>:8080/api/sprint?projectId={id}
+     *
+     * Example
+     * http://localhost:8080/api/sprint?projectId=1
+     *
+     * Json template{
+     *
+     *            *   "sprintId":1,
+     *            *   "projectId":1,
+     *            *   "sprintNumber":1,
+     *            *   "dateStarted":"2019-11-21",
+     *            *   "dateFinished":"2019-11-21",
+     *            *   "productOwnerId":2,
+     *            *   "scrumMasterId":2,
+     *            *   "status":"completed"
+     *
+     *          * }
+     * @param projectId of the project, which is unique for all the projects
+     * @return returns a list of sprints depending on the project ID
+     */
     @RequestMapping(value = "/sprint", method = RequestMethod.GET)
     public ResponseEntity<List<Sprint>> getSprints(
             @RequestParam(value = "projectId", required = true) Integer projectId) {
