@@ -1,58 +1,35 @@
 ﻿@model IEnumerable<WebCoreMVC.NET.Models.Project>
 
 @{
-    ViewData["Title"] = "Projects";
+    ViewData["Title"]="Projects";
 }
+    <head>
+        <link rel="stylesheet" type="text/css" href="/css/react.css">
 
-<h1>Projects</h1>
+    </head>
+<body>
+    <h1>Projects</h1>
 <div class="row">
-    <div class="col-md-10">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Project ID
-                    </th>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                    <th>
-                        Number of iterations
-                    </th>
-                    <th>
-                        Length Of Sprint
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.projectId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.status)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.numberOfIterations)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.lengthOfSprint)
-                        </td>
-                    </tr>
+        <div class="structure">
+            @foreach(var item in Model) {
+                <div class="project">
+                    <h1>@Html.DisplayFor(modelItem => item.name)</h1>
+                    <div class="buttonContainer">
+                        <button class="example_c" asp-area="" asp-controller="Sprint" asp-action="Index">Sprints</button>
+                        <button class="example_c">Product Backlog</button>
+                        <div class="break"> </div>
+                        <button class="example_c">Burndown Chart</button>
+                        <button class="example_c">Edit Project</button>
+                        <div class="break"> </div>
+                        <button class="example_c">Edit Members</button>
+                        <button class="example_c">Leave Project</button>
+                    </div>
+                </div>
+            }
+        </div>
 
-                }
-            </tbody>
-        </table>
     </div>
-    <div class="col-md-2">
-        <input class="text-center" type="button" value="Create" onclick="location.href='@Url.Action("CreateProject")'" />
-    </div>
+<div class="col-md-2">
+    <input class="text-center" type="button" value="Create" onclick="location.href='@Url.Action("CreateProject")'" />
 </div>
+</body>

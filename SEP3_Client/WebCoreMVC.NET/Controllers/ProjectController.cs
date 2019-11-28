@@ -9,18 +9,18 @@ using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
     public class ProjectController: CustomController {
-
-
         public IActionResult Index()
         {
             string list = GetProjects().Result;
             List<Models.Project> result = JsonConvert.DeserializeObject<List<Models.Project>>(list);
             return View(result);
         }
+
         public IActionResult CreateProject()
         {
             return View("CreateProject");
         }
+
         [HttpPost]
         public IActionResult PostProject(Project project)
         {

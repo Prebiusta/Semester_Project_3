@@ -1,0 +1,26 @@
+﻿@model WebCoreMVC.NET.Models.Sprint
+
+@{
+    ViewData["Title"]="PlanSprint";
+}
+<link rel="stylesheet" type="text/css" href="/css/navbar.css">
+<h1>CreateProject</h1>
+
+<h4>Project</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PostSprint">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="projectId" type="hidden" class="form-control" value=-1 />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<script src="js/navbar.js"></script>
