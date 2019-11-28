@@ -14,6 +14,14 @@ public class ProjectDataLayer {
     }
 
     public ProjectDataLayer(int projectId, String name, String status, int numberOfIterations, int lengthOfSprint) {
+        this.projectId = projectId;
+        this.name = name;
+        this.status = status;
+        this.numberOfIterations = numberOfIterations;
+        this.lengthOfSprint = lengthOfSprint;
+    }
+
+    public ProjectDataLayer(String name, String status, int numberOfIterations, int lengthOfSprint) {
         this.name = name;
         this.status = status;
         this.numberOfIterations = numberOfIterations;

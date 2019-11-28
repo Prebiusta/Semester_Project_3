@@ -1,12 +1,12 @@
 package ApplicationServer.Controllers;
 
-import ApplicationServer.Model.ClientModels.UserLoginClient;
 import ApplicationServer.Model.ClientModels.UserRegisterClient;
 import ApplicationServer.Model.DataLayerModels.UserDataLayer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 
 @RestController()
 @RequestMapping("/auth")
@@ -32,16 +32,23 @@ public class AuthenticationController extends ControllerConfiguration{
      * @return HTTP Response Status with Relevant message
      */
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<String> register(@RequestBody UserRegisterClient user) {
+    @RequestMapping(value = "/register", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity<UserDataLayer> register(@RequestBody UserRegisterClient user) {
         UserDataLayer userForDataLayer = new UserDataLayer(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getBirthday(), user.getDateJoined(), user.getProfilePicture());
         try {
             restUtility.postForObject(DataLayerURI + "/auth/register", userForDataLayer, UserDataLayer.class);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (HttpClientErrorException e) {
+            e.printStackTrace();
             System.out.println("User couldn't be created");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RestClientException e) {
+            System.out.println("Some internal json issue but user created successfully");
+            return new ResponseEntity<>(HttpStatus.OK);
         }
+
+
+
     }
 
     /**
@@ -56,8 +63,7 @@ public class AuthenticationController extends ControllerConfiguration{
      * @return <i>HTTP 200 - OK</i> code if credentials are verified. Returns <i>HTTP 400 - BAD_REQUEST</i> if credentials are incorrect.
      */
     @RequestMapping(value = "/login", produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity<UserDataLayer> login(@RequestBody UserLoginClient user) {
-        System.out.println(user.toString());
+    public ResponseEntity<UserDataLayer> login(@RequestBody UserRegisterClient user) {
         UserDataLayer userForDataLayer = new UserDataLayer(user.getUsername(), user.getPassword(), null, null, null, null, null);
         try {
             restUtility.postForObject(DataLayerURI + "/auth/login", userForDataLayer, UserDataLayer.class);

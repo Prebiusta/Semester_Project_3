@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,8 +41,8 @@ public class ProjectController extends ControllerConfiguration{
      * @param id of the project, which is unique for all the projects
      * @return returns a list of projects depending on the request that we made
      */
-    @RequestMapping(value = "/project", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public ResponseEntity<?> getProject(
+    @RequestMapping(value = "/project", method = RequestMethod.GET)
+    public ResponseEntity<List<ProjectClient>> getProject(
             @RequestParam(value = "status", required = false) String status,
             @RequestParam(value = "id", required = false) Integer id) {
         String jsonProjects;
@@ -53,6 +54,7 @@ public class ProjectController extends ControllerConfiguration{
             jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project", String.class);
         }
         try {
+            System.out.println(jsonProjects);
             List<ProjectDataLayer> projectsFromDataLayer = jsonMapper.readValue(jsonProjects, new TypeReference<List<ProjectDataLayer>>(){});
             //For now this block is useless, but later this is where actual remodelling will be taking place
             //--------------------------------------------------------------------||--------------------------------------------------------------------
@@ -61,8 +63,7 @@ public class ProjectController extends ControllerConfiguration{
                 projectsForClients.add(new ProjectClient(project.getProjectId(), project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint()));
             }
             //--------------------------------------------------------------------||--------------------------------------------------------------------
-            String jsonForClient = jsonMapper.writeValueAsString(projectsForClients);
-            return new ResponseEntity<>(jsonForClient, HttpStatus.OK);
+            return new ResponseEntity<>(projectsForClients, HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -85,7 +86,7 @@ public class ProjectController extends ControllerConfiguration{
     public ResponseEntity<ProjectClient> create(@RequestBody ProjectClient project) {
         //For now this block is useless, but later this is where actual remodelling will be taking place
         //--------------------------------------------------------------------||--------------------------------------------------------------------
-        ProjectDataLayer projectForDataLayer = new ProjectDataLayer(project.getProjectId(), project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint());
+        ProjectDataLayer projectForDataLayer = new ProjectDataLayer(project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint());
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         try {
             restUtility.postForObject(DataLayerURI + "/api/createProject", projectForDataLayer, ProjectDataLayer.class);
@@ -93,6 +94,9 @@ public class ProjectController extends ControllerConfiguration{
         } catch (HttpClientErrorException e) {
             System.out.println("Project couldn't be created");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RestClientException e) {
+            System.out.println("Some internal json issue but project created successfully");
+            return new ResponseEntity<>(HttpStatus.OK);
         }
     }
 
