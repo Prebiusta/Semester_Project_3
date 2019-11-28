@@ -14,6 +14,38 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input asp-for="projectId" type="hidden" class="form-control" value=-1 />
             <div class="form-group">
+                <label class="control-label">Sprint ID</label>
+                <input asp-for="sprintId" class="form-control" />
+                <span asp-validation-for="sprintId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Sprint Number</label>
+                <input asp-for="sprint_number" class="form-control" />
+                <span asp-validation-for="sprint_number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Date picker has to be implemented for now we are sending todays date</label>
+                <input asp-for="date_started" class="form-control" type="hidden" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")" /> 
+                <span asp-validation-for="date_started" class="text-danger"></span>
+            </div>
+            <input asp-for="date_finished" type="hidden" class="form-control" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")" />
+
+            <div class="form-group">
+                <label class="control-label">Product Owner ID</label>
+                <input asp-for="ProductOwnerId" class="form-control" />
+                <span asp-validation-for="ProductOwnerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Scrum Master ID</label>
+                <input asp-for="ScrumMasterId" class="form-control" />
+                <span asp-validation-for="ScrumMasterId" class="text-danger"></span>
+            </div>
+        <div class="form-group">
+        <label class="control-label">Status</label>
+        <input asp-for="status" class="form-control" />
+        <span asp-validation-for="status" class="text-danger"></span>
+    </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

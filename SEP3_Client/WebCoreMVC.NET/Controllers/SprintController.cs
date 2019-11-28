@@ -11,6 +11,7 @@ namespace WebCoreMVC.NET.Controllers {
     public class SprintController : CustomController {
         public IActionResult Index() {
             string list = GetSprints().Result;
+            Console.WriteLine("klalala");
             List<Models.Sprint> result = JsonConvert.DeserializeObject<List<Models.Sprint>>(list);
             return View(result);
         }
@@ -23,7 +24,7 @@ namespace WebCoreMVC.NET.Controllers {
                 HttpResponseMessage response = SendSprintData(sprint).Result;
                 switch(response.StatusCode) {
                     case System.Net.HttpStatusCode.OK:
-                        return RedirectToAction("Index", "Sprint");
+                        return RedirectToAction("Index", "Home");
                     case System.Net.HttpStatusCode.BadRequest:
                         ModelState.AddModelError(string.Empty, "Server sent a bad request: "+ response.Content);
                         return PlanSprint();
