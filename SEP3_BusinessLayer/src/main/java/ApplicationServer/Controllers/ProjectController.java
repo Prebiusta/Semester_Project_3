@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -81,13 +82,18 @@ public class ProjectController extends ControllerConfiguration{
      */
 
     @RequestMapping(value = "/createProject", method = RequestMethod.POST)
-    public ResponseEntity<String> create(@RequestBody ProjectClient project) {
+    public ResponseEntity<ProjectClient> create(@RequestBody ProjectClient project) {
         //For now this block is useless, but later this is where actual remodelling will be taking place
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         ProjectDataLayer projectForDataLayer = new ProjectDataLayer(project.getProjectId(), project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint());
         //--------------------------------------------------------------------||--------------------------------------------------------------------
-        restUtility.postForObject(DataLayerURI + "/api/createProject", projectForDataLayer, ProjectDataLayer.class);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        try {
+            restUtility.postForObject(DataLayerURI + "/api/createProject", projectForDataLayer, ProjectDataLayer.class);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (HttpClientErrorException e) {
+            System.out.println("Project couldn't be created");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
