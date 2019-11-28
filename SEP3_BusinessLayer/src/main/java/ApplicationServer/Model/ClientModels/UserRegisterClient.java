@@ -1,7 +1,7 @@
 package ApplicationServer.Model.ClientModels;
 
 
-public class UserClient {
+public class UserRegisterClient {
 
     private String username;
     private String password;
@@ -11,11 +11,11 @@ public class UserClient {
     private String dateJoined;
     private String profilePicture;
 
-    public UserClient() {
+    public UserRegisterClient() {
 
     }
 
-    public UserClient(String username, String password, String firstName, String lastName, String birthday, String dateJoined, String profilePicture) {
+    public UserRegisterClient(String username, String password, String firstName, String lastName, String birthday, String dateJoined, String profilePicture) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -25,7 +25,7 @@ public class UserClient {
         this.profilePicture = profilePicture;
     }
 
-    public UserClient(String username, String password) {
+    public UserRegisterClient(String username, String password) {
         this.username = username;
         this.password = password;
         this.firstName = "firstName";

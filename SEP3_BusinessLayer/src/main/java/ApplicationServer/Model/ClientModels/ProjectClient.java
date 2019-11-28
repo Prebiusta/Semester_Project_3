@@ -22,6 +22,13 @@ public class ProjectClient {
         this.lengthOfSprint = lengthOfSprint;
     }
 
+    public ProjectClient(String name, String status, int numberOfIterations, int lengthOfSprint) {
+        this.name = name;
+        this.status = status;
+        this.numberOfIterations = numberOfIterations;
+        this.lengthOfSprint = lengthOfSprint;
+    }
+
     public int getProjectId() {
         return projectId;
     }

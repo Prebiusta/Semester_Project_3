@@ -1,10 +1,12 @@
 package ApplicationServer.Controllers;
 
-import ApplicationServer.Model.ClientModels.UserClient;
+import ApplicationServer.Model.ClientModels.UserRegisterClient;
 import ApplicationServer.Model.DataLayerModels.UserDataLayer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 
 @RestController()
 @RequestMapping("/auth")
@@ -26,20 +28,32 @@ public class AuthenticationController extends ControllerConfiguration{
      *      "profilePicture": "profilePicture"
      * }
      *
-     * @param user UserClient object parsed from JSON format received from Client
+     * @param user UserRegisterClient object parsed from JSON format received from Client
      * @return HTTP Response Status with Relevant message
      */
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<String> register(@RequestBody UserClient user) {
+    @RequestMapping(value = "/register", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity<UserDataLayer> register(@RequestBody UserRegisterClient user) {
         UserDataLayer userForDataLayer = new UserDataLayer(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getBirthday(), user.getDateJoined(), user.getProfilePicture());
-        restUtility.postForObject(DataLayerURI + "/auth/register", userForDataLayer, UserDataLayer.class);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        try {
+            restUtility.postForObject(DataLayerURI + "/auth/register", userForDataLayer, UserDataLayer.class);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+            System.out.println("User couldn't be created");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RestClientException e) {
+            System.out.println("Some internal json issue but user created successfully");
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+
+
     }
 
     /**
-     * Method for login user. It is processing POST request with UserClient object in format of JSON as an argument.
-     * Remodels UserClient into UserDataLayer.
+     * Method for login user. It is processing POST request with UserRegisterClient object in format of JSON as an argument.
+     * Remodels UserRegisterClient into UserDataLayer.
      * <p>
      *  Examples:
      *  http://<b>{host}</b>:8081/auth/login as a POST request with UserDataLayer object converted to JSON in a body.
@@ -48,11 +62,16 @@ public class AuthenticationController extends ControllerConfiguration{
      * @param user UserDataLayer object in format of JSON
      * @return <i>HTTP 200 - OK</i> code if credentials are verified. Returns <i>HTTP 400 - BAD_REQUEST</i> if credentials are incorrect.
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<UserDataLayer> login(@RequestBody UserClient user) {
-        UserDataLayer userForDataLayer = new UserDataLayer(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getBirthday(), user.getDateJoined(), user.getProfilePicture());
-        restUtility.postForObject(DataLayerURI + "/auth/login", userForDataLayer, UserDataLayer.class);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    @RequestMapping(value = "/login", produces = "application/json", method = RequestMethod.POST)
+    public ResponseEntity<UserDataLayer> login(@RequestBody UserRegisterClient user) {
+        UserDataLayer userForDataLayer = new UserDataLayer(user.getUsername(), user.getPassword(), null, null, null, null, null);
+        try {
+            restUtility.postForObject(DataLayerURI + "/auth/login", userForDataLayer, UserDataLayer.class);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (HttpClientErrorException e) {
+            System.out.println("No user returned from DataLayer");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
 
