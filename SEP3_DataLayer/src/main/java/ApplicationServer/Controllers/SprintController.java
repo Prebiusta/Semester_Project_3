@@ -45,9 +45,12 @@ public class SprintController {
      */
     @RequestMapping(value = "/sprint", method = RequestMethod.GET)
     public ResponseEntity<List<Sprint>> getSprints(
-            @RequestParam(value = "projectId", required = true) Integer projectId) {
+            @RequestParam(value = "projectId", required = false) Integer projectId,
+            @RequestParam(value = "sprintId", required = false) Integer sprintId) {
         if (projectId != null) {
             return new ResponseEntity<>(sprintRepository.findByProjectId(projectId), HttpStatus.OK);
+        } else if (sprintId != null) {
+            return new ResponseEntity<>(sprintRepository.findBySprintId(sprintId), HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

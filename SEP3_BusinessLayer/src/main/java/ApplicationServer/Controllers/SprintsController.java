@@ -45,9 +45,16 @@ public class SprintsController extends ControllerConfiguration {
      */
     @RequestMapping(value = "/sprint", method = RequestMethod.GET)
     public ResponseEntity<?> getSprints(
-            @RequestParam(value = "projectId", required = true) Integer projectId) {
+            @RequestParam(value = "projectId", required = false) Integer projectId,
+            @RequestParam(value = "sprintId", required = false) Integer sprintId) {
+        String jsonSprints;
         if (projectId != null) {
-            String jsonSprints = restUtility.getForObject(DataLayerURI + "/api/sprint?projectId=" + projectId, String.class);
+            jsonSprints = restUtility.getForObject(DataLayerURI + "/api/sprint?projectId=" + projectId, String.class);
+        } else if(sprintId != null) {
+            jsonSprints = restUtility.getForObject(DataLayerURI + "/api/sprint?sprintId=" + sprintId, String.class);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
             try {
                 List<SprintDataLayer> sprintsFromDataLayer = jsonMapper.readValue(jsonSprints, new TypeReference<List<SprintDataLayer>>(){});
                 //For now this block is useless, but later this is where actual remodelling will be taking place
@@ -62,8 +69,5 @@ public class SprintsController extends ControllerConfiguration {
                 e.printStackTrace();
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-        }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
     }
 }
