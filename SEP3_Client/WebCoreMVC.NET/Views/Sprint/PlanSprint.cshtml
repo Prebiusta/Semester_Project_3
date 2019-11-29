@@ -12,7 +12,11 @@
     <div class="col-md-4">
         <form asp-action="PostSprint">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="projectId" type="hidden" class="form-control" value=-1 />
+            <div class="form-group">
+                <label class="control-label">Sprint ID</label>
+                <input asp-for="projectId" class="form-control" />
+                <span asp-validation-for="projectId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label class="control-label">Sprint ID</label>
                 <input asp-for="sprintId" class="form-control" />
@@ -28,8 +32,11 @@
                 <input asp-for="date_started" class="form-control" type="hidden" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")" /> 
                 <span asp-validation-for="date_started" class="text-danger"></span>
             </div>
-            <input asp-for="date_finished" type="hidden" class="form-control" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")" />
-
+            <div class="form-group">
+                <label class="control-label">Date picker has to be implemented for now we are sending todays date</label>
+                <input asp-for="date_finished" class="form-control" type="hidden" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")"/>
+                <span asp-validation-for="date_finished" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label class="control-label">Product Owner ID</label>
                 <input asp-for="ProductOwnerId" class="form-control" />

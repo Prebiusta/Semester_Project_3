@@ -5,14 +5,16 @@
     width: 450px;
     height: 300px;
     padding: 20px;
-    background: #60495A;
+    /* background: #ad5389; /* fallback for old browsers !1! */
+    background: -webkit-linear-gradient(to right, #3c1053, #ad5389); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3c1053, #ad5389); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .sprint {
     margin: 10px;
     border: 1px solid #eee;
     box-shadow: 0 2px 2px #ccc;
-    width: 600px;
+    width: 450px;
     height: 300px;
     padding: 20px;
     background: #60495A;
@@ -21,7 +23,7 @@
 .new_sprint {
     margin: 10px;
     border: 1px solid #eee;
-    width: 600px;
+    width: 450px;
     height: 300px;
     padding: 20px;
     display: flex;
@@ -35,14 +37,16 @@
 .create {
     margin: 10px;
     border: 1px solid #eee;
-    width: 600px;
+    box-shadow: 0 2px 2px #ccc;
+    width: 450px;
     height: 300px;
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: #60495A;
+    background: -webkit-linear-gradient(to right, #3c1053, #ad5389); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3c1053, #ad5389); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .structure {

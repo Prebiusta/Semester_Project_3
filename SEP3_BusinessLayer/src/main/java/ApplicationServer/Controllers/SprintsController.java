@@ -5,10 +5,9 @@ import ApplicationServer.Model.DataLayerModels.SprintDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class SprintsController extends ControllerConfiguration {
                 //--------------------------------------------------------------------||--------------------------------------------------------------------
                 List<SprintClient> sprintsForClients = new ArrayList<>();
                 for(SprintDataLayer sprint : sprintsFromDataLayer) {
-                    sprintsForClients.add(new SprintClient(sprint.getSprintId(), sprint.getProjectId(), sprint.getSprintNumber(), sprint.getDateStarted(), sprint.getDateFinished(), sprint.getProductOwnerId(), sprint.getScrumMasterId(), sprint.getStatus()));
+                    sprintsForClients.add(new SprintClient(sprint.getSprintId(), sprint.getProjectId(), sprint.getSprintNumber(), sprint.getDateStarted(), sprint.getDateStarted(), sprint.getProductOwnerId(), sprint.getScrumMasterId(), sprint.getStatus()));
                 }
                 String jsonForClient = jsonMapper.writeValueAsString(sprintsForClients);
                 return new ResponseEntity<>(jsonForClient, HttpStatus.OK);
@@ -69,5 +68,23 @@ public class SprintsController extends ControllerConfiguration {
                 e.printStackTrace();
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
+    }
+
+    @RequestMapping(value = "/createSprint", method = RequestMethod.POST)
+    public ResponseEntity<SprintClient> create(@RequestBody SprintClient sprint) {
+        //For now this block is useless, but later this is where actual remodelling will be taking place
+        //--------------------------------------------------------------------||--------------------------------------------------------------------
+        SprintDataLayer sprintForDataLayer = new SprintDataLayer(sprint.getSprintId(), sprint.getProjectId(), sprint.getSprintNumber(), sprint.getDateStarted(), sprint.getDateStarted(), sprint.getProductOwnerId(), sprint.getScrumMasterId(), sprint.getStatus());
+        //--------------------------------------------------------------------||--------------------------------------------------------------------
+        try {
+            restUtility.postForObject(DataLayerURI + "/api/createSprint", sprintForDataLayer, SprintDataLayer.class);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (HttpClientErrorException e) {
+            System.out.println("Sprint couldn't be created");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RestClientException e) {
+            System.out.println("Some internal json issue but sprint created successfully");
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 }

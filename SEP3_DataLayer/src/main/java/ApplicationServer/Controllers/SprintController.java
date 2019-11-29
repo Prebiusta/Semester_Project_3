@@ -4,10 +4,7 @@ import ApplicationServer.JPA.SprintRepository;
 import ApplicationServer.Model.Sprint;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,14 +41,23 @@ public class SprintController {
      * @return returns a list of sprints depending on the project ID
      */
     @RequestMapping(value = "/sprint", method = RequestMethod.GET)
-    public ResponseEntity<List<Sprint>> getSprints(
+    public List<Sprint> getSprints(
             @RequestParam(value = "projectId", required = false) Integer projectId,
             @RequestParam(value = "sprintId", required = false) Integer sprintId) {
         if (projectId != null) {
-            return new ResponseEntity<>(sprintRepository.findByProjectId(projectId), HttpStatus.OK);
+            return sprintRepository.findByProjectId(projectId);
         } else if (sprintId != null) {
-            return new ResponseEntity<>(sprintRepository.findBySprintId(sprintId), HttpStatus.OK);
+            return sprintRepository.findBySprintId(sprintId)    ;
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return sprintRepository.findAll();
+    }
+
+    @RequestMapping(value = "/createSprint", method = RequestMethod.POST)
+    public ResponseEntity<String> create(@RequestBody Sprint sprint) {
+        if (sprintRepository.save(sprint) != null){
+            return ResponseEntity.status(HttpStatus.OK).body("Sprint created");
+        }
+        // If anything above goes wrong
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Creation of the Sprint failed");
     }
 }

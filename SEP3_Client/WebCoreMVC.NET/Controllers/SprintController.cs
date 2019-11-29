@@ -9,13 +9,14 @@ using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
     public class SprintController : CustomController {
-        public IActionResult Index() {
+        public IActionResult Index() 
+        {
             string list = GetSprints().Result;
-            Console.WriteLine("klalala");
             List<Models.Sprint> result = JsonConvert.DeserializeObject<List<Models.Sprint>>(list);
             return View(result);
         }
-        public IActionResult PlanSprint() {
+        public IActionResult PlanSprint() 
+        {
             return View("PlanSprint");
         }
         [HttpPost]
@@ -44,7 +45,7 @@ namespace WebCoreMVC.NET.Controllers {
         }
 
         public async Task<HttpResponseMessage> SendSprintData(Sprint sprints) {
-            var httpContent = await PostData(sprints, "api/planSprint");
+            var httpContent = await PostData(sprints, "api/createSprint");
             return httpContent;
         }
     }
