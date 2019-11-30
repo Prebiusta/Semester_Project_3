@@ -1,7 +1,5 @@
 package ApplicationServer.Model.ClientModels;
 
-import java.io.Serializable;
-
 public class ProjectClient {
 
     private int projectId;

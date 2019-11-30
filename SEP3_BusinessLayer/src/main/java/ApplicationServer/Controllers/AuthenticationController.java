@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 
-@RestController()
+@RestController
 @RequestMapping("/auth")
 public class AuthenticationController extends ControllerConfiguration{
 
