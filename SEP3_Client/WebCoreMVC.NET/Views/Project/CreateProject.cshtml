@@ -1,9 +1,11 @@
-﻿@model Project
+﻿@using System.ComponentModel
+@model Project
 
 @{
     ViewData["Title"] = "CreateProject";
 }
 <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+<link rel="stylesheet" type="text/css" href="/css/chosen.css">
 <div class="text-center container">
     <h1>CreateProject</h1>
 
@@ -36,10 +38,8 @@
         <a asp-action="Index">Back to List</a>
     </div>
 </div>
-
-
 <script src="js/navbar.js"></script>
-
+<script src="js/chosen.jquery.js"></script>
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

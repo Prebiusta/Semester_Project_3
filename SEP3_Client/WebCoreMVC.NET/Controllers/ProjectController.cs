@@ -13,6 +13,12 @@ namespace WebCoreMVC.NET.Controllers {
             var result = JsonConvert.DeserializeObject<List<Project>>(list);
             return View(result);
         }
+        
+        public IActionResult Members(int id) {
+            var list = GetUsersInProjects(id).Result;
+            var result = JsonConvert.DeserializeObject<List<User>>(list);
+            return View(result);
+        }
 
         public IActionResult CreateProject() {
             return View("CreateProject");
@@ -47,5 +53,11 @@ namespace WebCoreMVC.NET.Controllers {
             var httpContent = await PostData(projects, "api/createProject");
             return httpContent;
         }
+        
+        public async Task<string> GetUsersInProjects(int id) {
+            var content = await GetJsonData("api/users_in_projects?projectId=" + id);
+            return content;
+        }
+
     }
 }

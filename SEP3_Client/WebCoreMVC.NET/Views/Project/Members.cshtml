@@ -1,0 +1,22 @@
+@model IEnumerable<WebCoreMVC.NET.Models.User>
+
+@{
+    ViewData["Title"] = "Members";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+        <title>Edit Members</title>
+</head>
+<body>
+<h1>Members</h1>
+<div class="row">
+        @foreach (var item in Model) {
+            <li>@item.username @item.projectId</li>
+        }
+</div>
+</body>
+</html>

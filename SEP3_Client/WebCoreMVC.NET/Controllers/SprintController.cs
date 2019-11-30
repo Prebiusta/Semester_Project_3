@@ -41,7 +41,6 @@ namespace WebCoreMVC.NET.Controllers {
 
         public async Task<string> GetSprints(int id) {
             var content = await GetJsonData("api/sprint?projectId=" + id);
-            Console.WriteLine(content);
             return content;
         }
 
