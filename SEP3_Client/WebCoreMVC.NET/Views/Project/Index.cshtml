@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Project>
+﻿@model IEnumerable<WebCoreMVC.NET.Models.Project>
 
 @{
     ViewData["Title"] = "Projects";
@@ -20,7 +20,7 @@
             <div class="project">
                 <h1>@Html.DisplayFor(modelItem => item.name)</h1>
                 <div class="buttonContainer">
-                    <button class="example_c" onclick="location.href='@Url.Action("Index", "Sprint")'">Sprints</button>
+                    <button class="example_c" onclick="location.href='@Url.Action("Index", "Sprint", new {id = item.projectId})'">Sprints</button>
                     <button class="example_c">Product Backlog</button>
                     <div class="break"> </div>
                     <button class="example_c">Burndown Chart</button>

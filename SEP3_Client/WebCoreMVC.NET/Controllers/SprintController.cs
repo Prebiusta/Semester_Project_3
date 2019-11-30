@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +8,8 @@ using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
     public class SprintController : CustomController {
-        public IActionResult Index() {
-            var list = GetSprints().Result;
+        public IActionResult Index(int id) { 
+            var list = GetSprints(id).Result;
             var result = JsonConvert.DeserializeObject<List<Sprint>>(list);
             return View(result);
         }
@@ -40,8 +39,9 @@ namespace WebCoreMVC.NET.Controllers {
             }
         }
 
-        public async Task<string> GetSprints() {
-            var content = await GetJsonData("api/sprint?projectId=1");
+        public async Task<string> GetSprints(int id) {
+            var content = await GetJsonData("api/sprint?projectId=" + id);
+            Console.WriteLine(content);
             return content;
         }
 

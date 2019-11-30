@@ -21,28 +21,28 @@
             
         <div class="form-group">
             <label class="control-label">Sprint Number</label>
-            <input asp-for="sprint_number" class="form-control" placeholder="Sprint Number" required="required"/>
-            <span asp-validation-for="sprint_number" class="text-danger"></span>
+            <input asp-for="sprintNumber" class="form-control" placeholder="Sprint Number" required="required"/>
+            <span asp-validation-for="sprintNumber" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label class="control-label">Date picker has to be implemented for now we are sending todays date</label>
-                <input asp-for="date_started" class="form-control" type="hidden" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")"/>
-            <span asp-validation-for="date_started" class="text-danger"></span>
+                <input asp-for="dateStarted" class="form-control" type="hidden" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")"/>
+            <span asp-validation-for="dateStarted" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label class="control-label">Date picker has to be implemented for now we are sending todays date</label>
-            <input asp-for="date_finished" class="form-control" type="hidden" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")"/>
-            <span asp-validation-for="date_finished" class="text-danger"></span>
+            <input asp-for="dateFinished" class="form-control" type="hidden" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")"/>
+            <span asp-validation-for="dateFinished" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label class="control-label">Product Owner ID</label>
-            <input asp-for="ProductOwnerId" class="form-control" placeholder="Product Owner ID" required="required"/>
-            <span asp-validation-for="ProductOwnerId" class="text-danger"></span>
+            <input asp-for="productOwnerId" class="form-control" placeholder="Product Owner ID" required="required"/>
+            <span asp-validation-for="productOwnerId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label class="control-label">Scrum Master ID</label>
-            <input asp-for="ScrumMasterId" class="form-control" placeholder="Scrum Master ID" required="required"/>
-            <span asp-validation-for="ScrumMasterId" class="text-danger"></span>
+            <input asp-for="scrumMasterId" class="form-control" placeholder="Scrum Master ID" required="required"/>
+            <span asp-validation-for="scrumMasterId" class="text-danger"></span>
         </div>
             <input asp-for="status"  type="hidden" value="ongoing" class="form-control" placeholder="Status" required="required"/>
             <span asp-validation-for="status" class="text-danger"></span>
@@ -50,6 +50,5 @@
             <input type="submit" value="Create" class="btn btn-primary btn-block btn-large"/>
         </div>
     </form>
-    <a asp-action="Index">Back to List</a>
 </div>
 <script src="js/navbar.js"></script>

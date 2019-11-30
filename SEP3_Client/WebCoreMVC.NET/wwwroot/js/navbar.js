@@ -1,8 +1,4 @@
-/*global $, console*/
-/*
-  By Mostafa Omar
-   https://www.facebook.com/MostafaOmarIbrahiem
-*/
+
 $(function () {
 
     'use strict';

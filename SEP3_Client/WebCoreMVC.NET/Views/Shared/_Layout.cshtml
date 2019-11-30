@@ -5,11 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="css/navbar.css">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/navbar.css">
 </head>
 <body>
 <aside class="side-nav" id="show-side-navigation1">
@@ -17,7 +16,7 @@
     <div class="heading">
         <img src="https://yt3.ggpht.com/-v6ueJEAFe5E/AAAAAAAAAAI/AAAAAAAAAAA/QexJ3Y8Xxtc/s900-c-k-no-rj-c0xffffff/photo.jpg" alt="">
 
-        <div id=bla class="info">
+        <div id="bla" class="info">
             <h3>
                 <a href="#">User</a>
             </h3>
@@ -36,11 +35,6 @@
         </li>
         <li>
             <i class="fa fa-envelope fa-fw"></i><a href="#"> Calendar</a>
-        </li>
-        <li>
-            <i class="fa fa-users fa-fw"></i>
-            <a asp-area="" asp-controller="Sprint" asp-action="PlanSprint">Create Sprint</a>
-
         </li>
         <li>
             <i class="fa fa-bolt fa-fw"></i><a href="#"> Tasks</a>
@@ -101,8 +95,8 @@
 <script src="https://code.jquery.com/jquery-latest.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-<script src="js/navbar.js"></script>
-@RenderSection("Scripts", required: false)
+<script type="text/javascript" src="js/navbar.js"></script>
+@RenderSection("Scripts", false)
 
 </body>
 </html>
