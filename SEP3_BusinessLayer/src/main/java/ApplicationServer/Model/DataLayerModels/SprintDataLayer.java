@@ -11,9 +11,20 @@ public class SprintDataLayer {
     private int scrumMasterId;
     private String status;
 
+    public SprintDataLayer() {}
+
     public SprintDataLayer(int sprintId, int projectId, int sprintNumber, String dateStarted, String dateFinished, int productOwnerId, int scrumMasterId, String status) {
         this.projectId = projectId;
         this.sprintId = sprintId;
+        this.sprintNumber = sprintNumber;
+        this.dateStarted = dateStarted;
+        this.dateFinished = dateFinished;
+        this.productOwnerId = productOwnerId;
+        this.scrumMasterId = scrumMasterId;
+        this.status = status;
+    }
+
+    public SprintDataLayer(int sprintNumber, String dateStarted, String dateFinished, int productOwnerId, int scrumMasterId, String status) {
         this.sprintNumber = sprintNumber;
         this.dateStarted = dateStarted;
         this.dateFinished = dateFinished;

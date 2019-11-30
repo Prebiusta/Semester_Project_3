@@ -1,12 +1,17 @@
 package ApplicationServer.Model.DataLayerModels;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ProjectDataLayer {
-
-
+    @JsonProperty
     private int projectId;
+    @JsonProperty
     private String name;
+    @JsonProperty
     private String status;
+    @JsonProperty
     private int numberOfIterations;
+    @JsonProperty
     private int lengthOfSprint;
 
     public ProjectDataLayer(){
@@ -50,7 +55,7 @@ public class ProjectDataLayer {
 
     @Override
     public String toString() {
-        return "ProjectDataLayer{" +
+        return "Project{" +
                 "projectId=" + projectId +
                 ", name='" + name + '\'' +
                 ", status='" + status + '\'' +
