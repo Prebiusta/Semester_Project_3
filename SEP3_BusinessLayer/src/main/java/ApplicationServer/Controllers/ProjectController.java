@@ -3,15 +3,18 @@ package ApplicationServer.Controllers;
 import ApplicationServer.Model.ClientModels.ProjectClient;
 import ApplicationServer.Model.DataLayerModels.ProjectDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -54,7 +57,6 @@ public class ProjectController extends ControllerConfiguration{
             jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project", String.class);
         }
         try {
-            System.out.println(jsonProjects);
             List<ProjectDataLayer> projectsFromDataLayer = jsonMapper.readValue(jsonProjects, new TypeReference<List<ProjectDataLayer>>(){});
             //For now this block is useless, but later this is where actual remodelling will be taking place
             //--------------------------------------------------------------------||--------------------------------------------------------------------
@@ -87,16 +89,18 @@ public class ProjectController extends ControllerConfiguration{
         //For now this block is useless, but later this is where actual remodelling will be taking place
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         ProjectDataLayer projectForDataLayer = new ProjectDataLayer(project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint());
+        HttpEntity<ProjectDataLayer> projectDataLayerHttpEntity = new HttpEntity<>(projectForDataLayer);
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         try {
-            restUtility.postForObject(DataLayerURI + "/api/createProject", projectForDataLayer, ProjectDataLayer.class);
+            restUtility.postForLocation(DataLayerURI + "/api/createProject", projectDataLayerHttpEntity);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (HttpClientErrorException e) {
             System.out.println("Project couldn't be created");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (RestClientException e) {
+            e.printStackTrace();
             System.out.println("Some internal json issue but project created successfully");
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

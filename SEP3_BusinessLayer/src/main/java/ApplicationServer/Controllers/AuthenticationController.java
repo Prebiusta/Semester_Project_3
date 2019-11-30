@@ -2,6 +2,7 @@ package ApplicationServer.Controllers;
 
 import ApplicationServer.Model.ClientModels.UserRegisterClient;
 import ApplicationServer.Model.DataLayerModels.UserDataLayer;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +36,9 @@ public class AuthenticationController extends ControllerConfiguration{
     @RequestMapping(value = "/register", produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity<UserDataLayer> register(@RequestBody UserRegisterClient user) {
         UserDataLayer userForDataLayer = new UserDataLayer(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getBirthday(), user.getDateJoined(), user.getProfilePicture());
+        HttpEntity<UserDataLayer> userDataLayerHttpEntity = new HttpEntity<>(userForDataLayer);
         try {
-            restUtility.postForObject(DataLayerURI + "/auth/register", userForDataLayer, UserDataLayer.class);
+            restUtility.postForLocation(DataLayerURI + "/auth/register", userDataLayerHttpEntity);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
@@ -65,8 +67,9 @@ public class AuthenticationController extends ControllerConfiguration{
     @RequestMapping(value = "/login", produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity<UserDataLayer> login(@RequestBody UserRegisterClient user) {
         UserDataLayer userForDataLayer = new UserDataLayer(user.getUsername(), user.getPassword(), null, null, null, null, null);
+        HttpEntity<UserDataLayer> userDataLayerHttpEntity = new HttpEntity<>(userForDataLayer);
         try {
-            restUtility.postForObject(DataLayerURI + "/auth/login", userForDataLayer, UserDataLayer.class);
+            restUtility.postForLocation(DataLayerURI + "/auth/login", userDataLayerHttpEntity);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (HttpClientErrorException e) {
             System.out.println("No user returned from DataLayer");

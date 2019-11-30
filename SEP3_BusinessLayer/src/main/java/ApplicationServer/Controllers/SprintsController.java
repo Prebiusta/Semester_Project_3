@@ -3,6 +3,7 @@ package ApplicationServer.Controllers;
 import ApplicationServer.Model.ClientModels.SprintClient;
 import ApplicationServer.Model.DataLayerModels.SprintDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -75,9 +76,10 @@ public class SprintsController extends ControllerConfiguration {
         //For now this block is useless, but later this is where actual remodelling will be taking place
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         SprintDataLayer sprintForDataLayer = new SprintDataLayer(sprint.getSprintId(), sprint.getProjectId(), sprint.getSprintNumber(), sprint.getDateStarted(), sprint.getDateStarted(), sprint.getProductOwnerId(), sprint.getScrumMasterId(), sprint.getStatus());
+        HttpEntity<SprintDataLayer> sprintDataLayerHttpEntity = new HttpEntity<>(sprintForDataLayer);
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         try {
-            restUtility.postForObject(DataLayerURI + "/api/createSprint", sprintForDataLayer, SprintDataLayer.class);
+            restUtility.postForLocation(DataLayerURI + "/api/createSprint", sprintDataLayerHttpEntity);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (HttpClientErrorException e) {
             System.out.println("Sprint couldn't be created");
