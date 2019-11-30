@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,48 +9,37 @@ namespace WebCoreMVC.NET.Controllers {
     public class CustomController : Controller {
         //All controllers are reusing the same http client and server ip so there is no need to create them multiple times
         protected readonly HttpClient client = new HttpClient();
-        protected readonly string serverUrl = "http://" +"localhost"+ ":8081/";
+        protected readonly string serverUrl = "http://" + "localhost" + ":8081/";
         protected string username;
-    
+
         //Generic Post and Get methods
-        public async Task<HttpResponseMessage> PostData(Object data, string PostWhere)
-        {
-                string json = JsonConvert.SerializeObject(data);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(serverUrl + PostWhere, content);
-                return response;
+        public async Task<HttpResponseMessage> PostData(object data, string PostWhere) {
+            var json = JsonConvert.SerializeObject(data);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.PostAsync(serverUrl + PostWhere, content);
+            return response;
         }
 
-        public async Task<string> GetJsonData(string GetFromWhere)
-        {
-            Task<string> getStringTask = client.GetStringAsync(serverUrl + GetFromWhere);
-            string content = await getStringTask;
+        public async Task<string> GetJsonData(string GetFromWhere) {
+            var getStringTask = client.GetStringAsync(serverUrl + GetFromWhere);
+            var content = await getStringTask;
             return content;
         }
 
         //Cryptography methods
-        public static string GetSha256(string text)
-        {
-            if (text == null)
-            {
-                return string.Empty;
-            }
+        public static string GetSha256(string text) {
+            if (text == null) return string.Empty;
 
-            byte[] message = System.Text.Encoding.ASCII.GetBytes(text);
-            byte[] hashValue = GetSha256(message);
+            var message = Encoding.ASCII.GetBytes(text);
+            var hashValue = GetSha256(message);
 
-            string hashString = string.Empty;
-            foreach (byte x in hashValue)
-            {
-                hashString += string.Format("{0:x2}", x);
-            }
+            var hashString = string.Empty;
+            foreach (var x in hashValue) hashString += string.Format("{0:x2}", x);
             return hashString;
-
         }
 
-        private static byte[] GetSha256(byte[] message)
-        {
-            SHA256Managed hashString = new SHA256Managed();
+        private static byte[] GetSha256(byte[] message) {
+            var hashString = new SHA256Managed();
             return hashString.ComputeHash(message);
         }
     }

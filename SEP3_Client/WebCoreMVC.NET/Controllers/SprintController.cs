@@ -9,38 +9,39 @@ using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
     public class SprintController : CustomController {
-        public IActionResult Index() 
-        {
-            string list = GetSprints().Result;
-            List<Models.Sprint> result = JsonConvert.DeserializeObject<List<Models.Sprint>>(list);
+        public IActionResult Index() {
+            var list = GetSprints().Result;
+            var result = JsonConvert.DeserializeObject<List<Sprint>>(list);
             return View(result);
         }
-        public IActionResult PlanSprint() 
-        {
+
+        public IActionResult PlanSprint() {
             return View("PlanSprint");
         }
+
         [HttpPost]
         public IActionResult PostSprint(Sprint sprint) {
-            if(ModelState.IsValid) {
-                HttpResponseMessage response = SendSprintData(sprint).Result;
-                switch(response.StatusCode) {
+            if (ModelState.IsValid) {
+                var response = SendSprintData(sprint).Result;
+                switch (response.StatusCode) {
                     case System.Net.HttpStatusCode.OK:
                         return RedirectToAction("Index", "Home");
                     case System.Net.HttpStatusCode.BadRequest:
-                        ModelState.AddModelError(string.Empty, "Server sent a bad request: "+ response.Content);
+                        ModelState.AddModelError(string.Empty, "Server sent a bad request: " + response.Content);
                         return PlanSprint();
                     default:
                         ModelState.AddModelError(string.Empty, "Server is not answering");
                         return PlanSprint();
                 }
-            } else {
+            }
+            else {
                 ModelState.AddModelError(string.Empty, "Please insert the necessary data");
-                return PlanSprint();
+                return PlanSprint();    
             }
         }
 
         public async Task<string> GetSprints() {
-            var content = await GetJsonData("api/sprint");
+            var content = await GetJsonData("api/sprint?projectId=1");
             return content;
         }
 

@@ -10,8 +10,7 @@ namespace WebCoreMVC.NET.Models {
         public string description { get; set; }
         public string status { get; set; }
 
-        public Task (long TaskId, long SprintUserStoryId, string Description, string Status)
-        {
+        public Task(long TaskId, long SprintUserStoryId, string Description, string Status) {
             taskId = TaskId;
             sprintUserStoryId = SprintUserStoryId;
             description = Description;

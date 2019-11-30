@@ -9,6 +9,7 @@ namespace WebCoreMVC.NET.Models {
         [Required(ErrorMessage = "Please insert your username")]
         [StringLength(250, MinimumLength = 3, ErrorMessage = "Min 3 letters")]
         public string username { get; set; }
+
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Insert your password")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Min 3, max 50 letters")]
