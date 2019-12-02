@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using WebCoreMVC.NET.Models.Claims;
 
 namespace WebCoreMVC.NET.Models {
     public class Project {
@@ -19,5 +20,6 @@ namespace WebCoreMVC.NET.Models {
 
         [Required(ErrorMessage = "Please define length of your sprints")]
         public int lengthOfSprint { get; set; }
+        public List<Administrator> administrators {get; set;}
     }
 }

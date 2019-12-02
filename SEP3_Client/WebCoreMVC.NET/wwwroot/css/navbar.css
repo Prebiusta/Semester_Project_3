@@ -22,11 +22,14 @@
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-.mainpage {
+.mainPage {
     height: 1000px;
 }
 
-body
+body {
+    background-color: #2a2b3d
+}
+
 #contents {
     position: relative;
     transition: .3s;
@@ -132,7 +135,7 @@ body
     border-radius: 3px;
     font-size: 14px;
     color: #FFF;
-    padding: 0px 5px
+    padding: 0 5px;
 }
 
 .dang {
@@ -159,7 +162,7 @@ body
 
 .side-nav .categories > li > a:after {
     content: "\f053";
-    font-family: fontAwesome;
+/ / font-family: fontAwesome;
     font-size: 11px;
     line-height: 1.8;
     float: right;
@@ -310,49 +313,45 @@ body
 
 .project {
     margin: 10px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 2px #ccc;
     width: 450px;
     height: 300px;
     padding: 20px;
-    background: white;
+    background: #313348;
 }
 
 .sprint {
+    padding: 20px;
     margin: 10px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 2px #ccc;
     width: 450px;
     height: 300px;
-    padding: 20px;
-    background: #60495A;
-}
+    background: #313348;}
 
 .new_sprint {
-    margin: 10px;
-    border: 1px solid #eee;
     width: 450px;
     height: 300px;
     padding: 20px;
+    margin: 10px;
+    width: 450px;
+    height: 300px;
+    background: #313348;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: white;
 }
 
 .create {
-    margin: 10px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 2px #ccc;
     width: 450px;
     height: 300px;
     padding: 20px;
+    margin: 10px;
+    width: 450px;
+    height: 300px;
+    background: #313348;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: white;
 }
 
 .structure {
@@ -366,30 +365,30 @@ body
 
 h1 {
     text-align: center;
-    color: black;
+    color: white;
 }
 
 .example_c {
     color: #494949 !important;
     text-decoration: none;
     background: #A9ACA9;
-    padding: 20px;
     border: 4px solid #494949 !important;
     display: inline-block;
     transition: all 0.4s ease 0s;
     font-size: 14px;
     width: 150px;
-    height: 30px;
+    height: 50px;
     margin-right: 25px;
     margin-left: 25px;
+    text-align: center;
 }
 
-.example_c:hover {
-    color: #ffffff !important;
-    background: #3F3244;
-    border-color: #purple !important;
-    transition: all 0.4s ease 0s;
-}
+    .example_c:hover {
+        color: #ffffff !important;
+        background: #3F3244;
+        border-color: #2a2b3d !important;
+        transition: all 0.4s ease 0s;
+    }
 
 .buttonContainer {
     display: flex !important;
@@ -449,4 +448,7 @@ h1 {
     color: #000 !important;
     background-color: #ccc !important;
 }
+
+
+
 
