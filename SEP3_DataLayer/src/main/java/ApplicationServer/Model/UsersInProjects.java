@@ -1,42 +1,26 @@
 package ApplicationServer.Model;
 
+import ApplicationServer.Model.CompositeKeys.UserProjectKey;
+
 import javax.persistence.*;
 
-/**
- *  Entity class referencing table in the database
- */
 @Entity
-public class UsersInProjects {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "project_id")
-    private int projectId;
-
-    @Column(name = "username")
-    private String username;
+public class UsersInProjects{
+    @EmbeddedId
+    private UserProjectKey userProjectKey;
 
     public UsersInProjects() {
-
     }
 
-    public UsersInProjects(int projectId, String username) {
-        this.projectId = projectId;
-        this.username = username;
+    public UsersInProjects(UserProjectKey userProjectKey) {
+        this.userProjectKey = userProjectKey;
     }
 
-    public int getProjectId() {
-        return projectId;
+    public UserProjectKey getUserProjectKey() {
+        return userProjectKey;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public String toString() {
-        return "UserInProject{" +
-                "project_id='" + projectId + '\'' +
-                ", username='" + username + '\'' +
-                '}';
+    public void setUserProjectKey(UserProjectKey userProjectKey) {
+        this.userProjectKey = userProjectKey;
     }
 }
