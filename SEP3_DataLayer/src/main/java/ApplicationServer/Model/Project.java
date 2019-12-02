@@ -88,11 +88,11 @@ public class Project {
         this.lengthOfSprint = lengthOfSprint;
     }
 
-    public List<String> getAdminUsername() {
+    public List<String> getAdmins() {
         return admins;
     }
 
-    public void setAdminUsername(List<String> admins) {
+    public void setAdmins(List<String> admins) {
         this.admins = admins;
     }
 }

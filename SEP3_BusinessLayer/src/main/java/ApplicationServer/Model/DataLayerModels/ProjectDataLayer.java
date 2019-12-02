@@ -1,32 +1,34 @@
 package ApplicationServer.Model.DataLayerModels;
 
+import java.util.List;
+
 public class ProjectDataLayer {
     private int projectId;
     private String name;
     private String status;
     private int numberOfIterations;
     private int lengthOfSprint;
-    private String administratorUsername;
+    private List<String> admins;
 
     public ProjectDataLayer(){
 
     }
 
-    public ProjectDataLayer(int projectId, String name, String status, int numberOfIterations, int lengthOfSprint, String administratorUsername) {
+    public ProjectDataLayer(int projectId, String name, String status, int numberOfIterations, int lengthOfSprint, List<String> admins) {
         this.projectId = projectId;
         this.name = name;
         this.status = status;
         this.numberOfIterations = numberOfIterations;
         this.lengthOfSprint = lengthOfSprint;
-        this.administratorUsername = administratorUsername;
+        this.admins = admins;
     }
 
-    public ProjectDataLayer(String name, String status, int numberOfIterations, int lengthOfSprint, String administratorUsername) {
+    public ProjectDataLayer(String name, String status, int numberOfIterations, int lengthOfSprint, List<String> admins) {
         this.name = name;
         this.status = status;
         this.numberOfIterations = numberOfIterations;
         this.lengthOfSprint = lengthOfSprint;
-        this.administratorUsername = administratorUsername;
+        this.admins = admins;
     }
 
     public int getLengthOfSprint() {
@@ -49,8 +51,8 @@ public class ProjectDataLayer {
         return status;
     }
 
-    public String getAdministratorUsername() {
-        return administratorUsername;
+    public List<String> getAdmins() {
+        return admins;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package ApplicationServer.Model.ClientModels;
 
+import java.util.List;
+
 public class ProjectClient {
 
     private int projectId;
@@ -7,27 +9,27 @@ public class ProjectClient {
     private String status;
     private int numberOfIterations;
     private int lengthOfSprint;
-    private String administratorUsername;
+    private List<String> admins;
 
     public ProjectClient(){
 
     }
 
-    public ProjectClient(int projectId, String name, String status, int numberOfIterations, int lengthOfSprint, String administratorUsername) {
+    public ProjectClient(int projectId, String name, String status, int numberOfIterations, int lengthOfSprint, List<String> admins) {
         this.projectId = projectId;
         this.name = name;
         this.status = status;
         this.numberOfIterations = numberOfIterations;
         this.lengthOfSprint = lengthOfSprint;
-        this.administratorUsername = administratorUsername;
+        this.admins = admins;
     }
 
-    public ProjectClient(String name, String status, int numberOfIterations, int lengthOfSprint, String administratorUsername) {
+    public ProjectClient(String name, String status, int numberOfIterations, int lengthOfSprint, List<String> admins) {
         this.name = name;
         this.status = status;
         this.numberOfIterations = numberOfIterations;
         this.lengthOfSprint = lengthOfSprint;
-        this.administratorUsername = administratorUsername;
+        this.admins = admins;
     }
 
     public int getProjectId() {
@@ -50,8 +52,8 @@ public class ProjectClient {
         return lengthOfSprint;
     }
 
-    public String getAdministratorUsername() {
-        return administratorUsername;
+    public List<String> getAdmins() {
+        return admins;
     }
 
     @Override
