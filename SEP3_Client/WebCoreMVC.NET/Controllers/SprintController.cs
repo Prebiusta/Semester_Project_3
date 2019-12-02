@@ -9,8 +9,8 @@ using WebCoreMVC.NET.Models;
 using WebCoreMVC.NET.Models.Claims;
 
 namespace WebCoreMVC.NET.Controllers {
+    [Authorize(Policy = "MustBeUser")]
     public class SprintController : CustomController {
-  //      [Authorize(Policy = "MustBeUser")]
         public IActionResult Index(int id) { 
             var list = GetSprints(id).Result;
             var result = JsonConvert.DeserializeObject<List<Sprint>>(list);

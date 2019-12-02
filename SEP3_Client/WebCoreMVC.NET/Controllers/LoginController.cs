@@ -58,7 +58,7 @@ namespace WebCoreMVC.NET.Controllers {
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, username)
+                new Claim("MustBeUser", username)
             };
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             

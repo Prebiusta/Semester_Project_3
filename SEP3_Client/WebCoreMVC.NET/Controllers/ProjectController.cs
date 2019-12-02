@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
-  //  [Authorize(Policy = "MustBeUser")]
+    [Authorize(Policy = "MustBeUser")]
     public class ProjectController : CustomController {
         public IActionResult Index() {
             var list = GetProjects().Result;
