@@ -1,5 +1,5 @@
-﻿@model IEnumerable<WebCoreMVC.NET.Models.Project>
-<AuthorizeView>
+﻿@model IEnumerable<Project>
+
 @{
     ViewData["Title"] = "Projects";
 }
@@ -21,7 +21,7 @@
                 <h1>@Html.DisplayFor(modelItem => item.name)</h1>
                 <div class="buttonContainer">
                     <button class="example_c" onclick="location.href='@Url.Action("Index", "Sprint", new {id = item.projectId})'">Sprints</button>
-                    <button class="example_c">Product Backlog</button>
+                    <button class="example_c" onclick="location.href='@Url.Action("GetUserStories", "Project", new {id = item.backlogID})'">Product Backlog</button>
                     <div class="break"> </div>
                     <button class="example_c">Burndown Chart</button>
                     <button class="example_c">Edit Project</button>
@@ -35,4 +35,4 @@
     </div>
 
 </div>
-</body></AuthorizeView>
+</body>

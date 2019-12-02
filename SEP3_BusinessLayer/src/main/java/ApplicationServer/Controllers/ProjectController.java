@@ -51,7 +51,7 @@ public class ProjectController extends ControllerConfiguration{
         } else if (id != null) {
             jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project?id=" + id, String.class);
         } else {
-            jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project", String.class);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         try {
             List<ProjectDataLayer> projectsFromDataLayer = jsonMapper.readValue(jsonProjects, new TypeReference<List<ProjectDataLayer>>(){});
@@ -59,7 +59,7 @@ public class ProjectController extends ControllerConfiguration{
             //--------------------------------------------------------------------||--------------------------------------------------------------------
             List<ProjectClient> projectsForClients = new ArrayList<>();
             for(ProjectDataLayer project : projectsFromDataLayer) {
-                projectsForClients.add(new ProjectClient(project.getProjectId(), project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint()));
+                projectsForClients.add(new ProjectClient(project.getProjectId(), project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint(), project.getAdmins()));
             }
             //--------------------------------------------------------------------||--------------------------------------------------------------------
             return new ResponseEntity<>(projectsForClients, HttpStatus.OK);
@@ -85,7 +85,7 @@ public class ProjectController extends ControllerConfiguration{
     public ResponseEntity<ProjectClient> create(@RequestBody ProjectClient project) {
         //For now this block is useless, but later this is where actual remodelling will be taking place
         //--------------------------------------------------------------------||--------------------------------------------------------------------
-        ProjectDataLayer projectForDataLayer = new ProjectDataLayer(project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint());
+        ProjectDataLayer projectForDataLayer = new ProjectDataLayer(project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint(), project.getAdmins());
         HttpEntity<ProjectDataLayer> projectDataLayerHttpEntity = new HttpEntity<>(projectForDataLayer);
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         try {

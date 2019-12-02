@@ -11,8 +11,8 @@ namespace WebCoreMVC.NET.Models {
         public int sprintNumber { get; set; }
         public string dateStarted { get; set; }
         public string dateFinished { get; set; }
-        public int productOwnerId { get; set; }
-        public int scrumMasterId { get; set; }
-        public String status { get; set; }
+        public string productOwnerUsername { get; set; }
+        public string scrumMasterUsername { get; set; }
+        public string status { get; set; }
     }
 }

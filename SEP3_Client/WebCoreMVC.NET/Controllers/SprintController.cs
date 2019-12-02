@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebCoreMVC.NET.Models;
+using WebCoreMVC.NET.Models.Claims;
 
 namespace WebCoreMVC.NET.Controllers {
     public class SprintController : CustomController {
@@ -13,6 +14,16 @@ namespace WebCoreMVC.NET.Controllers {
         public IActionResult Index(int id) { 
             var list = GetSprints(id).Result;
             var result = JsonConvert.DeserializeObject<List<Sprint>>(list);
+            foreach(ProjectClaim projectClaim in clientData.projectClaims)
+            {
+                if(projectClaim.projectId == id)
+                {
+                    foreach(Sprint sprint in result)
+                    {
+                        projectClaim.addSprintClaim(new SprintClaim(sprint.sprintId, sprint.productOwnerUsername, sprint.scrumMasterUsername));
+                    }
+                }
+            }
             return View(result);
         }
 

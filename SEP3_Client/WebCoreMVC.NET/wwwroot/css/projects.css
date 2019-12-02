@@ -2,49 +2,45 @@
 
 .project {
     margin: 10px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 2px #ccc;
     width: 450px;
     height: 300px;
-    padding: 20px;
-    background: white;
+    padding: 25px;
+    background: #313348;
 }
 
 .sprint {
+    padding: 25px;
     margin: 10px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 2px #ccc;
     width: 450px;
     height: 300px;
-    padding: 20px;
-    background: #60495A;
-}
+    background: #313348;}
 
 .new_sprint {
-    margin: 10px;
-    border: 1px solid #eee;
     width: 450px;
     height: 300px;
-    padding: 20px;
+    padding: 25px;
+    margin: 10px;
+    width: 450px;
+    height: 300px;
+    background: #313348;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: white;
 }
 
 .create {
-    margin: 10px;
-    border: 1px solid #eee;
-    box-shadow: 0 2px 2px #ccc;
     width: 450px;
     height: 300px;
-    padding: 20px;
+    padding: 25px;
+    margin: 10px;
+    width: 450px;
+    height: 300px;
+    background: #313348;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background: white;
 }
 
 .structure {
@@ -58,28 +54,29 @@
 
 h1 {
     text-align: center;
-    color: black;
+    color: white;
 }
 
 .example_c {
     color: #494949 !important;
     text-decoration: none;
     background: #A9ACA9;
-    padding: 20px;
     border: 4px solid #494949 !important;
     display: inline-block;
     transition: all 0.4s ease 0s;
     font-size: 14px;
     width: 150px;
-    height: 30px;
+    height: 50px;
     margin-right: 25px;
     margin-left: 25px;
+    text-align: center;
+
 }
 
     .example_c:hover {
-        color: #ffffff !important;
+        color: #ffc107 !important;
         background: #3F3244;
-        border-color: #purple !important;
+        border-color: white !important;
         transition: all 0.4s ease 0s;
     }
 
@@ -144,5 +141,6 @@ h1 {
 
 body {
     height: 100vh;
-    background: radial-gradient(circle at 94.02% 88.03%, #60495A, transparent 100%), radial-gradient(circle at 25.99% 27.79%, #2F2235, transparent 100%), radial-gradient(circle at 50% 50%, #000000, #000000 100%);
 }
+
+

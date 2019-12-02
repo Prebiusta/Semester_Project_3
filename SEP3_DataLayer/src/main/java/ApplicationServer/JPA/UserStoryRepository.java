@@ -4,14 +4,13 @@ import ApplicationServer.Model.Project;
 import ApplicationServer.Model.UserStory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
-import java.util.Set;
 
 @Repository
-public interface ProjectRepository extends JpaRepository<Project, Integer> {
-
-    List<Project> findAllByStatus(String string);
-    List<Project> findByProjectId(int id);
+public interface UserStoryRepository extends JpaRepository<UserStory, Integer> {
+    List<UserStory> findAllByProjectBacklogId(int id);
+    UserStory findByUserStoryId(int id);
 }
 
 

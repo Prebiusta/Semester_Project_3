@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Sprint>
+
+@{
+    ViewData["Title"] = "Sprints";
+}
+<head>
+    <title>Sprints</title>
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+
+</head>
+<body>
+<h1>Sprints</h1>
+<div class="row">
+    <div class="structure">
+        <div class="new_sprint">
+            <h3>Plan Next Sprint</h3>
+            <button id="create" class="w3-button w3-xlarge w3-black w3-card-4" onclick="location.href='@Url.Action("PlanSprint", "Sprint")'">+</button>
+        </div>
+
+        @foreach (var item in Model) {
+            <div class="sprint">
+                <h1>Sprint @Html.DisplayFor(modelItem => item.sprintNumber)</h1>
+                <div class="buttonContainer">
+                    <button class="example_c"> Sprint Backlog</button>
+                    <button class="example_c"> Tasks</button>
+                    <div class="break"> </div>
+                    <button class="example_c"> Burndown Chart</button>
+                    <button class="example_c"> Edit Sprint</button>
+                    <div class="break"> </div>
+                    <button class="example_c">Edit Members</button>
+                    <button class="example_c">Finish Sprint</button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+</body>
