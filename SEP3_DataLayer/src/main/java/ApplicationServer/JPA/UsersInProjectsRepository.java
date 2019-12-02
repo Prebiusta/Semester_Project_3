@@ -1,5 +1,6 @@
 package ApplicationServer.JPA;
 
+import ApplicationServer.Model.CompositeKeys.UserProjectKey;
 import ApplicationServer.Model.UsersInProjects;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -7,8 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UsersInProjectsRepository extends JpaRepository<UsersInProjects, String> {
-    UsersInProjects findByUsername(String Username);
-    List<UsersInProjects> findByProjectId(int id);
-
+public interface UsersInProjectsRepository extends JpaRepository<UsersInProjects, UserProjectKey> {
+    List<UsersInProjects> findByUserProjectKeyUsername(String username);
 }
