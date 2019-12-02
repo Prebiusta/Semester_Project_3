@@ -24,7 +24,21 @@ namespace WebCoreMVC.NET.Controllers {
             return View(result);
         }
 
-        public IActionResult CreateProject() {
+            //public IActionResult ProjectBacklog(int id)
+            //{
+    //            var list = GetProjectBacklog(id).Result;
+    //            var result = JsonConvert.DeserializeObject<List<ProjectBacklog>>(list);
+    //            return View(result);
+            //}
+
+            public IActionResult UserStories(int id)
+            {
+                var list = GetUserStories(id).Result;
+                var result = JsonConvert.DeserializeObject<List<UserStory>>(list);
+                return View(result);
+            }
+
+            public IActionResult CreateProject() {
             return View("CreateProject");
         }
 
@@ -63,5 +77,16 @@ namespace WebCoreMVC.NET.Controllers {
             return content;
         }
 
+        public async Task<string> GetProjectBacklog(int id)
+        {
+            var content = await GetJsonData("api/projectBacklog?projectId=" + id);
+            return content;
+        }
+
+        public async Task<string> GetUserStories(int id)
+        {
+            var content = await GetJsonData("api/userStory?projectBacklogId=" + id);
+            return content;
+        }
     }
 }
