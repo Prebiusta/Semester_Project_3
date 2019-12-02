@@ -13,10 +13,22 @@ namespace WebCoreMVC.NET.Controllers {
             var result = JsonConvert.DeserializeObject<List<Project>>(list);
             return View(result);
         }
-        
+
         public IActionResult Members(int id) {
             var list = GetUsersInProjects(id).Result;
             var result = JsonConvert.DeserializeObject<List<User>>(list);
+            return View(result);
+        }
+
+//        public IActionResult ProjectBacklog(int id) {
+//            var list = GetProjectBacklog(id).Result;
+//            var result = JsonConvert.DeserializeObject<List<ProjectBacklog>>(list);
+//            return View(result);
+//        }
+
+        public IActionResult UserStories(int id) {
+            var list = GetUserStories(id).Result;
+            var result = JsonConvert.DeserializeObject<List<UserStory>>(list);
             return View(result);
         }
 
@@ -53,11 +65,20 @@ namespace WebCoreMVC.NET.Controllers {
             var httpContent = await PostData(projects, "api/createProject");
             return httpContent;
         }
-        
+
         public async Task<string> GetUsersInProjects(int id) {
-            var content = await GetJsonData("api/users_in_projects?projectId=" + id);
+            var content = await GetJsonData("api/usersInProjects?projectId=" + id);
             return content;
         }
 
+        public async Task<string> GetProjectBacklog(int id) {
+            var content = await GetJsonData("api/projectBacklog?projectId=" + id);
+            return content;
+        }
+
+        public async Task<string> GetUserStories(int id) {
+            var content = await GetJsonData("api/userStory?projectBacklogId=" + id);
+            return content;
+        }
     }
 }

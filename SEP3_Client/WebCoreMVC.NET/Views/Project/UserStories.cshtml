@@ -8,11 +8,14 @@
 
 <html>
 <head>
-    <title>title</title>
+    <title>Product Backlog</title>
 </head>
 <body>
-<div>
-      
+<h1>User Stories</h1>
+<div class="row">
+        @foreach (var item in Model) {
+            <li>@item.userStoryId @item.description</li>
+        }
 </div>
 </body>
 </html>

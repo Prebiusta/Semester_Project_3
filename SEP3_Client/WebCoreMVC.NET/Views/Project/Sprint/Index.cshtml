@@ -14,7 +14,7 @@
     <div class="structure">
         <div class="new_sprint">
             <h3>Plan Next Sprint</h3>
-            <button id="create" class="w3-button w3-xlarge w3-black w3-card-4" onclick="location.href='@Url.Action("PlanSprint")'">+</button>
+            <button id="create" class="w3-button w3-xlarge w3-black w3-card-4" onclick="location.href='@Url.Action("PlanSprint", "Sprint")'">+</button>
         </div>
 
         @foreach (var item in Model) {
@@ -33,6 +33,5 @@
             </div>
         }
     </div>
-e
 </div>
 </body>

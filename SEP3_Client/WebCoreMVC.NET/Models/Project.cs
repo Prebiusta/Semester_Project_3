@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace WebCoreMVC.NET.Models {
     public class Project {
         public int projectId { get; set; }
+        public int backlogID { get; set; }
 
         [Required(ErrorMessage = "Please insert the name of your project")]
         [StringLength(100, MinimumLength = 1, ErrorMessage = "Min 1 letter, maximum 100")]

@@ -13,7 +13,7 @@
     <h1>Create Sprint</h1>
     <hr/>
 
-    <form asp-action="PostSprint">
+    <form asp-controller="Sprint" asp-action="PostSprint">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input asp-for="projectId" type="hidden" class="form-control" value="-1"/>
             

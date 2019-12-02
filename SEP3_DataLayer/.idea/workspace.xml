@@ -2,27 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d2d97bb-edcc-416a-a815-bb849bd856aa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/src/main/java/ApplicationServer/Model/ClientModels/UsersInProjectsClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/src/main/java/ApplicationServer/Model/DataLayerModels/UsersInProjectDataLayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Models/User.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Project/Members.cshtml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/wwwroot/css/chosen.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/wwwroot/js/chosen.jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationServer/Controllers/UsersInProjectsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationServer/JPA/UsersInProjectsRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ApplicationServer/Model/UsersInProjects.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_BusinessLayer/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_BusinessLayer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_BusinessLayer/src/main/java/ApplicationServer/Controllers/SprintsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/src/main/java/ApplicationServer/Controllers/SprintsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_BusinessLayer/src/main/java/ApplicationServer/Controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/src/main/java/ApplicationServer/Controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_BusinessLayer/target/classes/ApplicationServer/Controllers/UserController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/target/classes/ApplicationServer/Controllers/UserController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_BusinessLayer/src/main/java/ApplicationServer/Controllers/UserStoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/src/main/java/ApplicationServer/Controllers/UserStoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_BusinessLayer/target/classes/ApplicationServer/Controllers/SprintsController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/target/classes/ApplicationServer/Controllers/SprintsController$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_BusinessLayer/target/classes/ApplicationServer/Controllers/SprintsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/target/classes/ApplicationServer/Controllers/SprintsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_BusinessLayer/target/classes/ApplicationServer/Controllers/UserController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/target/classes/ApplicationServer/Controllers/UserController$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_BusinessLayer/target/classes/ApplicationServer/Controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_BusinessLayer/target/classes/ApplicationServer/Controllers/UserController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Controllers/ProjectController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Controllers/ProjectController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Controllers/SprintController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Controllers/SprintController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Models/Project.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Models/Project.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Models/ProjectBacklog.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Models/ProjectBacklog.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Models/UserStory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Models/UserStory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Login/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Login/Index.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Project/CreateProject.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Project/CreateProject.cshtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Project/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Project/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Project/UserStories.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Project/UserStories.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Register/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Register/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Shared/_Layout.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Shared/_Layout.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Sprint/Index.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/Views/Sprint/Index.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/wwwroot/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/wwwroot/css/navbar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/wwwroot/js/chosen.jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/wwwroot/js/chosen.jquery.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/wwwroot/js/navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../SEP3_Client/WebCoreMVC.NET/wwwroot/js/navbar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ApplicationServer/Controllers/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ApplicationServer/Controllers/UserController.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -134,12 +135,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@c6a14699" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@2ae184b0" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@c6a14699" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@263d9d89" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@2ae184b0" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@36623562" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
@@ -171,6 +172,10 @@
       <workItem from="1575113674738" duration="4304000" />
       <workItem from="1575127849806" duration="492000" />
       <workItem from="1575134396856" duration="7099000" />
+      <workItem from="1575210265334" duration="1196000" />
+      <workItem from="1575278523861" duration="425000" />
+      <workItem from="1575279899727" duration="3251000" />
+      <workItem from="1575313708059" duration="3279000" />
     </task>
     <servers />
   </component>
