@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
     public class SprintController : CustomController {
+  //      [Authorize(Policy = "MustBeUser")]
         public IActionResult Index(int id) { 
             var list = GetSprints(id).Result;
             var result = JsonConvert.DeserializeObject<List<Sprint>>(list);

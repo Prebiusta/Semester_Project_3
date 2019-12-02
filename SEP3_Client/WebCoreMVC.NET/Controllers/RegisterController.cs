@@ -53,6 +53,7 @@ namespace WebCoreMVC.NET.Controllers {
             systemUser.dateJoined = user.dateJoined;
             systemUser.profilePicture = user.profilePicture;
 
+
             var response = await PostData(systemUser, "auth/register");
             //This if statement will be more specific after implementing server HTTP calls
             return response;
