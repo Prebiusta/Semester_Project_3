@@ -10,6 +10,7 @@ public class ProjectClient {
     private int numberOfIterations;
     private int lengthOfSprint;
     private List<String> admins;
+    private boolean isAdministrator;
 
     public ProjectClient(){
 
@@ -22,6 +23,7 @@ public class ProjectClient {
         this.numberOfIterations = numberOfIterations;
         this.lengthOfSprint = lengthOfSprint;
         this.admins = admins;
+        isAdministrator = false;
     }
 
     public ProjectClient(String name, String status, int numberOfIterations, int lengthOfSprint, List<String> admins) {
@@ -30,6 +32,7 @@ public class ProjectClient {
         this.numberOfIterations = numberOfIterations;
         this.lengthOfSprint = lengthOfSprint;
         this.admins = admins;
+        isAdministrator = false;
     }
 
     public int getProjectId() {
@@ -54,6 +57,10 @@ public class ProjectClient {
 
     public List<String> getAdmins() {
         return admins;
+    }
+
+    public boolean isAdministrator() {
+        return isAdministrator;
     }
 
     @Override

@@ -14,17 +14,8 @@ namespace WebCoreMVC.NET.Controllers {
         public IActionResult Index(int id) { 
             var list = GetSprints(id).Result;
             var result = JsonConvert.DeserializeObject<List<Sprint>>(list);
-            foreach(ProjectClaim projectClaim in clientData.projectClaims)
-            {
-                if(projectClaim.projectId == id)
-                {
-                    foreach(Sprint sprint in result)
-                    {
-                        projectClaim.addSprintClaim(new SprintClaim(sprint.sprintId, sprint.productOwnerUsername, sprint.scrumMasterUsername));
-                    }
-                }
-            }
-            return View("~/Views/Project/Sprint/Index.cshtml", result);
+            var resultsWithAssignedRoles = utilityIterator.assignRoles(result, username);
+            return View("~/Views/Project/Sprint/Index.cshtml", resultsWithAssignedRoles);
         }
 
         public IActionResult PlanSprint() {

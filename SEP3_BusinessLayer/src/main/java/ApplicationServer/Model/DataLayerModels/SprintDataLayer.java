@@ -7,29 +7,29 @@ public class SprintDataLayer {
     private int sprintNumber;
     private String dateStarted;
     private String dateFinished;
-    private int productOwnerId;
-    private int scrumMasterId;
+    private String productOwnerUsername;
+    private String scrumMasterUsername;
     private String status;
 
     public SprintDataLayer() {}
 
-    public SprintDataLayer(int sprintId, int projectId, int sprintNumber, String dateStarted, String dateFinished, int productOwnerId, int scrumMasterId, String status) {
+    public SprintDataLayer(int sprintId, int projectId, int sprintNumber, String dateStarted, String dateFinished, String productOwnerUsername, String scrumMasterUsername, String status) {
         this.projectId = projectId;
         this.sprintId = sprintId;
         this.sprintNumber = sprintNumber;
         this.dateStarted = dateStarted;
         this.dateFinished = dateFinished;
-        this.productOwnerId = productOwnerId;
-        this.scrumMasterId = scrumMasterId;
+        this.productOwnerUsername = productOwnerUsername;
+        this.scrumMasterUsername = scrumMasterUsername;
         this.status = status;
     }
 
-    public SprintDataLayer(int sprintNumber, String dateStarted, String dateFinished, int productOwnerId, int scrumMasterId, String status) {
+    public SprintDataLayer(int sprintNumber, String dateStarted, String dateFinished, String productOwnerUsername, String scrumMasterUsername, String status) {
         this.sprintNumber = sprintNumber;
         this.dateStarted = dateStarted;
         this.dateFinished = dateFinished;
-        this.productOwnerId = productOwnerId;
-        this.scrumMasterId = scrumMasterId;
+        this.productOwnerUsername = productOwnerUsername;
+        this.scrumMasterUsername = scrumMasterUsername;
         this.status = status;
     }
 
@@ -53,12 +53,12 @@ public class SprintDataLayer {
         return dateFinished;
     }
 
-    public int getProductOwnerId() {
-        return productOwnerId;
+    public String getproductOwnerUsername() {
+        return productOwnerUsername;
     }
 
-    public int getScrumMasterId() {
-        return scrumMasterId;
+    public String getscrumMasterUsername() {
+        return scrumMasterUsername;
     }
 
     public String getStatus() {
@@ -74,8 +74,8 @@ public class SprintDataLayer {
                         ", sprintNumber=" + sprintNumber +
                         ", dateStarted='" + dateStarted + '\'' +
                         ", dateFinished='" + dateFinished + '\'' +
-                        ", productOwnerId=" + productOwnerId +
-                        ", scrumMasterId=" + scrumMasterId +
+                        ", productOwnerUsername=" + productOwnerUsername +
+                        ", scrumMasterUsername=" + scrumMasterUsername +
                         ", status='" + status + '\'' +
                         '}';
     }

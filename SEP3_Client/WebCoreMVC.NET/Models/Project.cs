@@ -21,5 +21,6 @@ namespace WebCoreMVC.NET.Models {
         [Required(ErrorMessage = "Please define length of your sprints")]
         public int lengthOfSprint { get; set; }
         public List<string> admins {get; set;}
+        public bool isAdministrator { get; set; }
     }
 }

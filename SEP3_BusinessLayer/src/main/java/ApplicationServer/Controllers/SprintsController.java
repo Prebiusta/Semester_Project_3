@@ -35,8 +35,8 @@ public class SprintsController extends ControllerConfiguration {
      *            *   "sprintNumber":1,
      *            *   "dateStarted":"2019-11-21",
      *            *   "dateFinished":"2019-11-21",
-     *            *   "productOwnerId":2,
-     *            *   "scrumMasterId":2,
+     *            *   "productOwnerUsername":"username",
+     *            *   "scrumMasterUsername":"username",
      *            *   "status":"completed"
      *
      *          * }
@@ -61,7 +61,7 @@ public class SprintsController extends ControllerConfiguration {
                 //--------------------------------------------------------------------||--------------------------------------------------------------------
                 List<SprintClient> sprintsForClients = new ArrayList<>();
                 for(SprintDataLayer sprint : sprintsFromDataLayer) {
-                    sprintsForClients.add(new SprintClient(sprint.getSprintId(), sprint.getProjectId(), sprint.getSprintNumber(), sprint.getDateStarted(), sprint.getDateStarted(), sprint.getProductOwnerId(), sprint.getScrumMasterId(), sprint.getStatus()));
+                    sprintsForClients.add(new SprintClient(sprint.getSprintId(), sprint.getProjectId(), sprint.getSprintNumber(), sprint.getDateStarted(), sprint.getDateStarted(), sprint.getproductOwnerUsername(), sprint.getscrumMasterUsername(), sprint.getStatus()));
                 }
                 String jsonForClient = jsonMapper.writeValueAsString(sprintsForClients);
                 return new ResponseEntity<>(jsonForClient, HttpStatus.OK);
@@ -75,7 +75,7 @@ public class SprintsController extends ControllerConfiguration {
     public ResponseEntity<SprintClient> create(@RequestBody SprintClient sprint) {
         //For now this block is useless, but later this is where actual remodelling will be taking place
         //--------------------------------------------------------------------||--------------------------------------------------------------------
-        SprintDataLayer sprintForDataLayer = new SprintDataLayer(sprint.getSprintId(), sprint.getProjectId(), sprint.getSprintNumber(), sprint.getDateStarted(), sprint.getDateStarted(), sprint.getProductOwnerId(), sprint.getScrumMasterId(), sprint.getStatus());
+        SprintDataLayer sprintForDataLayer = new SprintDataLayer(sprint.getSprintId(), sprint.getProjectId(), sprint.getSprintNumber(), sprint.getDateStarted(), sprint.getDateStarted(), sprint.getproductOwnerUsername(), sprint.getscrumMasterUsername(), sprint.getStatus());
         HttpEntity<SprintDataLayer> sprintDataLayerHttpEntity = new HttpEntity<>(sprintForDataLayer);
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         try {

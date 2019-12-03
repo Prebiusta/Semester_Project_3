@@ -19,6 +19,10 @@
         @foreach (var item in Model) {
             <div class="project">
                 <h1>@Html.DisplayFor(modelItem => item.name)</h1>
+                @if(item.isAdministrator == true)
+                {
+                    <h2>Admin</h2>
+                }
                 <div class="buttonContainer">
                     <button class="example_c" onclick="location.href='@Url.Action("Index", "Sprint", new {id = item.projectId})'">Sprints</button>
                     <button class="example_c" onclick="location.href='@Url.Action("Index", "UserStory", new {id = item.projectId})'">Product Backlog</button>
