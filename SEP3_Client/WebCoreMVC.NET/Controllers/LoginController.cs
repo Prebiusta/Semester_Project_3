@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
@@ -11,7 +10,7 @@ using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
     
-    public class LoginController : CustomController {   
+    public class LoginController : CustomController {
 
         public IActionResult Index() {
             return View("Index");
@@ -69,7 +68,7 @@ namespace WebCoreMVC.NET.Controllers {
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
-                authProperties);            
+                authProperties);
         }
 
         public async Task<IActionResult> LogOut()

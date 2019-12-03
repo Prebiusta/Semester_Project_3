@@ -9,8 +9,6 @@ public class Sprint {
     @Column(name = "sprint_id")
     private int sprintId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "project_id")
     @Column(name = "project_id")
     private int projectId;
 
@@ -33,6 +31,11 @@ public class Sprint {
     private String status;
 
     public Sprint() {
+    }
+
+    public Sprint(int projectId, int sprintNumber) {
+        this.projectId = projectId;
+        this.sprintNumber = sprintNumber;
     }
 
     public Sprint(int projectId, int sprintNumber, String dateStarted, String dateFinished, int productOwnerId, int scrumMasterId, String status) {
@@ -107,5 +110,19 @@ public class Sprint {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Sprint{" +
+                "sprintId=" + sprintId +
+                ", projectId=" + projectId +
+                ", sprintNumber=" + sprintNumber +
+                ", dateStarted='" + dateStarted + '\'' +
+                ", dateFinished='" + dateFinished + '\'' +
+                ", productOwnerId=" + productOwnerId +
+                ", scrumMasterId=" + scrumMasterId +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

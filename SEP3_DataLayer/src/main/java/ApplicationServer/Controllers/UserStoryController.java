@@ -41,6 +41,4 @@ public class UserStoryController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id not specified");
     }
-
-
 }

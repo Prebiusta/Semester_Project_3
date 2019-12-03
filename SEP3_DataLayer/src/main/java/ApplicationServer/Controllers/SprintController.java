@@ -1,12 +1,10 @@
 package ApplicationServer.Controllers;
 
 import ApplicationServer.JPA.SprintRepository;
+import ApplicationServer.Model.Sprint;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -44,5 +42,36 @@ public class SprintController {
             return ResponseEntity.status(HttpStatus.OK).body(sprintRepository.findAllByProjectId(projectId));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not allowed to get all database Sprints");
+    }
+
+    /**
+     * Post method for creating sprint. Used while Sprint Planning. Have to contain all variables. Overrides the original sprint in database
+     * which had some variables nulls.
+     *
+     * EXAMPLE:
+     *  http://{host}:6969/api/sprint
+     *  Body:
+     *  {
+     * 	    "projectId" : 8,
+     * 	    "sprintNumber" : 1,
+     * 	    "dateStarted" : "1999-12-31",
+     * 	    "dateFinished" : "1999-12-31",
+     * 	    "productOwnerId" : 2,
+     * 	    "scrumMasterId" : 1,
+     * 	    "status": "ongoing"
+     *  }
+     *
+     * @param sprint Sprint object passed from Business Tier.
+     * @return Returns relevant HttpStatus. CREATED if creation was successful or BAD_REQUEST if creation failed.
+     */
+    @RequestMapping(value = "/sprint", method = RequestMethod.POST)
+    public ResponseEntity<?> createSprint(@RequestBody Sprint sprint){
+        System.out.println(sprint.toString());
+        try {
+            var savedSprint = sprintRepository.save(sprint);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedSprint);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving sprint " + e.getMessage());
+        }
     }
 }
