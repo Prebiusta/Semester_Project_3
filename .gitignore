@@ -8,3 +8,5 @@ SEP3_BusinessLayer/target
 .DS_Store
 *.xml
 .vs
+*.dll
+*.cache

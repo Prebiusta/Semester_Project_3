@@ -9,7 +9,7 @@ using WebCoreMVC.NET.Models;
 using WebCoreMVC.NET.Models.Claims;
 
 namespace WebCoreMVC.NET.Controllers {
-//    [Authorize(Policy = "MustBeUser")]
+    [Authorize(Policy= "MustBeUser")]
     public class SprintController : CustomController {
         public IActionResult Index(int id) { 
             var list = GetSprints(id).Result;
