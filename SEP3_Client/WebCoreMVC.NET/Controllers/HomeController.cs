@@ -1,9 +1,11 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
+    //[Authorize(Policy = "MustBeUser")]
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
 

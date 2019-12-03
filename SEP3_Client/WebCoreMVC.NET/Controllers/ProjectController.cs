@@ -2,18 +2,20 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
+    //[Authorize(Policy = "MustBeUser")]
     public class ProjectController : CustomController {
         public IActionResult Index() {
             var list = GetProjects().Result;
             var result = JsonConvert.DeserializeObject<List<Project>>(list);
             foreach(Project project in result)
             {
-                clientData.addProjectClaim(new Models.Claims.ProjectClaim(project.projectId, project.administrators));
+                clientData.addProjectClaim(new Models.Claims.ProjectClaim(project.projectId, project.admins));
             }
             return View(result);
         }
@@ -63,12 +65,12 @@ namespace WebCoreMVC.NET.Controllers {
         }
 
         public async Task<string> GetProjects() {
-            var content = await GetJsonData("api/project");
+            var content = await GetJsonData("api/project?username=" + username);
             return content;
         }
 
         public async Task<HttpResponseMessage> SendProjectData(Project projects) {
-            var httpContent = await PostData(projects, "api/createProject");
+            var httpContent = await PostData(projects, "api/createProject?username=" + username);
             return httpContent;
         }
         

@@ -85,6 +85,7 @@ public class ProjectController {
     public ResponseEntity<String> create(
             @RequestBody Project project,
             @RequestParam(value = "username") String username) {
+        System.out.println("project creating for user with username = " +  username);
         Project savedProject = projectRepository.save(project);
         if (savedProject != null) {
             AdministratorsInProjects adminEntry = new AdministratorsInProjects(new AdministratorProjectKey(username, savedProject.getProjectId()));

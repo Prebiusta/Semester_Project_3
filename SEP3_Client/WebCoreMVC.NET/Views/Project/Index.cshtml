@@ -6,6 +6,7 @@
 <head>
     <title>Projects</title>
     <link rel="stylesheet" href="/css/projects.css">
+
 </head>
 <body>
 <h1>Projects</h1>
@@ -20,7 +21,7 @@
                 <h1>@Html.DisplayFor(modelItem => item.name)</h1>
                 <div class="buttonContainer">
                     <button class="example_c" onclick="location.href='@Url.Action("Index", "Sprint", new {id = item.projectId})'">Sprints</button>
-                    <button class="example_c" onclick="location.href='@Url.Action("GetUserStories", "Project", new {id = item.backlogID})'">Product Backlog</button>
+                    <button class="example_c" onclick="location.href='@Url.Action("GetUserStories", "Project")'">Product Backlog</button>
                     <div class="break"> </div>
                     <button class="example_c">Burndown Chart</button>
                     <button class="example_c">Edit Project</button>
@@ -30,6 +31,8 @@
                 </div>
             </div>
         }
+
     </div>
+
 </div>
 </body>

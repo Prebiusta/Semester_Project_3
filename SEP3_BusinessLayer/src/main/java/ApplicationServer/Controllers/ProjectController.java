@@ -44,12 +44,15 @@ public class ProjectController extends ControllerConfiguration{
     @RequestMapping(value = "/project", method = RequestMethod.GET)
     public ResponseEntity<List<ProjectClient>> getProject(
             @RequestParam(value = "status", required = false) String status,
-            @RequestParam(value = "id", required = false) Integer id) {
+            @RequestParam(value = "id", required = false) Integer id,
+            @RequestParam(value = "username", required = false) String username) {
         String jsonProjects;
         if (status != null) {
             jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project?status=" + status, String.class);
         } else if (id != null) {
             jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project?id=" + id, String.class);
+        } else if (username != null){
+            jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project?username=" + username, String.class);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -82,14 +85,16 @@ public class ProjectController extends ControllerConfiguration{
      */
 
     @RequestMapping(value = "/createProject", method = RequestMethod.POST)
-    public ResponseEntity<ProjectClient> create(@RequestBody ProjectClient project) {
+    public ResponseEntity<ProjectClient> create(
+            @RequestBody ProjectClient project,
+            @RequestParam(value = "username") String username) {
         //For now this block is useless, but later this is where actual remodelling will be taking place
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         ProjectDataLayer projectForDataLayer = new ProjectDataLayer(project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint(), project.getAdmins());
         HttpEntity<ProjectDataLayer> projectDataLayerHttpEntity = new HttpEntity<>(projectForDataLayer);
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         try {
-            restUtility.postForLocation(DataLayerURI + "/api/createProject", projectDataLayerHttpEntity);
+            restUtility.postForLocation(DataLayerURI + "/api/project?username=" + username, projectDataLayerHttpEntity);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (HttpClientErrorException e) {
             System.out.println("Project couldn't be created");
