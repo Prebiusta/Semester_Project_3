@@ -60,8 +60,10 @@ namespace WebCoreMVC.NET.Controllers {
             {
                 new Claim("MustBeUser", username)
             };
+            claims.Add(new Claim("MustBeUser", "MustBeUser"));
+            claims.Add(new Claim(username, "MustBeUser"));
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            
+            var principal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
             
         }

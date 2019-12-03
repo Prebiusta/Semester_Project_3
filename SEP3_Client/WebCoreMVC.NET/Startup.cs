@@ -27,14 +27,8 @@ namespace WebCoreMVC.NET {
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Login";
-                    options.SlidingExpiration = true;
-
-
-                });
-    
-
-       
-
+                    options.AccessDeniedPath = "/Login";
+                });       
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("MustBeUser", p => p.RequireAuthenticatedUser().RequireClaim("Role", "user"));
@@ -57,6 +51,7 @@ namespace WebCoreMVC.NET {
             app.UseStaticFiles();
 
             app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

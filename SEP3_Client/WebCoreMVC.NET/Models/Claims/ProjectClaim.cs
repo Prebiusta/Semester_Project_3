@@ -9,15 +9,15 @@ namespace WebCoreMVC.NET.Models.Claims {
         public int projectId { get; set; }
         public bool isAdministrator { get; set; }
         public List<SprintClaim> sprintClaims { get; set; }
-        public List<Administrator> administrators { get; set; }
+        public List<string> administrators { get; set; }
 
         public ProjectClaim()
         {
             sprintClaims = new List<SprintClaim>();
-            administrators = new List<Administrator>();
+            administrators = new List<string>();
         }
 
-        public ProjectClaim(int projectId, List<Administrator> administrators)
+        public ProjectClaim(int projectId, List<string> administrators)
         {
             this.projectId = projectId;
             this.administrators = administrators;
@@ -26,7 +26,7 @@ namespace WebCoreMVC.NET.Models.Claims {
 
         public void isUserAdministrator()
         {
-            foreach(Administrator administrator in administrators)
+            foreach(String administrator in administrators)
             {
                 if(administrator.Equals(CustomController.username))
                 {
