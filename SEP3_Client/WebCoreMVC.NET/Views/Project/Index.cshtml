@@ -21,12 +21,12 @@
                 <h1>@Html.DisplayFor(modelItem => item.name)</h1>
                 <div class="buttonContainer">
                     <button class="example_c" onclick="location.href='@Url.Action("Index", "Sprint", new {id = item.projectId})'">Sprints</button>
-                    <button class="example_c" onclick="location.href='@Url.Action("GetUserStories", "Project")'">Product Backlog</button>
+                    <button class="example_c" onclick="location.href='@Url.Action("Index", "UserStory", new {id = item.projectId})'">Product Backlog</button>
                     <div class="break"> </div>
                     <button class="example_c">Burndown Chart</button>
                     <button class="example_c">Edit Project</button>
                     <div class="break"> </div>
-                    <button class="example_c" onclick="location.href='@Url.Action("Members", "Project", new {id = item.projectId})'">Edit Members</button>
+                    <button class="example_c" onclick="location.href = '@Url.Action("Index", "Members", new {id = item.projectId})'">Edit Members</button>
                     <button class="example_c">Leave Project</button>
                 </div>
             </div>

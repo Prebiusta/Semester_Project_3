@@ -19,28 +19,8 @@ namespace WebCoreMVC.NET.Controllers {
             }
             return View(result);
         }
-        
-        public IActionResult Members(int id) {
-            var list = GetUsersInProjects(id).Result;
-            var result = JsonConvert.DeserializeObject<List<User>>(list);
-            return View(result);
-        }
 
-            //public IActionResult ProjectBacklog(int id)
-            //{
-    //            var list = GetProjectBacklog(id).Result;
-    //            var result = JsonConvert.DeserializeObject<List<ProjectBacklog>>(list);
-    //            return View(result);
-            //}
-
-            public IActionResult UserStories(int id)
-            {
-                var list = GetUserStories(id).Result;
-                var result = JsonConvert.DeserializeObject<List<UserStory>>(list);
-                return View(result);
-            }
-
-            public IActionResult CreateProject() {
+        public IActionResult CreateProject() {
             return View("CreateProject");
         }
 
@@ -72,23 +52,6 @@ namespace WebCoreMVC.NET.Controllers {
         public async Task<HttpResponseMessage> SendProjectData(Project projects) {
             var httpContent = await PostData(projects, "api/createProject?username=" + username);
             return httpContent;
-        }
-        
-        public async Task<string> GetUsersInProjects(int id) {
-            var content = await GetJsonData("api/users_in_projects?projectId=" + id);
-            return content;
-        }
-
-        public async Task<string> GetProjectBacklog(int id)
-        {
-            var content = await GetJsonData("api/projectBacklog?projectId=" + id);
-            return content;
-        }
-
-        public async Task<string> GetUserStories(int id)
-        {
-            var content = await GetJsonData("api/userStory?projectBacklogId=" + id);
-            return content;
         }
     }
 }

@@ -12,8 +12,6 @@ namespace WebCoreMVC.NET.Controllers {
     
     public class LoginController : CustomController {
 
-   
-
         public IActionResult Index() {
             return View("Index");
         }
