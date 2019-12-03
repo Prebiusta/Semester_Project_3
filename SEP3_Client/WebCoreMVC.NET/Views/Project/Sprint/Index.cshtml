@@ -20,6 +20,14 @@
         @foreach (var item in Model) {
             <div class="sprint">
                 <h1>Sprint @Html.DisplayFor(modelItem => item.sprintNumber)</h1>
+                @if(item.isScrumMaster)
+                {
+                    <h2>You are the Scrum Master</h2>
+                }
+                @if(item.isProductOwner)
+                {
+                    <h2>You are the Product Owner</h2>
+                }
                 <div class="buttonContainer">
                     <button class="example_c"> Sprint Backlog</button>
                     <button class="example_c"> Tasks</button>

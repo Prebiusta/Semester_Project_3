@@ -21,11 +21,11 @@ public class Sprint {
     @Column(name = "date_finished")
     private String dateFinished;
 
-    @Column(name = "product_owner_id")
-    private int productOwnerId;
+    @Column(name = "product_owner_username")
+    private String productOwnerUsername;
 
-    @Column(name = "scrum_master_id")
-    private int scrumMasterId;
+    @Column(name = "scrum_master_username")
+    private String scrumMasterUsername;
 
     @Column(name = "status")
     private String status;
@@ -38,13 +38,13 @@ public class Sprint {
         this.sprintNumber = sprintNumber;
     }
 
-    public Sprint(int projectId, int sprintNumber, String dateStarted, String dateFinished, int productOwnerId, int scrumMasterId, String status) {
+    public Sprint(int projectId, int sprintNumber, String dateStarted, String dateFinished, String productOwnerUsername, String scrumMasterUsername, String status) {
         this.projectId = projectId;
         this.sprintNumber = sprintNumber;
         this.dateStarted = dateStarted;
         this.dateFinished = dateFinished;
-        this.productOwnerId = productOwnerId;
-        this.scrumMasterId = scrumMasterId;
+        this.productOwnerUsername = productOwnerUsername;
+        this.scrumMasterUsername = scrumMasterUsername;
         this.status = status;
     }
 
@@ -88,20 +88,20 @@ public class Sprint {
         this.dateFinished = dateFinished;
     }
 
-    public int getProductOwnerId() {
-        return productOwnerId;
+    public String getproductOwnerUsername() {
+        return productOwnerUsername;
     }
 
-    public void setProductOwnerId(int productOwnerId) {
-        this.productOwnerId = productOwnerId;
+    public void setproductOwnerUsername(String productOwnerUsername) {
+        this.productOwnerUsername = productOwnerUsername;
     }
 
-    public int getScrumMasterId() {
-        return scrumMasterId;
+    public String getscrumMasterUsername() {
+        return scrumMasterUsername;
     }
 
-    public void setScrumMasterId(int scrumMasterId) {
-        this.scrumMasterId = scrumMasterId;
+    public void setscrumMasterUsername(String scrumMasterUsername) {
+        this.scrumMasterUsername = scrumMasterUsername;
     }
 
     public String getStatus() {
@@ -120,8 +120,8 @@ public class Sprint {
                 ", sprintNumber=" + sprintNumber +
                 ", dateStarted='" + dateStarted + '\'' +
                 ", dateFinished='" + dateFinished + '\'' +
-                ", productOwnerId=" + productOwnerId +
-                ", scrumMasterId=" + scrumMasterId +
+                ", productOwnerUsername=" + productOwnerUsername +
+                ", scrumMasterUsername=" + scrumMasterUsername +
                 ", status='" + status + '\'' +
                 '}';
     }

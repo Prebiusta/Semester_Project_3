@@ -56,8 +56,8 @@ public class SprintController {
      * 	    "sprintNumber" : 1,
      * 	    "dateStarted" : "1999-12-31",
      * 	    "dateFinished" : "1999-12-31",
-     * 	    "productOwnerId" : 2,
-     * 	    "scrumMasterId" : 1,
+     * 	    "productOwnerUsername" : 2,
+     * 	    "scrumMasterUsername" : 1,
      * 	    "status": "ongoing"
      *  }
      *

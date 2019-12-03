@@ -13,11 +13,8 @@ namespace WebCoreMVC.NET.Controllers {
         public IActionResult Index() {
             var list = GetProjects().Result;
             var result = JsonConvert.DeserializeObject<List<Project>>(list);
-            foreach(Project project in result)
-            {
-                clientData.addProjectClaim(new Models.Claims.ProjectClaim(project.projectId, project.admins));
-            }
-            return View(result);
+            var resultsWithAssignedAdministrators = utilityIterator.assignAdministrators(result, username);
+            return View(resultsWithAssignedAdministrators);
         }
 
         public IActionResult CreateProject() {

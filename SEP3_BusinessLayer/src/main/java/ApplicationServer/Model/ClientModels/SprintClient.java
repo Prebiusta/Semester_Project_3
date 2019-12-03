@@ -2,35 +2,41 @@ package ApplicationServer.Model.ClientModels;
 
 public class SprintClient {
 
-    private int sprintId;
     private int projectId;
+    private int sprintId;
     private int sprintNumber;
     private String dateStarted;
     private String dateFinished;
-    private int productOwnerId;
-    private int scrumMasterId;
+    private String productOwnerUsername;
+    private String scrumMasterUsername;
     private String status;
+    private boolean isScrumMaster;
+    private boolean isProductOwner;
 
     public SprintClient() {}
 
-    public SprintClient(int sprintId, int projectId, int sprintNumber, String dateStarted, String dateFinished, int productOwnerId, int scrumMasterId, String status) {
+    public SprintClient(int sprintId, int projectId, int sprintNumber, String dateStarted, String dateFinished, String productOwnerUsername, String scrumMasterUsername, String status) {
         this.sprintId = sprintId;
         this.projectId = projectId;
         this.sprintNumber = sprintNumber;
         this.dateStarted = dateStarted;
         this.dateFinished = dateFinished;
-        this.productOwnerId = productOwnerId;
-        this.scrumMasterId = scrumMasterId;
+        this.productOwnerUsername = productOwnerUsername;
+        this.scrumMasterUsername = scrumMasterUsername;
         this.status = status;
+        this.isScrumMaster = false;
+        this.isProductOwner = false;
     }
 
-    public SprintClient(int sprintNumber, String dateStarted, String dateFinished, int productOwnerId, int scrumMasterId, String status) {
+    public SprintClient(int sprintNumber, String dateStarted, String dateFinished, String productOwnerUsername, String scrumMasterUsername, String status) {
         this.sprintNumber = sprintNumber;
         this.dateStarted = dateStarted;
         this.dateFinished = dateFinished;
-        this.productOwnerId = productOwnerId;
-        this.scrumMasterId = scrumMasterId;
+        this.productOwnerUsername = productOwnerUsername;
+        this.scrumMasterUsername = scrumMasterUsername;
         this.status = status;
+        this.isScrumMaster = false;
+        this.isProductOwner = false;
     }
 
     public int getSprintId() {
@@ -53,16 +59,24 @@ public class SprintClient {
         return dateFinished;
     }
 
-    public int getProductOwnerId() {
-        return productOwnerId;
+    public String getproductOwnerUsername() {
+        return productOwnerUsername;
     }
 
-    public int getScrumMasterId() {
-        return scrumMasterId;
+    public String getscrumMasterUsername() {
+        return scrumMasterUsername;
     }
 
     public String getStatus() {
         return status;
+    }
+
+    public boolean isScrumMaster() {
+        return isScrumMaster;
+    }
+
+    public boolean isProductOwner() {
+        return isProductOwner;
     }
 
     @Override
@@ -74,8 +88,8 @@ public class SprintClient {
                         ", sprintNumber=" + sprintNumber +
                         ", dateStarted='" + dateStarted + '\'' +
                         ", dateFinished='" + dateFinished + '\'' +
-                        ", productOwnerId=" + productOwnerId +
-                        ", scrumMasterId=" + scrumMasterId +
+                        ", productOwnerUsername=" + productOwnerUsername +
+                        ", scrumMasterUsername=" + scrumMasterUsername +
                         ", status='" + status + '\'' +
                         '}';
     }

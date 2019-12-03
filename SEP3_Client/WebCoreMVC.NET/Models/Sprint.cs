@@ -14,5 +14,7 @@ namespace WebCoreMVC.NET.Models {
         public string productOwnerUsername { get; set; }
         public string scrumMasterUsername { get; set; }
         public string status { get; set; }
+        public bool isScrumMaster { get; set; }
+        public bool isProductOwner { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using WebCoreMVC.NET.Controllers.Utility;
 using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
@@ -16,7 +17,7 @@ namespace WebCoreMVC.NET.Controllers {
         protected readonly HttpClient client = new HttpClient();
         protected readonly string serverUrl = "http://" + "localhost" + ":8081/";
         public static string username { get; set; }
-        protected ClientData clientData = new ClientData();
+        protected UtilityIterator utilityIterator = new UtilityIterator();
 
         //Generic Post and Get methods
         public async Task<HttpResponseMessage> PostData(object data, string PostWhere) {

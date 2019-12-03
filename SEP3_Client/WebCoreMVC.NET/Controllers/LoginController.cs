@@ -14,6 +14,9 @@ namespace WebCoreMVC.NET.Controllers {
     public class LoginController : CustomController {
 
         public IActionResult Index() {
+            //This line should be displayed n the first page to see
+            username = User.Identity.Name;
+            //---------------------------------------------------
             return View("Index");
         }
 
