@@ -163,7 +163,7 @@ body {
 
 .side-nav .categories > li > a:after {
     content: "\f053";
-/ / font-family: fontAwesome;
+    font-family: fontAwesome;
     font-size: 11px;
     line-height: 1.8;
     float: right;
@@ -449,7 +449,3 @@ h1 {
     color: #000 !important;
     background-color: #ccc !important;
 }
-
-
-
-
