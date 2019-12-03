@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
+    [Authorize(Policy = "MustBeUser")]
     public class MembersController : CustomController {
         public IActionResult Index(int id) {
             var list = GetUsersInProjects(id).Result;

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
-    //[Authorize(Policy = "MustBeUser")]
+    [Authorize(Policy = "MustBeUser")]
     public class HomeController : Controller {
         private readonly ILogger<HomeController> _logger;
 
