@@ -76,10 +76,10 @@ public class UserController extends ControllerConfiguration {
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);        }
         try {
-            List<UsersInProjectDataLayer> usersInProjectsFromDataLayer = jsonMapper.readValue(jsonUsersInProjects, new TypeReference<List<UsersInProjectDataLayer>>(){});
+            List<String> usersInProjectsFromDataLayer = jsonMapper.readValue(jsonUsersInProjects, new TypeReference<List<String>>(){});
             List<UsersInProjectsClient> usersForDisplay = new ArrayList<>();
-            for(UsersInProjectDataLayer usersInProjectDataLayer : usersInProjectsFromDataLayer) {
-                usersForDisplay.add(new UsersInProjectsClient(usersInProjectDataLayer.getProjectId(), usersInProjectDataLayer.getUsername()));
+            for(String usersInProjectDataLayer : usersInProjectsFromDataLayer) {
+                usersForDisplay.add(new UsersInProjectsClient(usersInProjectDataLayer));
             }
             return new ResponseEntity<>(usersForDisplay, HttpStatus.OK);
         } catch (IOException e) {
