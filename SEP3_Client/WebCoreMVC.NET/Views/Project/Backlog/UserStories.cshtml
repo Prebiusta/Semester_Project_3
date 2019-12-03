@@ -1,0 +1,21 @@
+﻿@model System.Collections.Generic.List<WebCoreMVC.NET.Models.UserStory>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Product Backlog</title>
+</head>
+<body>
+<h1>User Stories</h1>
+<div class="row">
+    @foreach (var item in Model) {
+        <li>@item.userStoryId @item.description</li>
+    }
+</div>
+</body>
+</html>
