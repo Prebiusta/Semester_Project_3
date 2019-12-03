@@ -1,16 +1,10 @@
 package ApplicationServer.Model.ClientModels;
 
 public class UsersInProjectsClient {
-    private int projectId;
     private String username;
 
-    public UsersInProjectsClient(int projectId, String username) {
-        this.projectId = projectId;
+    public UsersInProjectsClient(String username) {
         this.username = username;
-    }
-
-    public int getProjectId() {
-        return projectId;
     }
 
     public String getUsername() {
