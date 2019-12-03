@@ -27,7 +27,8 @@ namespace WebCoreMVC.NET {
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/Login";
-                    options.AccessDeniedPath = "/Login";
+                    options.AccessDeniedPath = "/Register";
+                    options.SlidingExpiration = true;
                 });       
             services.AddAuthorization(options =>
             {
@@ -52,14 +53,24 @@ namespace WebCoreMVC.NET {
 
             app.UseRouting();
 
+
+            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Login}/{action=Index}/{id?}");
             });
+            
+            /*
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapRazorPages();
+            });
+            */
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
@@ -10,9 +11,7 @@ using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
     
-    public class LoginController : CustomController {
-
-   
+    public class LoginController : CustomController {   
 
         public IActionResult Index() {
             return View("Index");
@@ -55,17 +54,29 @@ namespace WebCoreMVC.NET.Controllers {
         }
         
         public async void AuthorizeLogin(string username) {
-
             var claims = new List<Claim>
             {
-                new Claim("MustBeUser", username)
+                new Claim(ClaimTypes.Name, username)
             };
-            claims.Add(new Claim("MustBeUser", "MustBeUser"));
-            claims.Add(new Claim(username, "MustBeUser"));
+            claims.Add(new Claim("Role", "user"));
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(claimsIdentity);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-            
+            var authProperties = new AuthenticationProperties
+            {
+                AllowRefresh = true,
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(15)
+                //RedirectUri = "Pass uri where user should be redirected"
+            };
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);            
+        }
+
+        public async Task<IActionResult> LogOut()
+        {
+            Console.WriteLine("Login out");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Login");
         }
     }
 }
