@@ -3,3 +3,8 @@ SEP3_DataLayer/.idea
 SEP3_DataLayer/target
 SEP3_BusinessLayer/.idea
 SEP3_BusinessLayer/target
+
+.idea
+.DS_Store
+*.xml
+.vs
