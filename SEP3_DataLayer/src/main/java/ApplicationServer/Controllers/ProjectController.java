@@ -8,6 +8,7 @@ import ApplicationServer.Model.AdministratorsInProjects;
 import ApplicationServer.Model.CompositeKeys.AdministratorProjectKey;
 import ApplicationServer.Model.CompositeKeys.UserProjectKey;
 import ApplicationServer.Model.Project;
+import ApplicationServer.Model.Sprint;
 import ApplicationServer.Model.UsersInProjects;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +24,13 @@ public class ProjectController {
     private ProjectRepository projectRepository;
     private UsersInProjectsRepository usersInProjectsRepository;
     private AdministratorsInProjectsRepository administratorsInProjectsRepository;
+    private SprintRepository sprintRepository;
 
-    public ProjectController(ProjectRepository projectRepository, UsersInProjectsRepository usersInProjectsRepository, AdministratorsInProjectsRepository administratorsInProjectsRepository) {
+    public ProjectController(ProjectRepository projectRepository, UsersInProjectsRepository usersInProjectsRepository, AdministratorsInProjectsRepository administratorsInProjectsRepository, SprintRepository sprintRepository) {
         this.projectRepository = projectRepository;
         this.usersInProjectsRepository = usersInProjectsRepository;
         this.administratorsInProjectsRepository = administratorsInProjectsRepository;
+        this.sprintRepository = sprintRepository;
     }
 
     /**
@@ -85,7 +88,6 @@ public class ProjectController {
     public ResponseEntity<String> create(
             @RequestBody Project project,
             @RequestParam(value = "username") String username) {
-        System.out.println("project creating for user with username = " +  username);
         Project savedProject = projectRepository.save(project);
         if (savedProject != null) {
             AdministratorsInProjects adminEntry = new AdministratorsInProjects(new AdministratorProjectKey(username, savedProject.getProjectId()));
@@ -93,13 +95,19 @@ public class ProjectController {
             try {
                 administratorsInProjectsRepository.save(adminEntry);
                 usersInProjectsRepository.save(userEntry);
+
+                // Create all Sprints for Project based on number of iterations. Some variables are null and have
+                // to be initialized during sprint planning.
+                for (int a = 0; a < project.getNumberOfIterations(); a++){
+                    Sprint sprint = new Sprint(project.getProjectId(), a + 1);
+                    sprintRepository.save(sprint);
+                }
                 return ResponseEntity.status(HttpStatus.OK).body("Project created");
             } catch (Exception e){
                 projectRepository.delete(savedProject);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
             }
         }
-
         // If anything above goes wrong
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Creation of the Project failed");
     }
