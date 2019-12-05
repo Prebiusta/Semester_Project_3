@@ -1,5 +1,7 @@
 package ApplicationServer.Model.ClientModels;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SprintClient {
 
     private int projectId;
@@ -10,7 +12,9 @@ public class SprintClient {
     private String productOwnerUsername;
     private String scrumMasterUsername;
     private String status;
+    @JsonProperty("isScrumMaster")
     private boolean isScrumMaster;
+    @JsonProperty("isProductOwner")
     private boolean isProductOwner;
 
     public SprintClient() {}
@@ -77,6 +81,14 @@ public class SprintClient {
 
     public boolean isProductOwner() {
         return isProductOwner;
+    }
+
+    public void setScrumMaster(boolean scrumMaster) {
+        isScrumMaster = scrumMaster;
+    }
+
+    public void setProductOwner(boolean productOwner) {
+        isProductOwner = productOwner;
     }
 
     @Override

@@ -45,7 +45,7 @@ public class ProjectController extends ControllerConfiguration{
     public ResponseEntity<List<ProjectClient>> getProject(
             @RequestParam(value = "status", required = false) String status,
             @RequestParam(value = "id", required = false) Integer id,
-            @RequestParam(value = "username", required = false) String username) {
+            @RequestParam(value = "username", required = true) String username) {
         String jsonProjects;
         if (status != null) {
             jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project?status=" + status, String.class);
@@ -63,6 +63,13 @@ public class ProjectController extends ControllerConfiguration{
             List<ProjectClient> projectsForClients = new ArrayList<>();
             for(ProjectDataLayer project : projectsFromDataLayer) {
                 projectsForClients.add(new ProjectClient(project.getProjectId(), project.getName(), project.getStatus(), project.getNumberOfIterations(), project.getLengthOfSprint(), project.getAdmins()));
+            }
+            for(ProjectClient projectClient : projectsForClients) {
+                for(String admin : projectClient.getAdmins()) {
+                    if(admin.equals(username)) {
+                        projectClient.setAdministrator();
+                    }
+                }
             }
             //--------------------------------------------------------------------||--------------------------------------------------------------------
             return new ResponseEntity<>(projectsForClients, HttpStatus.OK);

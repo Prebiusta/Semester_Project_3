@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -6,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using WebCoreMVC.NET.Controllers.Utility;
 using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
@@ -17,7 +17,8 @@ namespace WebCoreMVC.NET.Controllers {
         protected readonly HttpClient client = new HttpClient();
         protected readonly string serverUrl = "http://" + "localhost" + ":8081/";
         public static string username { get; set; }
-        protected UtilityIterator utilityIterator = new UtilityIterator();
+        protected List<Project> projects = new List<Project>();
+        protected List<Sprint> sprints = new List<Sprint>();
 
         //Generic Post and Get methods
         public async Task<HttpResponseMessage> PostData(object data, string PostWhere) {
