@@ -11,4 +11,5 @@ import java.util.List;
 public interface UsersInProjectsRepository extends JpaRepository<UsersInProjects, UserProjectKey> {
     List<UsersInProjects> findByUserProjectKeyUsername(String username);
     List<UsersInProjects> findByUserProjectKeyProjectId(int id);
+    List<UsersInProjects> findByUserProjectKeyProjectIdNot(int id);
 }
