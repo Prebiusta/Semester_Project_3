@@ -1,7 +1,7 @@
 @model System.Collections.Generic.List<WebCoreMVC.NET.Models.UserStory>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Product Backlog";
 }
 
 <!DOCTYPE html>
@@ -9,14 +9,17 @@
 <html>
 <head>
     <title>Product Backlog</title>
-    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
 </head>
 <body>
 <h1>User Stories</h1>
 <div class="row">
-        @foreach (var item in Model) {
+    <div class="structure">
+        @foreach (var item in Model)
+        {
             <li>@item.userStoryId @item.description</li>
         }
+    </div>
 </div>
 </body>
 </html>
