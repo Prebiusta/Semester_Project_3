@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -22,14 +23,27 @@ namespace WebCoreMVC.NET.Controllers {
             return View("~/Views/Project/Backlog/Index.cshtml", containerForListAndId);
         }
 
-        public IActionResult AddUserStory(string userStory, int projectBacklogId)
+        public IActionResult AddUserStory(int sprintId)
         {
-            var response = AddUserStoryRequest(userStory, projectBacklogId).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                
-            }
+            return View("~/Views/Project/Backlog/AddUserStory.cshtml", sprintId);
+        }
 
+        public IActionResult PostUserStory()
+        {
+            string priority = Request.Form["priority"];
+            string description = Request.Form["description"];
+            int difficulty = int.Parse(Request.Form["difficulty"]);
+            int sprintId = int.Parse(Request.Form["sprintId"]);
+            //TODO
+            int productBacklogId = 1;
+            //-----------------------
+            UserStory userStory = new UserStory(-1, productBacklogId, priority, description, difficulty, "ongoing");
+            var response = AddUserStoryRequest(userStory).Result;
+            if(response.IsSuccessStatusCode)
+            {
+                return Index(sprintId);
+            }
+            ModelState.AddModelError(string.Empty, "Server sent a bad request: " + response.Content);
             return Index(sprintId);
         }
         
@@ -55,8 +69,8 @@ namespace WebCoreMVC.NET.Controllers {
             return content;
         }
         
-        private async Task<HttpResponseMessage> AddUserStoryRequest(string userStory, int id) {
-            var httpContent = await PostData(userStory, "api/userStory=" + "&sprintId=" + id);
+        private async Task<HttpResponseMessage> AddUserStoryRequest(UserStory userStory) {
+            var httpContent = await PostData(userStory, "api/userStory");
             return httpContent;
         }
         
@@ -64,5 +78,11 @@ namespace WebCoreMVC.NET.Controllers {
             var httpContent = await PostData(userStoryId, "api/usersInProjectDelete=");
             return httpContent;
         }
+
+        private async Task<HttpResponseMessage> GetProductBacklogId(int sprintId)
+        {
+            var httpContent = await PostData(sprintId, "api/sprintId=" + sprintId);
+            return httpContent;
+        } 
     }
 }

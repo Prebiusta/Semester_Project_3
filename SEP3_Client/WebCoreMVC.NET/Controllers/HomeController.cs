@@ -6,7 +6,7 @@ using WebCoreMVC.NET.Models;
 
 namespace WebCoreMVC.NET.Controllers {
     [Authorize(Policy = "MustBeUser")]
-    public class HomeController : Controller {
+    public class HomeController : CustomController {
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger) {
@@ -14,6 +14,9 @@ namespace WebCoreMVC.NET.Controllers {
         }
 
         public IActionResult Index() {
+            //This line should be initialized the moment software is started
+            username = User.Identity.Name;
+            //---------------------------------------------------
             return View("Index");
         }
 

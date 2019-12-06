@@ -5,6 +5,9 @@ public class UserProjectClient {
     private int projectId;
     private String username;
 
+    public UserProjectClient() {
+    }
+
     public UserProjectClient(int projectId, String username) {
         this.projectId = projectId;
         this.username = username;

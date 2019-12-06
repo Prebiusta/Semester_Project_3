@@ -6,6 +6,14 @@
     box-sizing: border-box;
     font-family: 'Droid Sans', sans-serif;
     outline: none;
+    list-style: none;
+}
+
+/*Flex row display*/
+.flex-row {
+    display: flex !important;
+    flex-direction: row !important;
+    margin: 20px;
 }
 
 /*The scrollbar design if it is needed*/
@@ -559,4 +567,17 @@ h1 {
 .w3-button:hover {
     color: #000 !important;
     background-color: #ccc !important;
+}
+
+.deleteMemberButton {
+    background-color: #940707 !important;
+    color: white !important;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+/* Margin so we can see anything in this fucked up design*/
+.margin-left-80px {
+    margin-left: 80px !important;
 }

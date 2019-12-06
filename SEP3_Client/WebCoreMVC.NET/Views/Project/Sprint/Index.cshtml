@@ -12,19 +12,23 @@
 <h1>Sprints</h1>
 <div class="row">
     <div class="structure">
-        @foreach (var item in Model.accessList) {
+        <button class="w3-button w3-black w3-card-4" onclick="goToPreviousWebsite()">< Back</button>
+        <br />
+        <br />
+        @foreach (var item in Model.accessList)
+        {
             <div class="sprint">
                 <h1>Sprint @Html.DisplayFor(modelItem => item.sprintNumber)</h1>
-                @if(item.isScrumMaster)
+                @if (item.isScrumMaster)
                 {
                     <div class="scrum_master">Scrum Master</div>
                 }
-                @if(item.isProductOwner)
+                @if (item.isProductOwner)
                 {
                     <div class="product_owner">Product Owner</div>
                 }
                 <div class="buttonContainer">
-                    <button class="example_c" onclick="location.href='@Url.Action("Index", "Backlog", new {item.sprintId})'"> Sprint Backlog</button>
+                    <button class="example_c" onclick="location.href='@Url.Action("Index", "Backlog", new {item})'"> Sprint Backlog</button>
                     <button class="example_c"> Tasks</button>
                     <div class="break"> </div>
                     <button class="example_c"> Burndown Chart</button>

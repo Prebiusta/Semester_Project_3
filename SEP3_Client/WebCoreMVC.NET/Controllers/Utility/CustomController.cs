@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
@@ -16,13 +17,14 @@ namespace WebCoreMVC.NET.Controllers {
         //All controllers are reusing the same http client and server ip so there is no need to create them multiple times
         protected readonly HttpClient client = new HttpClient();
         protected readonly string serverUrl = "http://" + "localhost" + ":8081/";
-        public static string username { get; set; }
+        protected static string username { get; set; }
         protected List<Project> projects = new List<Project>();
         protected ContainerForListAndId<Sprint> sprints = new ContainerForListAndId<Sprint>();
 
         //Generic Post and Get methods
         public async Task<HttpResponseMessage> PostData(object data, string PostWhere) {
             var json = JsonConvert.SerializeObject(data);
+            Debug.WriteLine(json);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await client.PostAsync(serverUrl + PostWhere, content);
             return response;
