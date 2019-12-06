@@ -1,6 +1,7 @@
 package ApplicationServer.Controllers;
 
 import ApplicationServer.Model.ClientModels.ProjectClient;
+import ApplicationServer.Model.ClientModels.UserProjectClient;
 import ApplicationServer.Model.DataLayerModels.ProjectDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.http.HttpEntity;
@@ -108,7 +109,80 @@ public class ProjectController extends ControllerConfiguration{
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } catch (RestClientException e) {
             e.printStackTrace();
-            System.out.println("Some internal json issue but project created successfully");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * Add new entry to UsersInProjects table.
+     * EXAMPLE:
+     *  http://{host}:8081/api/addUser
+     *
+     * @return <i>HTTP 201 - CREATED</i> code with saved object in body if user is added to the project. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
+     */
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public ResponseEntity<?> addUserToProject(UserProjectClient userProjectClient) {
+        String username = userProjectClient.getUsername();
+        int projectId = userProjectClient.getProjectId();
+        HttpEntity<String> projectDataLayerHttpEntity = new HttpEntity<>(username);
+        //--------------------------------------------------------------------||--------------------------------------------------------------------
+        try {
+            restUtility.postForLocation(DataLayerURI + "/api/addUser?projectId=" + projectId + "&username=" + username, projectDataLayerHttpEntity);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (HttpClientErrorException e) {
+            System.out.println("User couldn't be added");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * Post method assigning administrator privileges to the project.
+     * EXAMPLE
+     * http://{host}:8081/api/assignAdmin
+     *
+     * @return <i>HTTP 201 - CREATED</i> code if administrator is added. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
+     */
+    @RequestMapping(value = "/assignAdmin", method = RequestMethod.POST)
+    public ResponseEntity<?> assignAdmin(UserProjectClient userProjectClient) {
+        String username = userProjectClient.getUsername();
+        int projectId = userProjectClient.getProjectId();
+        HttpEntity<String> projectDataLayerHttpEntity = new HttpEntity<>(username);
+        try {
+            restUtility.postForLocation(DataLayerURI + "/api/assignAdmin?projectId=" + projectId + "&username=" + username, projectDataLayerHttpEntity);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (HttpClientErrorException e) {
+            System.out.println("Admin couldn't be assigned");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * Removes admin privileges from user. Deletes entry in database.
+     *
+     * EXAMPLE:
+     *  http://{host}:8081/api/removeAdmin
+     *
+     * @return <i>HTTP 200 - OK</i> code if administrator is removed. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
+     */
+    @RequestMapping(value = "/removeAdmin", method = RequestMethod.POST)
+    public ResponseEntity<?> removeAdmin(UserProjectClient userProjectClient) {
+        String username = userProjectClient.getUsername();
+        int projectId = userProjectClient.getProjectId();
+        HttpEntity<String> projectDataLayerHttpEntity = new HttpEntity<>(username);
+        try {
+            restUtility.postForLocation(DataLayerURI + "/api/removeAdmin?projectId=" + projectId + "&username=" + username, projectDataLayerHttpEntity);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (HttpClientErrorException e) {
+            System.out.println("Admin couldn't be deleted");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RestClientException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

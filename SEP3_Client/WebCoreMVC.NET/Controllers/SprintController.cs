@@ -10,15 +10,16 @@ using WebCoreMVC.NET.Models;
 namespace WebCoreMVC.NET.Controllers {
     [Authorize(Policy= "MustBeUser")]
     public class SprintController : CustomController {
-        public IActionResult Index(int id) { 
-            var list = GetSprints(id).Result;
+        public IActionResult Index(int projectId) {
+            var list = GetSprints(projectId).Result;
             var result = JsonConvert.DeserializeObject<List<Sprint>>(list);
-            sprints = result;
-            return View("~/Views/Project/Sprint/Index.cshtml", result);
+            ContainerForListAndId<Sprint> containerForListAndId = new ContainerForListAndId<Sprint>(result, projectId);
+            sprints = containerForListAndId;
+            return View("~/Views/Project/Sprint/Index.cshtml", sprints);
         }
 
-        public IActionResult PlanSprint() {
-            return View("~/Views/Project/Sprint/PlanSprint.cshtml");
+        public IActionResult PlanSprint(Sprint sprint) {
+            return View("~/Views/Project/Sprint/PlanSprint.cshtml", sprint);
         }
 
         [HttpPost]
@@ -30,25 +31,25 @@ namespace WebCoreMVC.NET.Controllers {
                         return RedirectToAction("Index", "Home");
                     case System.Net.HttpStatusCode.BadRequest:
                         ModelState.AddModelError(string.Empty, "Server sent a bad request: " + response.Content);
-                        return PlanSprint();
+                        return PlanSprint(sprint);
                     default:
                         ModelState.AddModelError(string.Empty, "Server is not answering");
-                        return PlanSprint();
+                        return PlanSprint(sprint);
                 }
             }
             else {
                 ModelState.AddModelError(string.Empty, "Please insert the necessary data");
-                return PlanSprint();    
+                return PlanSprint(sprint);    
             }
         }
 
-        public async Task<string> GetSprints(int id) {
-            var content = await GetJsonData("api/sprint?projectId=" + id + "&username=" + username);
+        private async Task<string> GetSprints(int projectId) {
+            var content = await GetJsonData("api/sprint?projectId=" + projectId + "&username=" + username);
             return content;
         }
 
-        public async Task<HttpResponseMessage> SendSprintData(Sprint sprints) {
-            var httpContent = await PostData(sprints, "api/createSprint");
+        private async Task<HttpResponseMessage> SendSprintData(Sprint sprint) {
+            var httpContent = await PostData(sprint, "api/createSprint");
             return httpContent;
         }
     }

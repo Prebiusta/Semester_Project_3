@@ -1,4 +1,4 @@
-@model IEnumerable<WebCoreMVC.NET.Models.User>
+@model ContainerForListAndId<UserWithName>
 
 @{
     ViewData["Title"] = "Members";
@@ -14,9 +14,17 @@
 <body>
 <h1>Members</h1>
 <div class="row">
-        @foreach (var item in Model) {
-            <div class="member">@item.username</div>
-        }
+    <button id="addMember" class="w3-button w3-xlarge w3-black w3-card-4" onclick="location.href='@Url.Action("AddMember", "Members", Model.id)'">+</button>
+    @foreach (var item in Model.accessList)
+    {
+        <li>
+            <div class="row">
+                <p>@item.username, @item.firstName, @item.lastName</p>
+                <button class="deleteMemberButton" onclick="location.href='@Url.Action("DeleteMember", "Members", new UserProject(@Model.id, @item.username))'">Delete member from the project</button>
+
+            </div>
+        </li>
+    }
 </div>
 </body>
 </html>

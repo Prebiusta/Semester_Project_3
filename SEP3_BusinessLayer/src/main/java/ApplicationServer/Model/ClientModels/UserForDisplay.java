@@ -12,6 +12,12 @@ public class UserForDisplay {
         this.lastName = lastName;
     }
 
+    public UserForDisplay(String username) {
+        this.username = username;
+        this.firstName = "empty name";
+        this.lastName = "empty surname";
+    }
+
     public String getUsername() {
         return username;
     }

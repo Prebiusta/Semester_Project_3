@@ -8685,23 +8685,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\VALERA\\.nuget\\packages\\": {},
+    "C:\\Users\\cichy\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\VALERA\\source\\repos\\Prebiusta\\Semester_Project_3\\SEP3_Client\\WebCoreMVC.NET\\WebCoreMVC.NET.csproj",
+      "projectUniqueName": "E:\\szkoła\\SEP3\\Prebiusta\\Semester_Project_3\\SEP3_Client\\WebCoreMVC.NET\\WebCoreMVC.NET.csproj",
       "projectName": "WebCoreMVC.NET",
-      "projectPath": "C:\\Users\\VALERA\\source\\repos\\Prebiusta\\Semester_Project_3\\SEP3_Client\\WebCoreMVC.NET\\WebCoreMVC.NET.csproj",
-      "packagesPath": "C:\\Users\\VALERA\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\VALERA\\source\\repos\\Prebiusta\\Semester_Project_3\\SEP3_Client\\WebCoreMVC.NET\\obj\\",
+      "projectPath": "E:\\szkoła\\SEP3\\Prebiusta\\Semester_Project_3\\SEP3_Client\\WebCoreMVC.NET\\WebCoreMVC.NET.csproj",
+      "packagesPath": "C:\\Users\\cichy\\.nuget\\packages\\",
+      "outputPath": "E:\\szkoła\\SEP3\\Prebiusta\\Semester_Project_3\\SEP3_Client\\WebCoreMVC.NET\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\VALERA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\cichy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8761,16 +8761,7 @@
           "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true,
-        "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        "warn": true
       }
     }
   }

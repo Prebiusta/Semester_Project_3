@@ -42,23 +42,18 @@ namespace WebCoreMVC.NET.Controllers {
             return CreateProject();
         }
 
-        public async Task<string> GetProjectsByUsername() {
+        private async Task<string> GetProjectsByUsername() {
             var content = await GetJsonData("api/project?username=" + username);
             return content;
         }
-        public async Task<string> GetProjectsByStatus(string status)
+        private async Task<string> GetProjectsByStatus(string status)
         {
             var content = await GetJsonData("api/project?username=" + username + "&status=" + status);
             return content;
         }
-        public async Task<string> GetProjectsById(int id)
-        {
-            var content = await GetJsonData("api/project?username=" + username + "&id=" + id);
-            return content;
-        }
 
-        public async Task<HttpResponseMessage> SendProjectData(Project projects) {
-            var httpContent = await PostData(projects, "api/createProject?username=" + username);
+        private async Task<HttpResponseMessage> SendProjectData(Project project) {
+            var httpContent = await PostData(project, "api/createProject?username=" + username);
             return httpContent;
         }
     }
