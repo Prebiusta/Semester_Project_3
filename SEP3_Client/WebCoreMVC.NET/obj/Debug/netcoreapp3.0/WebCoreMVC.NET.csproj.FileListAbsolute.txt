@@ -531,3 +531,4 @@ C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\WebCoreMVC.NET.csproj.CopyComplete
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\WebCoreMVC.NET.dll
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\WebCoreMVC.NET.pdb
+C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\WebCoreMVC.NET.csprojAssemblyReference.cache
