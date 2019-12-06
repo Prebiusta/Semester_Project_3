@@ -2,8 +2,7 @@ package ApplicationServer.Controllers;
 
 import ApplicationServer.JPA.UserRepository;
 import ApplicationServer.JPA.UsersInProjectsRepository;
-import ApplicationServer.Model.AdministratorsInProjects;
-import ApplicationServer.Model.CompositeKeys.AdministratorProjectKey;
+import ApplicationServer.Model.Remote.UserPublicInfo;
 import ApplicationServer.Model.User;
 import ApplicationServer.Model.UsersInProjects;
 import org.springframework.http.HttpStatus;
@@ -26,6 +25,7 @@ public class UsersInProjectsController {
         this.userRepository = userRepository;
     }
 
+    //region Get Users In Project GET
     /**
      * Getting List of usernames for desired project
      *
@@ -40,16 +40,19 @@ public class UsersInProjectsController {
             @RequestParam(value = "projectId") Integer projectId) {
         var usersInProjectsEntries = usersInProjectsRepository.findByUserProjectKeyProjectId(projectId);
 
-        ArrayList<String> usersInProject = new ArrayList<>();
+        ArrayList<UserPublicInfo> usersInProject = new ArrayList<>();
         for (UsersInProjects entry : usersInProjectsEntries){
-            usersInProject.add(entry.getUserProjectKey().getUsername());
+            User user = userRepository.findByUsername(entry.getUserProjectKey().getUsername());
+            usersInProject.add(new UserPublicInfo(user.getUsername(), user.getFirstName(), user.getLastName()));
         }
 
         if(!usersInProject.isEmpty())
             return ResponseEntity.status(HttpStatus.OK).body(usersInProject);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not users found");
     }
+    //endregion
 
+    //region Get Users Not In Project GET
     /**
      * Getting List of usernames which are not included in project.
      *
@@ -75,8 +78,15 @@ public class UsersInProjectsController {
             usersNotInProjects.remove(entry.getUserProjectKey().getUsername());
         }
 
+        ArrayList<UserPublicInfo> usersNotInProject = new ArrayList<>();
+        for (String notInProject : usersNotInProjects){
+            User user = userRepository.findByUsername(notInProject);
+            usersNotInProject.add(new UserPublicInfo(user.getUsername(), user.getFirstName(), user.getLastName()));
+        }
+
         if(!usersNotInProjects.isEmpty())
-            return ResponseEntity.status(HttpStatus.OK).body(usersNotInProjects);
+            return ResponseEntity.status(HttpStatus.OK).body(usersNotInProject);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not users found");
     }
+    //endregion
 }

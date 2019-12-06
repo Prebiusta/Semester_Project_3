@@ -12,4 +12,5 @@ public interface UsersInProjectsRepository extends JpaRepository<UsersInProjects
     List<UsersInProjects> findByUserProjectKeyUsername(String username);
     List<UsersInProjects> findByUserProjectKeyProjectId(int id);
     List<UsersInProjects> findByUserProjectKeyProjectIdNot(int id);
+    UsersInProjects findByUserProjectKey(UserProjectKey key);
 }

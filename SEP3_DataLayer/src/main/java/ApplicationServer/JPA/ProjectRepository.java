@@ -11,7 +11,7 @@ import java.util.Set;
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
     List<Project> findAllByStatus(String string);
-    List<Project> findByProjectId(int id);
+    Project findByProjectId(int id);
 }
 
 

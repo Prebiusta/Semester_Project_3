@@ -1,8 +1,8 @@
 package ApplicationServer.Controllers;
 
 import ApplicationServer.JPA.SprintRepository;
+import ApplicationServer.Model.Remote.ScrumRole;
 import ApplicationServer.Model.Sprint;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,7 @@ public class SprintController {
         this.sprintRepository = sprintRepository;
     }
 
-
+    //region Get Sprint GET
     /**
      * Used to get information about sprints for specified project or information about sprint specified by id.
      * <p>
@@ -44,7 +44,9 @@ public class SprintController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not allowed to get all database Sprints");
     }
+    //endregion
 
+    //region Create Sprint POST
     /**
      * <p></>Post method for creating sprint. Used while Sprint Planning. Have to contain all variables. Overrides the original sprint in database
      * which had some variables nulls.</p>
@@ -75,52 +77,63 @@ public class SprintController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error saving sprint " + e.getMessage());
         }
     }
+    //endregion
 
+    //region Assign Product Owner POST
     /**
-     * Assigns a product owner to the sprint. Taking parameters of sprint id and username.
+     * Assigns a product owner to the sprint. Taking parameters of JSON ScrumRole object
      *
      * EXAMPLE:
-     *  http://{host}:6969/api/productOwner?sprintId=10&username=David
+     *  http://{host}:6969/api/productOwner
      *
-     * @param sprintId id of the sprint
-     * @param username username of user to become product owner
+     *  Body
+     *  {
+     * 	    "username": "Krystianko",
+     * 	    "sprintId": 48
+     *  }
+     *
+     * @param scrumRole ScrumRole JSON Object containing username and sprint id
      * @return <i>HTTP 200 - OK</i> code with sprint object if product owner is assigned. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/productOwner", method = RequestMethod.POST)
-    public ResponseEntity<?> assignProductOwner(
-            @RequestParam(value = "sprintId") Integer sprintId,
-            @RequestParam(value = "username") String username) {
+    public ResponseEntity<?> assignProductOwner(@RequestBody ScrumRole scrumRole) {
         try {
-            var originalSprint = sprintRepository.findBySprintId(sprintId);
-            originalSprint.setproductOwnerUsername(username);
+            var originalSprint = sprintRepository.findBySprintId(scrumRole.getSprintId());
+            originalSprint.setproductOwnerUsername(scrumRole.getUsername());
             var updatedSprint = sprintRepository.save(originalSprint);
             return ResponseEntity.status(HttpStatus.OK).body(updatedSprint);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    //endregion
 
+    //region Assign Scrum Master POST
     /**
-     * Assigns a scrum master to the sprint. Taking parameters of sprint id and username.
+     * Assigns a scrum master to the sprint. Taking parameters of JSON ScrumRole object
      *
      * EXAMPLE:
-     *  http://{host}:6969/api/scrumMaster?sprintId=10&username=David
+     *  http://{host}:6969/api/scrumMaster
      *
-     * @param sprintId id of the sprint
-     * @param username username of user to become scrum master
+     *  Body
+     *  {
+     * 	    "username": "Krystianko",
+     * 	    "sprintId": 48
+     *  }
+     *
+     * @param scrumRole ScrumRole JSON Object containing username and sprint id
      * @return <i>HTTP 200 - OK</i> code with sprint object if scrum master is assigned. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/scrumMaster", method = RequestMethod.POST)
-    public ResponseEntity<?> assignScrumMaster(
-            @RequestParam(value = "sprintId") Integer sprintId,
-            @RequestParam(value = "username") String username) {
+    public ResponseEntity<?> assignScrumMaster(@RequestBody ScrumRole scrumRole) {
         try {
-            var originalSprint = sprintRepository.findBySprintId(sprintId);
-            originalSprint.setscrumMasterUsername(username);
+            var originalSprint = sprintRepository.findBySprintId(scrumRole.getSprintId());
+            originalSprint.setscrumMasterUsername(scrumRole.getUsername());
             var updatedSprint = sprintRepository.save(originalSprint);
             return ResponseEntity.status(HttpStatus.OK).body(updatedSprint);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    //endregion POST
 }

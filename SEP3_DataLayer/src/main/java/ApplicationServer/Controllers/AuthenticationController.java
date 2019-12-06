@@ -15,6 +15,7 @@ public class AuthenticationController {
         this.userRepository = userRepository;
     }
 
+    //region Register POST
     /**
      * Register user method, processing data in JSON form sent from Client site of the system. Register user to the system database
      * in case all the conditions ale fulfilled. Returns HTTP Response Status with code '400 Bad Request' or '200 OK' and relevant
@@ -51,7 +52,9 @@ public class AuthenticationController {
         // If anything above goes wrong,
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registration failed");
     }
+    //endregion
 
+    //region Login POST
     /**
      * Method for login user. It is processing POST request with User object in format of JSON as an argument.
      * <p>
@@ -92,4 +95,5 @@ public class AuthenticationController {
 
         return user.getPassword().equals(password);
     }
+    //endregion
 }

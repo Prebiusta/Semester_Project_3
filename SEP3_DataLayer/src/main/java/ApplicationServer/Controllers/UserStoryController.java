@@ -18,6 +18,7 @@ public class UserStoryController {
         this.userStoryRepository = userStoryRepository;
     }
 
+    //region Get User Story GET
     /**
      * Returns User Story/Use Stories from the database. If specified only Id, returns one User Story.
      * If specified backlogId, returns List of User Stories for Project Backlog with given ID.
@@ -41,4 +42,5 @@ public class UserStoryController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id not specified");
     }
+    //endregion
 }

@@ -13,4 +13,5 @@ import java.util.List;
 public interface AdministratorsInProjectsRepository extends JpaRepository<AdministratorsInProjects, AdministratorProjectKey> {
     List<AdministratorsInProjects> findByAdministratorProjectKeyUsername(String username);
     List<AdministratorsInProjects> findByAdministratorProjectKeyProjectId(int projectId);
+    AdministratorsInProjects findByAdministratorProjectKey(AdministratorProjectKey key);
 }

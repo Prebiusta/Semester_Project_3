@@ -33,28 +33,62 @@ public class ProjectController {
         this.sprintRepository = sprintRepository;
     }
 
+    //region Add User POST
     /**
-     * Add new entry to UsersInProjects table. Takes project id nad username to create new row.
+     * Add new entry to UsersInProjects table. Takes UserProjectKey object as an argument
      * EXAMPLE:
-     *  http://{host}:6969/api/addUser?projectId=8&username=David
+     *  http://{host}:6969/api/addUser
      *
-     * @param projectId id of the project
-     * @param username username of the user to add to the project
+     *  Body:
+     *  {
+     *      "username" : "David",
+     *      "projectId" : 1
+     *  }
+     *
+     * @param userEntry UserProjectKey object containing username of new user and project id
      * @return <i>HTTP 201 - CREATED</i> code with saved object in body if user is added to the project. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public ResponseEntity<?> addUserToProject(
-            @RequestParam(value = "projectId", required = false) Integer projectId,
-            @RequestParam(value = "username", required = false) String username){
+    public ResponseEntity<?> addUserToProject(@RequestBody UserProjectKey userEntry){
         try {
-            UsersInProjects entry = new UsersInProjects(new UserProjectKey(username, projectId));
+            UsersInProjects entry = new UsersInProjects(userEntry);
             var responseFromDb = usersInProjectsRepository.save(entry);
             return ResponseEntity.status(HttpStatus.CREATED).body(responseFromDb);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+    //endregion
 
+    //region Remove User POST
+    /**
+     * Remove row from UsersInProjects table. Takes UserProjectKey object as an argument
+     *
+     * EXAMPLE:
+     *  http://{host}:6969/api/removeUser
+     *
+     *  Body:
+     *  {
+     *      "username" : "David",
+     *      "projectId" : 1
+     *  }
+     *
+     * @param userEntry UserProjectKey object containing username of new user and project id
+     * @return <i>HTTP 201 - CREATED</i> code if user is removed from the project. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
+     */
+    @RequestMapping(value = "/removeUser", method = RequestMethod.POST)
+    public ResponseEntity<?> removeUserFromProject(@RequestBody UserProjectKey userEntry){
+        try {
+            var objectToRemove = usersInProjectsRepository.findByUserProjectKey(userEntry);
+            usersInProjectsRepository.delete(objectToRemove);
+            return ResponseEntity.status(HttpStatus.CREATED).body("User deleted");
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Entry not found");
+        }
+    }
+    //endregion
+
+    //region Get Project GET
     /**
      * Finds all projects by status, specific one by project ID or all projects for user.
      *
@@ -74,13 +108,53 @@ public class ProjectController {
         if (status != null) {
             return ResponseEntity.status(HttpStatus.OK).body(projectRepository.findAllByStatus(status));
         } else if (id != null) {
-            return ResponseEntity.status(HttpStatus.OK).body(projectRepository.findByProjectId(id));
+            return ResponseEntity.status(HttpStatus.OK).body(projectWithId(id));
         } else if (username != null) {
             return ResponseEntity.status(HttpStatus.OK).body(projectsForUser(username));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not allowed to get all database Projects");
     }
 
+    private Project projectWithId(Integer id) {
+        Project project = projectRepository.findByProjectId(id);
+
+        var administratorsInProject = administratorsInProjectsRepository.findByAdministratorProjectKeyProjectId(project.getProjectId());
+
+        List<String> administratorUsername = new ArrayList<>();
+
+        for (AdministratorsInProjects admin : administratorsInProject){
+            administratorUsername.add(admin.getAdministratorProjectKey().getUsername());
+        }
+
+        return new Project(project, administratorUsername);
+    }
+
+    private List<?> projectsForUser(String username) {
+        List<UsersInProjects> projectIds = usersInProjectsRepository.findByUserProjectKeyUsername(username);
+
+        List<Project> projectList = new ArrayList<>();
+
+        // Loop through all UsersInProject entries and find all Projects with given IDs
+        for (UsersInProjects usersInProjects : projectIds) {
+            var project = projectRepository.findByProjectId(usersInProjects.getUserProjectKey().getProjectId());
+            var administratorsInProject = administratorsInProjectsRepository.findByAdministratorProjectKeyProjectId(project.getProjectId());
+
+            List<String> administratorUsername = new ArrayList<>();
+
+            for (AdministratorsInProjects admin : administratorsInProject){
+                administratorUsername.add(admin.getAdministratorProjectKey().getUsername());
+            }
+
+            // Using custom constructor to notify Business Logic Server who is an administrator of every project.
+            projectList.add(new Project(project, administratorUsername));
+        }
+
+        return projectList;
+    }
+
+    //endregion
+
+    //region Create Project POST
     /**
      * Method for creating a new project. Processing data in JSON form sent from client site of the system.
      * Creates a project and saves it to the database.
@@ -129,28 +203,6 @@ public class ProjectController {
         // If anything above goes wrong
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Creation of the Project failed");
     }
-
-    private List<?> projectsForUser(String username) {
-        List<UsersInProjects> projectIds = usersInProjectsRepository.findByUserProjectKeyUsername(username);
-
-        List<Project> projectList = new ArrayList<>();
-
-        // Loop through all UsersInProject entries and find all Projects with given IDs
-        for (UsersInProjects usersInProjects : projectIds) {
-            var project = projectRepository.findByProjectId(usersInProjects.getUserProjectKey().getProjectId()).get(0);
-            var administratorsInProject = administratorsInProjectsRepository.findByAdministratorProjectKeyProjectId(project.getProjectId());
-
-            List<String> administratorUsername = new ArrayList<>();
-
-            for (AdministratorsInProjects admin : administratorsInProject){
-                administratorUsername.add(admin.getAdministratorProjectKey().getUsername());
-            }
-
-            // Using custom constructor to notify Business Logic Server who is an administrator of every project.
-            projectList.add(new Project(project, administratorUsername));
-        }
-
-        return projectList;
-    }
+    //endregion
 
 }
