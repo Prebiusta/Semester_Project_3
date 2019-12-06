@@ -8,6 +8,7 @@
     outline: none;
 }
 
+/*The scrollbar design if it is needed*/
 ::-webkit-scrollbar {
     background: transparent;
     width: 5px;
@@ -31,14 +32,11 @@ body {
     color: white;
 }
 
+/*This is responsible for the content which are inserted after navbar so they look good on screen*/
 #contents {
     position: relative;
     transition: .3s;
     margin-left: 290px;
-    /*background: #42275a;  !* fallback for old browsers *!*/
-    /*background: -webkit-linear-gradient(to right, #734b6d, #42275a);  !* Chrome 10-25, Safari 5.1-6 *!*/
-    /*background: linear-gradient(to right, #734b6d, #42275a); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
-
 }
 
 .margin {
@@ -312,49 +310,159 @@ body {
     right: 5px !important
 }
 
+/*Design for all the project boxes*/
 .project {
     margin: 10px;
     width: 450px;
     height: 300px;
     padding: 20px;
     background: #313348;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
+/*Design for all the sprint boxes*/
 .sprint {
     padding: 20px;
     margin: 10px;
     width: 450px;
     height: 300px;
-    background: #313348;}
+    background: #313348;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
 
+/*Design for the create new sprint box*/
 .new_sprint {
     width: 450px;
     height: 300px;
     padding: 20px;
     margin: 10px;
-    width: 450px;
-    height: 300px;
     background: #313348;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
-.create {
+/*Design for create new project box*/
+.create_project {
     width: 450px;
     height: 300px;
     padding: 20px;
     margin: 10px;
-    width: 450px;
-    height: 300px;
     background: #313348;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
+/*Design for all user story divs*/
+.userstory {
+    width: 100%;
+    height: 100px;
+    padding: 20px;
+    margin: 10px;
+    background: #313348;
+    align-items: flex-start;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.userstory:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.project:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.sprint:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.create:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.new_sprint:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+/*Roles that are displayed in the project and sprints*/
+.scrum_master {
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    width: 110px;
+    height: 30px;
+    background: #5CB85C;
+    position: absolute;
+    margin-left: 310px;
+    margin-top: -100px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 4px;
+}
+
+.product_owner {
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    width: 110px;
+    height: 30px;
+    background: #337AB7;
+    position: absolute;
+    margin-left: 310px;
+    margin-top: -100px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 4px;
+}
+
+.admin {
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    width: 110px;
+    height: 30px;
+    background: #D9534F;
+    position: absolute;
+    margin-left: 310px;
+    margin-top: -100px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 4px;
+}
+
+/*Member section in Edit Members in Projects*/
+.member > h3 {
+    color: #ccc;
+    font-family: Calibri;
+    font-weight: 300;
+    margin-top: 0;
+}
+
+.member {
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #313348;
+    padding: 10px;
+}
+
+.member img {
+    width: 20%;
+    margin-right: 5%;
+    float: left;
+}
+
+.member_photo {
+    border-radius: 50%;
+}
+
+/*The structure of the content so everything is alligned correctly and in row*/
 .structure {
     display: flex !important;
     flex-direction: row !important;
@@ -369,6 +477,7 @@ h1 {
     color: white;
 }
 
+/*Button for projects, sprints*/
 .example_c {
     color: #494949 !important;
     text-decoration: none;
@@ -391,6 +500,7 @@ h1 {
         transition: all 0.4s ease 0s;
     }
 
+/* The container for the buttons in all project and sprint boxes*/
 .buttonContainer {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -401,6 +511,7 @@ h1 {
     height: 10px !important;
 }
 
+/*Design for all the buttons that are creating a new sprint or a new project*/
 .w3-button {
     border: none;
     padding: 8px 16px;

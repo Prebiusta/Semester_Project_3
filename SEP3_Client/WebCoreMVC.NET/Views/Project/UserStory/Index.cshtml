@@ -17,7 +17,9 @@
     <div class="structure">
         @foreach (var item in Model)
         {
-            <li>@item.userStoryId @item.description</li>
+            <div class="userstory">
+                <h1>@item.description</h1>
+            </div>
         }
     </div>
 </div>

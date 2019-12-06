@@ -1,4 +1,6 @@
 ﻿ @import url(https://fonts.googleapis.com/css?family=Open+Sans); 
+/* common css for login and register*/
+/* Login and register button*/
 .btn {
     display: inline-block;
     *display: inline;
@@ -33,9 +35,6 @@
      *margin-left: .3em;
 } 
 
- .registerLabel {
-    color: white;
-}
      .btn:hover,
      .btn:active,
      .btn.active,
@@ -126,7 +125,7 @@ body {
          letter-spacing: 1px;
          text-align: center;
      }
-
+     /*css for input of data*/
      input {
     width: 100%;
     margin-bottom: 10px;
@@ -148,4 +147,8 @@ body {
  } 
     input:focus {
          box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4), 0 1px 1px rgba(255, 255, 255, 0.2);
-   } 
+   }
+
+ .registerLabel {
+     color: white;
+ }

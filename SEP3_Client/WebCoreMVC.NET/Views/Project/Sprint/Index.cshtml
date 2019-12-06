@@ -22,11 +22,11 @@
                 <h1>Sprint @Html.DisplayFor(modelItem => item.sprintNumber)</h1>
                 @if(item.isScrumMaster)
                 {
-                    <h2>You are the Scrum Master</h2>
+                    <div class="scrum_master">Scrum Master</div>
                 }
                 @if(item.isProductOwner)
                 {
-                    <h2>You are the Product Owner</h2>
+                    <div class="product_owner">Product Owner</div>
                 }
                 <div class="buttonContainer">
                     <button class="example_c"> Sprint Backlog</button>

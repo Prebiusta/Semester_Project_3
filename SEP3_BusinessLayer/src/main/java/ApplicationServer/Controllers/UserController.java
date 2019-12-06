@@ -86,6 +86,5 @@ public class UserController extends ControllerConfiguration {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
     }
 }
