@@ -34,13 +34,32 @@ public class ProjectController {
     }
 
     /**
+     * Add new entry to UsersInProjects table. Takes project id nad username to create new row.
+     * EXAMPLE:
+     *  http://{host}:6969/api/addUser?projectId=8&username=David
+     *
+     * @param projectId id of the project
+     * @param username username of the user to add to the project
+     * @return <i>HTTP 201 - CREATED</i> code with saved object in body if user is added to the project. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
+     */
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
+    public ResponseEntity<?> addUserToProject(
+            @RequestParam(value = "projectId", required = false) Integer projectId,
+            @RequestParam(value = "username", required = false) String username){
+        try {
+            UsersInProjects entry = new UsersInProjects(new UserProjectKey(username, projectId));
+            var responseFromDb = usersInProjectsRepository.save(entry);
+            return ResponseEntity.status(HttpStatus.CREATED).body(responseFromDb);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    /**
      * Finds all projects by status, specific one by project ID or all projects for user.
      *
      * EXAMPLE:
-     *
      *  http://{host}:8080/api/project?status=completed
-     *
-     *
      *
      * @param status status of the project (ongoing/completed).
      * @param id id of the project.
@@ -69,7 +88,6 @@ public class ProjectController {
      * If the project failed to be created  it returns  a HTTP Response Status with code '400 Bad Request'
      *
      * Example:
-     *
      *  POST METHOD: http://{host}:6969/api/project?username={existing username}
      *  BODY:
      *

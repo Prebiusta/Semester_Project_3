@@ -1,5 +1,7 @@
 package ApplicationServer.Model.ClientModels;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class ProjectClient {
@@ -10,6 +12,7 @@ public class ProjectClient {
     private int numberOfIterations;
     private int lengthOfSprint;
     private List<String> admins;
+    @JsonProperty("isAdministrator")
     private boolean isAdministrator;
 
     public ProjectClient(){
@@ -61,6 +64,10 @@ public class ProjectClient {
 
     public boolean isAdministrator() {
         return isAdministrator;
+    }
+
+    public void setAdministrator() {
+        isAdministrator = true;
     }
 
     @Override

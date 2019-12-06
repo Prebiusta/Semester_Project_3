@@ -45,6 +45,7 @@ public class SprintsController extends ControllerConfiguration {
      */
     @RequestMapping(value = "/sprint", method = RequestMethod.GET)
     public ResponseEntity<?> getSprints(
+            @RequestParam(value = "username", required = true) String username,
             @RequestParam(value = "projectId", required = false) Integer projectId,
             @RequestParam(value = "sprintId", required = false) Integer sprintId) {
         String jsonSprints;
@@ -62,6 +63,14 @@ public class SprintsController extends ControllerConfiguration {
                 List<SprintClient> sprintsForClients = new ArrayList<>();
                 for(SprintDataLayer sprint : sprintsFromDataLayer) {
                     sprintsForClients.add(new SprintClient(sprint.getSprintId(), sprint.getProjectId(), sprint.getSprintNumber(), sprint.getDateStarted(), sprint.getDateStarted(), sprint.getproductOwnerUsername(), sprint.getscrumMasterUsername(), sprint.getStatus()));
+                }
+                for(SprintClient sprintClient : sprintsForClients) {
+                    if(sprintClient.getproductOwnerUsername().equals(username)) {
+                        sprintClient.setProductOwner(true);
+                    }
+                    if(sprintClient.getscrumMasterUsername().equals(username)) {
+                        sprintClient.setScrumMaster(true);
+                    }
                 }
                 String jsonForClient = jsonMapper.writeValueAsString(sprintsForClients);
                 return new ResponseEntity<>(jsonForClient, HttpStatus.OK);

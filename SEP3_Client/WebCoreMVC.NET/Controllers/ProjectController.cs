@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -11,10 +12,10 @@ namespace WebCoreMVC.NET.Controllers {
     [Authorize(Policy = "MustBeUser")]
     public class ProjectController : CustomController {
         public IActionResult Index() {
-            var list = GetProjects().Result;
+            var list = GetProjectsByUsername().Result;
             var result = JsonConvert.DeserializeObject<List<Project>>(list);
-            var resultsWithAssignedAdministrators = utilityIterator.assignAdministrators(result, username);
-            return View(resultsWithAssignedAdministrators);
+            projects = result;
+            return View(result);
         }
 
         public IActionResult CreateProject() {
@@ -41,8 +42,18 @@ namespace WebCoreMVC.NET.Controllers {
             return CreateProject();
         }
 
-        public async Task<string> GetProjects() {
+        public async Task<string> GetProjectsByUsername() {
             var content = await GetJsonData("api/project?username=" + username);
+            return content;
+        }
+        public async Task<string> GetProjectsByStatus(string status)
+        {
+            var content = await GetJsonData("api/project?username=" + username + "&status=" + status);
+            return content;
+        }
+        public async Task<string> GetProjectsById(int id)
+        {
+            var content = await GetJsonData("api/project?username=" + username + "&id=" + id);
             return content;
         }
 

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using WebCoreMVC.NET.Models;
-using WebCoreMVC.NET.Models.Claims;
 
 namespace WebCoreMVC.NET.Controllers {
     [Authorize(Policy= "MustBeUser")]
@@ -14,8 +13,8 @@ namespace WebCoreMVC.NET.Controllers {
         public IActionResult Index(int id) { 
             var list = GetSprints(id).Result;
             var result = JsonConvert.DeserializeObject<List<Sprint>>(list);
-            var resultsWithAssignedRoles = utilityIterator.assignRoles(result, username);
-            return View("~/Views/Project/Sprint/Index.cshtml", resultsWithAssignedRoles);
+            sprints = result;
+            return View("~/Views/Project/Sprint/Index.cshtml", result);
         }
 
         public IActionResult PlanSprint() {
@@ -44,7 +43,7 @@ namespace WebCoreMVC.NET.Controllers {
         }
 
         public async Task<string> GetSprints(int id) {
-            var content = await GetJsonData("api/sprint?projectId=" + id);
+            var content = await GetJsonData("api/sprint?projectId=" + id + "&username=" + username);
             return content;
         }
 
