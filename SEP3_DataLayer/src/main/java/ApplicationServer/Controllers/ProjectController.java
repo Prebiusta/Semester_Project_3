@@ -1,15 +1,10 @@
 package ApplicationServer.Controllers;
 
-import ApplicationServer.JPA.AdministratorsInProjectsRepository;
-import ApplicationServer.JPA.ProjectRepository;
-import ApplicationServer.JPA.SprintRepository;
-import ApplicationServer.JPA.UsersInProjectsRepository;
-import ApplicationServer.Model.AdministratorsInProjects;
+import ApplicationServer.JPA.*;
+import ApplicationServer.Model.*;
 import ApplicationServer.Model.CompositeKeys.AdministratorProjectKey;
 import ApplicationServer.Model.CompositeKeys.UserProjectKey;
-import ApplicationServer.Model.Project;
-import ApplicationServer.Model.Sprint;
-import ApplicationServer.Model.UsersInProjects;
+import ApplicationServer.Model.Statuses.ProductBacklogStatus;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +20,16 @@ public class ProjectController {
     private UsersInProjectsRepository usersInProjectsRepository;
     private AdministratorsInProjectsRepository administratorsInProjectsRepository;
     private SprintRepository sprintRepository;
+    private ProductBacklogRepository productBacklogRepository;
+    private SprintBacklogRepository sprintBacklogRepository;
 
-    public ProjectController(ProjectRepository projectRepository, UsersInProjectsRepository usersInProjectsRepository, AdministratorsInProjectsRepository administratorsInProjectsRepository, SprintRepository sprintRepository) {
+    public ProjectController(ProjectRepository projectRepository, UsersInProjectsRepository usersInProjectsRepository, AdministratorsInProjectsRepository administratorsInProjectsRepository, SprintRepository sprintRepository, ProductBacklogRepository productBacklogRepository, SprintBacklogRepository sprintBacklogRepository) {
         this.projectRepository = projectRepository;
         this.usersInProjectsRepository = usersInProjectsRepository;
         this.administratorsInProjectsRepository = administratorsInProjectsRepository;
         this.sprintRepository = sprintRepository;
+        this.productBacklogRepository = productBacklogRepository;
+        this.sprintBacklogRepository = sprintBacklogRepository;
     }
 
     //region Add User POST
@@ -184,24 +183,42 @@ public class ProjectController {
         if (savedProject != null) {
             AdministratorsInProjects adminEntry = new AdministratorsInProjects(new AdministratorProjectKey(username, savedProject.getProjectId()));
             UsersInProjects userEntry = new UsersInProjects((new UserProjectKey(username, savedProject.getProjectId())));
+            ProductBacklog productBacklogEntry = new ProductBacklog(savedProject.getProjectId(), ProductBacklogStatus.UNLOCKED);
             try {
+                // Create administrator for new project with provided username
                 administratorsInProjectsRepository.save(adminEntry);
+
+                // Create administrator for new project with provided username
                 usersInProjectsRepository.save(userEntry);
+
+                // Create Product Backlog
+                productBacklogRepository.save(productBacklogEntry);
 
                 // Create all Sprints for Project based on number of iterations. Some variables are null and have
                 // to be initialized during sprint planning.
                 for (int a = 0; a < project.getNumberOfIterations(); a++){
-                    Sprint sprint = new Sprint(project.getProjectId(), a + 1);
-                    sprintRepository.save(sprint);
+                    createSprint(project.getProjectId(), a + 1);
                 }
                 return ResponseEntity.status(HttpStatus.OK).body("Project created");
             } catch (Exception e){
-                projectRepository.delete(savedProject);
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
             }
         }
         // If anything above goes wrong
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Creation of the Project failed");
+    }
+
+    private void createSprint(int projectId, int sprintNumber) {
+        // Create Sprint object
+        Sprint sprint = new Sprint(projectId, sprintNumber);
+        sprintRepository.save(sprint);
+
+        // Create Sprint Backlog
+        SprintBacklog sprintBacklog = new SprintBacklog(sprint.getSprintId());
+        sprintBacklog = sprintBacklogRepository.save(sprintBacklog);
+
+        //TODO Create Sprint Review
+        //TODO Create Sprint Plan
     }
     //endregion
 

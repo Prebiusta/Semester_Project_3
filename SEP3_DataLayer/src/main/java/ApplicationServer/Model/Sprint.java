@@ -22,10 +22,10 @@ public class Sprint {
     private String dateFinished;
 
     @Column(name = "product_owner_username")
-    private String productOwnerUsername;
+    private String productOwnerUsername = "fg";
 
     @Column(name = "scrum_master_username")
-    private String scrumMasterUsername;
+    private String scrumMasterUsername = "asdas";
 
     @Column(name = "status")
     private String status;
@@ -88,19 +88,19 @@ public class Sprint {
         this.dateFinished = dateFinished;
     }
 
-    public String getproductOwnerUsername() {
+    public String getProductOwnerUsername() {
         return productOwnerUsername;
     }
 
-    public void setproductOwnerUsername(String productOwnerUsername) {
+    public void setProductOwnerUsername(String productOwnerUsername) {
         this.productOwnerUsername = productOwnerUsername;
     }
 
-    public String getscrumMasterUsername() {
+    public String getScrumMasterUsername() {
         return scrumMasterUsername;
     }
 
-    public void setscrumMasterUsername(String scrumMasterUsername) {
+    public void setScrumMasterUsername(String scrumMasterUsername) {
         this.scrumMasterUsername = scrumMasterUsername;
     }
 

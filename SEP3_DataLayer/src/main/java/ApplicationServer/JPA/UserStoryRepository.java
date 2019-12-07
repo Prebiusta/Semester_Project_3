@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface UserStoryRepository extends JpaRepository<UserStory, Integer> {
-    List<UserStory> findAllByProjectBacklogId(int id);
+    List<UserStory> findAllByProductBacklogId(int id);
     UserStory findByUserStoryId(int id);
 }
 

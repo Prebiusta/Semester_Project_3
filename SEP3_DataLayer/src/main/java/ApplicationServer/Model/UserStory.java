@@ -9,8 +9,8 @@ public class UserStory {
     @Column(name="user_story_id")
     private int userStoryId;
 
-    @Column(name = "project_backlog_id")
-    private int projectBacklogId;
+    @Column(name = "product_backlog_id")
+    private int productBacklogId;
 
     @Column(name = "priority")
     private String priority;
@@ -27,8 +27,8 @@ public class UserStory {
     public UserStory() {
     }
 
-    public UserStory(int projectBacklogId, String priority, String description, int difficulty, String status) {
-        this.projectBacklogId = projectBacklogId;
+    public UserStory(int productBacklogId, String priority, String description, int difficulty, String status) {
+        this.productBacklogId = productBacklogId;
         this.priority = priority;
         this.description = description;
         this.difficulty = difficulty;
@@ -43,12 +43,12 @@ public class UserStory {
         this.userStoryId = userStoryId;
     }
 
-    public int getProjectBacklogId() {
-        return projectBacklogId;
+    public int getProductBacklogId() {
+        return productBacklogId;
     }
 
-    public void setProjectBacklogId(int projectBacklogId) {
-        this.projectBacklogId = projectBacklogId;
+    public void setProductBacklogId(int productBacklogId) {
+        this.productBacklogId = productBacklogId;
     }
 
     public String getPriority() {

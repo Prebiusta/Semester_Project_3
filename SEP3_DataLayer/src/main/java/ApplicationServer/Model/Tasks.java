@@ -2,7 +2,7 @@ package ApplicationServer.Model;
 
 import javax.persistence.*;
 
-@Entity(name = "Tasks")
+@Entity
 public class Tasks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

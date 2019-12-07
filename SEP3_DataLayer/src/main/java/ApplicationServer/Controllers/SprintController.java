@@ -98,8 +98,8 @@ public class SprintController {
     @RequestMapping(value = "/productOwner", method = RequestMethod.POST)
     public ResponseEntity<?> assignProductOwner(@RequestBody ScrumRole scrumRole) {
         try {
-            var originalSprint = sprintRepository.findBySprintId(scrumRole.getSprintId());
-            originalSprint.setproductOwnerUsername(scrumRole.getUsername());
+            var originalSprint = sprintRepository.findBySprintId(scrumRole.getSprintId()).get(0);
+            originalSprint.setProductOwnerUsername(scrumRole.getUsername());
             var updatedSprint = sprintRepository.save(originalSprint);
             return ResponseEntity.status(HttpStatus.OK).body(updatedSprint);
         } catch (Exception e){
@@ -127,8 +127,8 @@ public class SprintController {
     @RequestMapping(value = "/scrumMaster", method = RequestMethod.POST)
     public ResponseEntity<?> assignScrumMaster(@RequestBody ScrumRole scrumRole) {
         try {
-            var originalSprint = sprintRepository.findBySprintId(scrumRole.getSprintId());
-            originalSprint.setscrumMasterUsername(scrumRole.getUsername());
+            var originalSprint = sprintRepository.findBySprintId(scrumRole.getSprintId()).get(0);
+            originalSprint.setScrumMasterUsername(scrumRole.getUsername());
             var updatedSprint = sprintRepository.save(originalSprint);
             return ResponseEntity.status(HttpStatus.OK).body(updatedSprint);
         } catch (Exception e){

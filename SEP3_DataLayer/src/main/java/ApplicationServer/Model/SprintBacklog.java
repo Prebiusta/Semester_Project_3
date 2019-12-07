@@ -17,6 +17,10 @@ public class SprintBacklog {
     public SprintBacklog() {
     }
 
+    public SprintBacklog(int sprintId) {
+        this.sprintId = sprintId;
+    }
+
     public int getSprintBacklogId() {
         return sprintBacklogId;
     }
