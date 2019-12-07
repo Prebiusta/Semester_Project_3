@@ -6,6 +6,9 @@ public class UserForDisplay {
     private String firstName;
     private String lastName;
 
+    public UserForDisplay() {
+    }
+
     public UserForDisplay(String username, String firstName, String lastName) {
         this.username = username;
         this.firstName = firstName;

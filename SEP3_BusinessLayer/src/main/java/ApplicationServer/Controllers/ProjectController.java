@@ -1,6 +1,7 @@
 package ApplicationServer.Controllers;
 
 import ApplicationServer.Model.ClientModels.ProjectClient;
+import ApplicationServer.Model.ClientModels.UserForDisplay;
 import ApplicationServer.Model.ClientModels.UserProjectClient;
 import ApplicationServer.Model.DataLayerModels.ProjectDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -112,6 +113,61 @@ public class ProjectController extends ControllerConfiguration{
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    /**
+     * HTTP Method to get all users or specific ones using username as a parameter.
+     *
+     * Endpoint
+     *  http://<b>{host}</b>:8081/api/usersInProjects?projectId={id}
+     *
+     * Example of request
+     * http://localhost:8081/api/usersInProjects?projectId={id}
+     *
+     * @param projectId specifying project ID
+     * @return returns a list of all users or specific user if parameter is used
+     */
+    @RequestMapping(value = "/usersInProject", method = RequestMethod.GET)
+    public ResponseEntity<List<UserForDisplay>> getUsersInProjects(
+            @RequestParam(value = "projectId", required = false) Integer projectId) {
+        String jsonUsersInProjects;
+        if(projectId != null) {
+            jsonUsersInProjects = restUtility.getForObject(DataLayerURI + "/api/usersInProjects?projectId=" + projectId, String.class);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);        }
+        try {
+            List<UserForDisplay> usersInProjectsFromDataLayer = jsonMapper.readValue(jsonUsersInProjects, new TypeReference<List<UserForDisplay>>(){});
+            return new ResponseEntity<>(usersInProjectsFromDataLayer, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    /**
+     * HTTP Method to get all users outside of project.
+     *
+     * Endpoint
+     *  http://<b>{host}</b>:8081/api/usersOutsideProject?projectId={id}
+     *
+     * Example of request
+     * http://localhost:8081/api/usersOutsideProject?projectId={id}
+     *
+     * @param projectId specifying project ID
+     * @return returns a list of all users outside of project
+     */
+    @RequestMapping(value = "/usersOutsideProject", method = RequestMethod.GET)
+    public ResponseEntity<List<UserForDisplay>> getUsersOutsideProjects(
+            @RequestParam(value = "projectId", required = true) Integer projectId) {
+        String jsonUsersOutsideProjects = restUtility.getForObject(DataLayerURI + "/api/usersNotInProjects?projectId=" + projectId, String.class);
+        try {
+            List<UserForDisplay> usersForDisplay = jsonMapper.readValue(jsonUsersOutsideProjects, new TypeReference<List<UserForDisplay>>(){});
+            return new ResponseEntity<>(usersForDisplay, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     /**

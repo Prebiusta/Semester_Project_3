@@ -38,6 +38,7 @@ public class UsersInProjectsController {
     @RequestMapping(value = "/usersInProjects", method = RequestMethod.GET)
     public ResponseEntity<?> getUsersInProjects(
             @RequestParam(value = "projectId") Integer projectId) {
+        System.out.println(projectId);
         var usersInProjectsEntries = usersInProjectsRepository.findByUserProjectKeyProjectId(projectId);
 
         ArrayList<UserPublicInfo> usersInProject = new ArrayList<>();

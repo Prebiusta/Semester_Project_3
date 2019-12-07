@@ -15,6 +15,7 @@ namespace WebCoreMVC.NET.Controllers {
     public class MembersController : CustomController {
         public IActionResult Index(int projectId)
         {
+            Debug.WriteLine("!!!!!!!Index Project ID: " + projectId);
             var list = GetUsersInProjects(projectId).Result;
             var result = JsonConvert.DeserializeObject<List<UserWithName>>(list);
             ContainerForListAndId<UserWithName> containerForListAndId = new ContainerForListAndId<UserWithName>(result, projectId);
@@ -43,10 +44,11 @@ namespace WebCoreMVC.NET.Controllers {
         }
 
         public IActionResult PostMember(UserProject user) {
+            Debug.WriteLine("!!!!!!!!!!!Project ID:" + user.projectId);
             var response = SendMemberData(user).Result;
             switch(response.StatusCode) {
                 case HttpStatusCode.OK:
-                    return RedirectToAction("Index", "Members");
+                    return Index(user.projectId);
                 case HttpStatusCode.BadRequest:
                     ModelState.AddModelError(string.Empty, "Server sent a bad request: " + response.Content);
                     return AddMember(user.projectId);
