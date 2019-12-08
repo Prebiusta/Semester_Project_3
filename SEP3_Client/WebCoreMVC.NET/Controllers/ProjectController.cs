@@ -42,6 +42,22 @@ namespace WebCoreMVC.NET.Controllers {
             return CreateProject();
         }
 
+        public IActionResult LeaveProject(int projectId)
+        {
+            UserProject user = new UserProject(projectId, username);
+            var result = LeaveProjectRequest(user).Result;
+            if (result.IsSuccessStatusCode)
+            {
+
+                return RedirectToAction("Index", "Project");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Server sent a bad request: " + result.Content);
+                return RedirectToAction("Index", "Project");
+            }
+        }
+
         private async Task<string> GetProjectsByUsername() {
             var content = await GetJsonData("api/project?username=" + username);
             return content;
@@ -54,6 +70,12 @@ namespace WebCoreMVC.NET.Controllers {
 
         private async Task<HttpResponseMessage> SendProjectData(Project project) {
             var httpContent = await PostData(project, "api/createProject?username=" + username);
+            return httpContent;
+        }
+
+        private async Task<HttpResponseMessage> LeaveProjectRequest(UserProject user)
+        {
+            var httpContent = await PostData(user, "api/removeUser");
             return httpContent;
         }
     }
