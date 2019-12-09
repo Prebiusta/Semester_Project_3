@@ -1,0 +1,46 @@
+﻿<i class="fa fa-bars close-aside hidden-sm hidden-md hidden-lg" data-close="show-side-navigation1"></i>
+<div class="heading">
+   <img src="https://yt3.ggpht.com/-v6ueJEAFe5E/AAAAAAAAAAI/AAAAAAAAAAA/QexJ3Y8Xxtc/s900-c-k-no-rj-c0xffffff/photo.jpg" alt="">
+
+   <div id="bla" class="info">
+       <h3>
+           <a href="#">David</a>
+       </h3>
+       <p>Via University College</p>
+   </div>
+
+</div>
+
+<ul class="categories">
+   <li>
+        <NavLink class="nav-link" href="/">
+            <span class="fa fa-home fa-fw" aria-hidden="true"></span> About Us
+        </NavLink>
+   </li>
+   <li>
+         <NavLink class="nav-link" href="/projects">
+            <span class="fa fa-support fa-fw" aria-hidden="true"></span> Fetch Data
+        </NavLink>
+   </li>
+   <li>
+        <NavLink class="nav-link" href="#">
+            <span class="fa fa-envelope fa-fw" aria-hidden="true"></span> Calendar
+        </NavLink>
+   </li>
+   <li>
+        <NavLink class="nav-link" href="#">
+            <span class="fa fa-bolt fa-fw" aria-hidden="true"></span> Tasks
+        </NavLink>
+   </li>
+</ul>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
