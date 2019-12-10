@@ -1,5 +1,7 @@
 package ApplicationServer.Controllers;
 
+import ApplicationServer.JPA.ProductBacklogRepository;
+import ApplicationServer.JPA.SprintBacklogRepository;
 import ApplicationServer.JPA.UserStoryRepository;
 import ApplicationServer.Model.UserStory;
 import org.springframework.http.HttpStatus;
@@ -10,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class UserStoryController {
     private UserStoryRepository userStoryRepository;
+    private ProductBacklogRepository productBacklogRepository;
 
-    public UserStoryController(UserStoryRepository userStoryRepository) {
+    public UserStoryController(UserStoryRepository userStoryRepository, ProductBacklogRepository productBacklogRepository) {
         this.userStoryRepository = userStoryRepository;
+        this.productBacklogRepository = productBacklogRepository;
     }
 
     //region Get User Story     ARGS: ID/ProjectBacklogId   METHOD: GET
@@ -24,20 +28,28 @@ public class UserStoryController {
      *  http://{host}:6969/api/userStory?id=52
      *  http://{host}:6969/api/userStory?backlogId=7
      *
-     * @param backlogId Id of Project Backlog
-     * @param id Id of desired User Story
+     * @param projectId Id of the Project
+     * @param userStoryId Id of desired User Story
      * @return List of User Stories or specific User Story
      */
     @RequestMapping(value = "/userStory", method = RequestMethod.GET)
     public ResponseEntity<?> getUserStory(
-            @RequestParam(value = "backlogId", required = false) Integer backlogId,
-            @RequestParam(value = "id", required = false) Integer id) {
-        if (backlogId != null){
-            return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findAllByProductBacklogId(backlogId));
-        } else if (id != null){
-            return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findByUserStoryId(id));
+            @RequestParam(value = "projectId", required = false) Integer projectId,
+            @RequestParam(value = "userStoryId", required = false) Integer userStoryId) {
+        try {
+            if (projectId != null) {
+                var productBacklogEntry = productBacklogRepository.findByProjectId(projectId);
+                System.out.println("Product backlog id" + productBacklogEntry.getProductBacklogId());
+                return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findAllByProductBacklogId(productBacklogEntry.getProductBacklogId()));
+            } else if (userStoryId != null) {
+                return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findByUserStoryId(userStoryId));
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id not specified");
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error");
+
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id not specified");
     }
     //endregion
 

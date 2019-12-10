@@ -1,10 +1,8 @@
 package ApplicationServer.Model;
 
-import ApplicationServer.Model.Statuses.ProductBacklogStatus;
+import ApplicationServer.Model.Statuses.BacklogStatus;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity(name = "product_backlog")
 public class ProductBacklog {
@@ -17,15 +15,17 @@ public class ProductBacklog {
     private int projectId;
 
     @Column(name = "status")
-    private ProductBacklogStatus status;
+    @Enumerated(EnumType.STRING)
+    private BacklogStatus status;
 
     public ProductBacklog() {
     }
 
-    public ProductBacklog(int projectId, ProductBacklogStatus status) {
+    public ProductBacklog(int projectId, BacklogStatus status) {
         this.projectId = projectId;
         this.status = status;
     }
+
 
     public int getProductBacklogId() {
         return productBacklogId;
@@ -43,11 +43,21 @@ public class ProductBacklog {
         this.projectId = projectId;
     }
 
-    public ProductBacklogStatus getStatus() {
+    public BacklogStatus getStatus() {
         return status;
     }
 
-    public void setStatus(ProductBacklogStatus status) {
+    public void setStatus(BacklogStatus status) {
         this.status = status;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ProductBacklog{" +
+                "productBacklogId=" + productBacklogId +
+                ", projectId=" + projectId +
+                ", status=" + status +
+                '}';
     }
 }

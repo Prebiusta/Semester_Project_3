@@ -1,7 +1,9 @@
 package ApplicationServer.Controllers;
 
+import ApplicationServer.JPA.AdministratorsInProjectsRepository;
 import ApplicationServer.JPA.UserRepository;
 import ApplicationServer.JPA.UsersInProjectsRepository;
+import ApplicationServer.Model.AdministratorsInProjects;
 import ApplicationServer.Model.Remote.UserPublicInfo;
 import ApplicationServer.Model.User;
 import ApplicationServer.Model.UsersInProjects;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 public class UsersInProjectsController {
     private UsersInProjectsRepository usersInProjectsRepository;
     private UserRepository userRepository;
+    private AdministratorsInProjectsRepository administratorsInProjectsRepository;
 
     public UsersInProjectsController(UsersInProjectsRepository usersInProjectsRepository, UserRepository userRepository) {
         this.usersInProjectsRepository = usersInProjectsRepository;
@@ -33,15 +36,15 @@ public class UsersInProjectsController {
      *  http://{host}:6969/api/usersInProjects?projectId=4
      *
      * @param projectId id of the project
-     * @return returns List of usernames for project with given ID
+     * @return returns List of UserPublicInfo for project with given ID
      */
     @RequestMapping(value = "/usersInProjects", method = RequestMethod.GET)
     public ResponseEntity<?> getUsersInProjects(
             @RequestParam(value = "projectId") Integer projectId) {
-        System.out.println(projectId);
         var usersInProjectsEntries = usersInProjectsRepository.findByUserProjectKeyProjectId(projectId);
 
         ArrayList<UserPublicInfo> usersInProject = new ArrayList<>();
+
         for (UsersInProjects entry : usersInProjectsEntries){
             User user = userRepository.findByUsername(entry.getUserProjectKey().getUsername());
             usersInProject.add(new UserPublicInfo(user.getUsername(), user.getFirstName(), user.getLastName()));
@@ -53,41 +56,20 @@ public class UsersInProjectsController {
     }
     //endregion
 
-    //region Get Users Not In Project GET
-    /**
-     * Getting List of usernames which are not included in project.
-     *
-     * EXAMPLE:
-     *  http://{host}:6969/api/usersNotInProjects?projectId=4
-     *
-     * @param projectId id of the project
-     * @return <i>HTTP 200 - OK</i> code with all users not in project if list is not empty. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
-     */
-    @RequestMapping(value = "/usersNotInProjects", method = RequestMethod.GET)
-    public ResponseEntity<?> getUsersNotInProjects(
+    @RequestMapping(value = "/adminsInProjects", method = RequestMethod.GET)
+    public ResponseEntity<?> getAdminsInProjects(
             @RequestParam(value = "projectId") Integer projectId) {
-        var usersInProjectsEntries = usersInProjectsRepository.findByUserProjectKeyProjectId(projectId);
-        var allUsersEntries = userRepository.findAll();
+        var adminsInProjectsEntries = administratorsInProjectsRepository.findByAdministratorProjectKeyProjectId(projectId);
 
-        ArrayList<String> usersNotInProjects = new ArrayList<>();
+        ArrayList<UserPublicInfo> admins = new ArrayList<>();
 
-        for (User user : allUsersEntries){
-            usersNotInProjects.add(user.getUsername());
+        for (AdministratorsInProjects entry : adminsInProjectsEntries){
+            User user = userRepository.findByUsername(entry.getAdministratorProjectKey().getUsername());
+            admins.add(new UserPublicInfo(user.getUsername(), user.getFirstName(), user.getLastName()));
         }
 
-        for (UsersInProjects entry : usersInProjectsEntries){
-            usersNotInProjects.remove(entry.getUserProjectKey().getUsername());
-        }
-
-        ArrayList<UserPublicInfo> usersNotInProject = new ArrayList<>();
-        for (String notInProject : usersNotInProjects){
-            User user = userRepository.findByUsername(notInProject);
-            usersNotInProject.add(new UserPublicInfo(user.getUsername(), user.getFirstName(), user.getLastName()));
-        }
-
-        if(!usersNotInProjects.isEmpty())
-            return ResponseEntity.status(HttpStatus.OK).body(usersNotInProject);
+        if(!admins.isEmpty())
+            return ResponseEntity.status(HttpStatus.OK).body(admins);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Not users found");
     }
-    //endregion
 }

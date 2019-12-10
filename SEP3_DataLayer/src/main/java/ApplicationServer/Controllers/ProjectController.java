@@ -4,7 +4,7 @@ import ApplicationServer.JPA.*;
 import ApplicationServer.Model.*;
 import ApplicationServer.Model.CompositeKeys.AdministratorProjectKey;
 import ApplicationServer.Model.CompositeKeys.UserProjectKey;
-import ApplicationServer.Model.Statuses.ProductBacklogStatus;
+import ApplicationServer.Model.Statuses.BacklogStatus;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -183,7 +183,7 @@ public class ProjectController {
         if (savedProject != null) {
             AdministratorsInProjects adminEntry = new AdministratorsInProjects(new AdministratorProjectKey(username, savedProject.getProjectId()));
             UsersInProjects userEntry = new UsersInProjects((new UserProjectKey(username, savedProject.getProjectId())));
-            ProductBacklog productBacklogEntry = new ProductBacklog(savedProject.getProjectId(), ProductBacklogStatus.UNLOCKED);
+            ProductBacklog productBacklogEntry = new ProductBacklog(savedProject.getProjectId(), BacklogStatus.UNLOCKED);
             try {
                 // Create administrator for new project with provided username
                 administratorsInProjectsRepository.save(adminEntry);
@@ -214,7 +214,7 @@ public class ProjectController {
         sprintRepository.save(sprint);
 
         // Create Sprint Backlog
-        SprintBacklog sprintBacklog = new SprintBacklog(sprint.getSprintId());
+        SprintBacklog sprintBacklog = new SprintBacklog(sprint.getSprintId(), BacklogStatus.UNLOCKED);
         sprintBacklog = sprintBacklogRepository.save(sprintBacklog);
 
         //TODO Create Sprint Review

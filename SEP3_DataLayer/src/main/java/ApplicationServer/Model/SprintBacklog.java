@@ -1,8 +1,8 @@
 package ApplicationServer.Model;
 
+import ApplicationServer.Model.Statuses.BacklogStatus;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity(name = "sprint_backlog")
 public class SprintBacklog {
@@ -14,11 +14,16 @@ public class SprintBacklog {
     @Column(name = "sprint_id")
     private int sprintId;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private BacklogStatus status;
+
     public SprintBacklog() {
     }
 
-    public SprintBacklog(int sprintId) {
+    public SprintBacklog(int sprintId, BacklogStatus status) {
         this.sprintId = sprintId;
+        this.status = status;
     }
 
     public int getSprintBacklogId() {
@@ -37,4 +42,11 @@ public class SprintBacklog {
         this.sprintId = sprintId;
     }
 
+    public BacklogStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BacklogStatus status) {
+        this.status = status;
+    }
 }

@@ -1,4 +1,6 @@
 package ApplicationServer.Model;
+import ApplicationServer.Model.Statuses.ProjectStatus;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,7 +16,8 @@ public class Project {
     private String name;
 
     @Column(name="status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private ProjectStatus status;
 
     @Column(name="number_of_iterations")
     private int numberOfIterations;
@@ -33,14 +36,14 @@ public class Project {
         this.admins = admins;
     }
 
-    public Project(String name, String status, int numberOfIterations, int lengthOfSprint) {
+    public Project(String name, ProjectStatus status, int numberOfIterations, int lengthOfSprint) {
         this.name = name;
         this.status = status;
         this.numberOfIterations = numberOfIterations;
         this.lengthOfSprint = lengthOfSprint;
     }
 
-    public Project(int projectId, String name, String status, int numberOfIterations, int lengthOfSprint) {
+    public Project(int projectId, String name, ProjectStatus status, int numberOfIterations, int lengthOfSprint) {
         this.projectId = projectId;
         this.name = name;
         this.status = status;
@@ -64,11 +67,11 @@ public class Project {
         this.name = name;
     }
 
-    public String getStatus() {
+    public ProjectStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(ProjectStatus status) {
         this.status = status;
     }
 
