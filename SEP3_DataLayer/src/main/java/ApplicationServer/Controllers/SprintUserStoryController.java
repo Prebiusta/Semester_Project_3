@@ -1,6 +1,9 @@
 package ApplicationServer.Controllers;
 
+import ApplicationServer.JPA.SprintBacklogRepository;
 import ApplicationServer.JPA.SprintUserStoryRepository;
+import ApplicationServer.Model.Remote.AssignUserStory;
+import ApplicationServer.Model.SprintBacklog;
 import ApplicationServer.Model.SprintUserStory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api")
 public class SprintUserStoryController {
     private SprintUserStoryRepository sprintUserStoryRepository;
+    private SprintBacklogRepository sprintBacklogRepository;
 
-    public SprintUserStoryController(SprintUserStoryRepository sprintUserStoryRepository) {
+    public SprintUserStoryController(SprintUserStoryRepository sprintUserStoryRepository, SprintBacklogRepository sprintBacklogRepository) {
         this.sprintUserStoryRepository = sprintUserStoryRepository;
+        this.sprintBacklogRepository = sprintBacklogRepository;
     }
 
     //region Get Sprint User Story GET
@@ -43,17 +48,19 @@ public class SprintUserStoryController {
      *  Body:
      *  {
      *      "userStoryId": 5,
-     *      "sprintBacklogId": 15
+     *      "sprintId": 15
      *  }
      *
-     * @param sprintUserStory SprintUserStory class in JSON format passed as a body
+     * @param assignUserStory AssignUserStory class in JSON format passed as a body
      * @return <i>HTTP 201 - CREATED</i> code with created Sprint User Story. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/sprintUserStory", method = RequestMethod.POST)
     public ResponseEntity<?> assignUserStory(
-            @RequestBody SprintUserStory sprintUserStory){
+            @RequestBody AssignUserStory assignUserStory
+    ){
         try {
-            SprintUserStory savedSprintUserStory = sprintUserStoryRepository.save(sprintUserStory);
+            SprintBacklog sprintBacklog = sprintBacklogRepository.findBySprintId(assignUserStory.getSprintId());
+            SprintUserStory savedSprintUserStory = sprintUserStoryRepository.save(new SprintUserStory(assignUserStory.getUserStoryId(), sprintBacklog.getSprintBacklogId()));
             return ResponseEntity.status(HttpStatus.CREATED).body(savedSprintUserStory);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error " + e.getMessage());

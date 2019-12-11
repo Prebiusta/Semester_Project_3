@@ -1,6 +1,7 @@
 package ApplicationServer.Controllers;
 
 import ApplicationServer.Model.ClientModels.SprintClient;
+import ApplicationServer.Model.DataLayerModels.ScrumRole;
 import ApplicationServer.Model.DataLayerModels.SprintDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.http.HttpEntity;
@@ -133,13 +134,13 @@ public class SprintsController extends ControllerConfiguration {
      * @return <i>HTTP 200 - OK</i> code with sprint object if product owner is assigned. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/productOwner", method = RequestMethod.POST)
-    public ResponseEntity<?> assignProductOwner(SprintClient sprintClient) {
-            int sprintId = sprintClient.getSprintId();
-            String username = sprintClient.getproductOwnerUsername();
+    public ResponseEntity<?> assignProductOwner(
+            @RequestBody ScrumRole scrumRole
+    ){
             //Line below is useless but I had to do it because of bad implementation of dataLayer
-            HttpEntity<String> httpEntity = new HttpEntity<>(username);
+            HttpEntity<ScrumRole> scrumRoleHttpEntity = new HttpEntity<>(scrumRole);
         try {
-            restUtility.postForLocation(DataLayerURI + "/api/productOwner?sprintId=" + sprintId + "&username=" + username, httpEntity);
+            restUtility.postForLocation(DataLayerURI + "/api/productOwner", scrumRoleHttpEntity);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (HttpClientErrorException e) {
             System.out.println("Product owner couldn't be added");
@@ -155,19 +156,17 @@ public class SprintsController extends ControllerConfiguration {
      * Assigns a scrum master to the sprint.
      *
      * EXAMPLE:
-     *  http://{host}:8081/api/scrumMaster?sprintId=10&username=David
+     *  http://{host}:8081/api/scrumMaster
      *
      * @return <i>HTTP 200 - OK</i> code with sprint object if scrum master is assigned. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/scrumMaster", method = RequestMethod.POST)
-    public ResponseEntity<?> assignScrumMaster(SprintClient sprintClient) {
-//            @RequestParam(value = "sprintId") Integer sprintId,
-//            @RequestParam(value = "username") String username) {
-        int sprintId = sprintClient.getSprintId();
-        String username = sprintClient.getscrumMasterUsername();
-        HttpEntity<String> httpEntity = new HttpEntity<>(username);
+    public ResponseEntity<?> assignScrumMaster(
+            @RequestBody ScrumRole scrumRole
+    ){
+        HttpEntity<ScrumRole> scrumRoleHttpEntity = new HttpEntity<>(scrumRole);
         try {
-            restUtility.postForLocation(DataLayerURI + "/api/scrumMaster?sprintId=" + sprintId + "&username=" + username, httpEntity);
+            restUtility.postForLocation(DataLayerURI + "/api/scrumMaster", scrumRoleHttpEntity);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (HttpClientErrorException e) {
             System.out.println("Scrum master couldn't be added");

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SprintBacklogRepository extends JpaRepository<SprintBacklog, Integer> {
+    SprintBacklog findBySprintId(int sprintId);
 }

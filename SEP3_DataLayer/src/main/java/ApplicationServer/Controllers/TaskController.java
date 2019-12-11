@@ -25,7 +25,9 @@ public class TaskController {
      * @return <i>HTTP 201 - CREATED</i> code with created row if Task is created. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/task", method = RequestMethod.POST)
-    public ResponseEntity<?> createTask(@RequestBody Tasks task){
+    public ResponseEntity<?> createTask(
+            @RequestBody Tasks task
+    ){
         try {
             Tasks savedTask = taskRepository.save(task);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);

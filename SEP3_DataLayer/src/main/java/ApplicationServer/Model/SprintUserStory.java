@@ -21,6 +21,11 @@ public class SprintUserStory {
     public SprintUserStory() {
     }
 
+    public SprintUserStory(int userStoryId, int sprintBacklogId) {
+        this.userStoryId = userStoryId;
+        this.sprintBacklogId = sprintBacklogId;
+    }
+
     public int getSprintUserStoryId() {
         return sprintUserStoryId;
     }

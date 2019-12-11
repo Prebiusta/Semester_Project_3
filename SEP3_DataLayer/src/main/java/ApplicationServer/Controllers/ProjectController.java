@@ -176,7 +176,7 @@ public class ProjectController {
      * @return <i>HTTP 200 - OK</i> code if project created. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/project", method = RequestMethod.POST)
-    public ResponseEntity<String> create(
+    public ResponseEntity<String> createProject(
             @RequestBody Project project,
             @RequestParam(value = "username") String username) {
         Project savedProject = projectRepository.save(project);

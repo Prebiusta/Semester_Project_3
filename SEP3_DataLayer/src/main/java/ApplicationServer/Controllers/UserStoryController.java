@@ -75,7 +75,8 @@ public class UserStoryController {
      */
     @RequestMapping(value = "/userStory", method = RequestMethod.POST)
     public ResponseEntity<?> createUserStory(
-            @RequestBody UserStory userStory){
+            @RequestBody UserStory userStory
+    ){
         try {
             UserStory savedUserStory = userStoryRepository.save(userStory);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUserStory);

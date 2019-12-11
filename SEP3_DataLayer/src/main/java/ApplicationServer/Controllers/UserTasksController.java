@@ -53,7 +53,9 @@ public class UserTasksController {
      * @return <i>HTTP 201 - CREATED</i> code with created row if User Task is created. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/userTask", method = RequestMethod.POST)
-    public ResponseEntity<?> assignTaskToUser(@RequestBody UserTaskKey userTaskKey){
+    public ResponseEntity<?> assignTaskToUser(
+            @RequestBody UserTaskKey userTaskKey
+    ){
         try{
             UserTasks savedUserTasks = userTasksRepository.save(new UserTasks(userTaskKey));
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUserTasks);

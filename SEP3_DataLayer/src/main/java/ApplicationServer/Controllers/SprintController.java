@@ -96,7 +96,9 @@ public class SprintController {
      * @return <i>HTTP 200 - OK</i> code with sprint object if product owner is assigned. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/productOwner", method = RequestMethod.POST)
-    public ResponseEntity<?> assignProductOwner(@RequestBody ScrumRole scrumRole) {
+    public ResponseEntity<?> assignProductOwner(
+            @RequestBody ScrumRole scrumRole
+    ){
         try {
             var originalSprint = sprintRepository.findBySprintId(scrumRole.getSprintId()).get(0);
             originalSprint.setProductOwnerUsername(scrumRole.getUsername());
@@ -125,7 +127,9 @@ public class SprintController {
      * @return <i>HTTP 200 - OK</i> code with sprint object if scrum master is assigned. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/scrumMaster", method = RequestMethod.POST)
-    public ResponseEntity<?> assignScrumMaster(@RequestBody ScrumRole scrumRole) {
+    public ResponseEntity<?> assignScrumMaster(
+            @RequestBody ScrumRole scrumRole
+    ){
         try {
             var originalSprint = sprintRepository.findBySprintId(scrumRole.getSprintId()).get(0);
             originalSprint.setScrumMasterUsername(scrumRole.getUsername());

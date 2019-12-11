@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -158,7 +159,8 @@ public class ProjectController extends ControllerConfiguration{
      */
     @RequestMapping(value = "/usersOutsideProject", method = RequestMethod.GET)
     public ResponseEntity<List<UserForDisplay>> getUsersOutsideProjects(
-            @RequestParam(value = "projectId", required = true) Integer projectId) {
+            @RequestParam(value = "projectId") Integer projectId
+    ){
         String jsonUsersOutsideProjects = restUtility.getForObject(DataLayerURI + "/api/usersNotInProjects?projectId=" + projectId, String.class);
         try {
             List<UserForDisplay> usersForDisplay = jsonMapper.readValue(jsonUsersOutsideProjects, new TypeReference<List<UserForDisplay>>(){});
@@ -178,7 +180,9 @@ public class ProjectController extends ControllerConfiguration{
      * @return <i>HTTP 201 - CREATED</i> code with saved object in body if user is added to the project. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    public ResponseEntity<UserProjectClient> addUserToProject(@RequestBody UserProjectClient userProjectClient) {
+    public ResponseEntity<UserProjectClient> addUserToProject(
+            @RequestBody UserProjectClient userProjectClient
+    ) {
         HttpEntity<UserProjectClient> projectDataLayerHttpEntity = new HttpEntity<>(userProjectClient);
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         try {
@@ -201,7 +205,9 @@ public class ProjectController extends ControllerConfiguration{
      * @return <i>HTTP 201 - CREATED</i> code with saved object in body if user is added to the project. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/removeUser", method = RequestMethod.POST)
-    public ResponseEntity<UserProjectClient> removeUserFromProject(@RequestBody UserProjectClient userProjectClient) {
+    public ResponseEntity<UserProjectClient> removeUserFromProject(
+            @RequestBody UserProjectClient userProjectClient
+    ){
         HttpEntity<UserProjectClient> projectDataLayerHttpEntity = new HttpEntity<>(userProjectClient);
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         try {
@@ -224,7 +230,9 @@ public class ProjectController extends ControllerConfiguration{
      * @return <i>HTTP 201 - CREATED</i> code if administrator is added. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/assignAdmin", method = RequestMethod.POST)
-    public ResponseEntity<?> assignAdmin(UserProjectClient userProjectClient) {
+    public ResponseEntity<?> assignAdmin(
+            @RequestBody UserProjectClient userProjectClient
+    ){
         HttpEntity<UserProjectClient> projectDataLayerHttpEntity = new HttpEntity<>(userProjectClient);
         try {
             restUtility.postForLocation(DataLayerURI + "/api/assignAdmin", projectDataLayerHttpEntity);
@@ -247,7 +255,9 @@ public class ProjectController extends ControllerConfiguration{
      * @return <i>HTTP 200 - OK</i> code if administrator is removed. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/removeAdmin", method = RequestMethod.POST)
-    public ResponseEntity<?> removeAdmin(UserProjectClient userProjectClient) {
+    public ResponseEntity<?> removeAdmin(
+            @RequestBody UserProjectClient userProjectClient
+    ){
         HttpEntity<UserProjectClient> projectDataLayerHttpEntity = new HttpEntity<>(userProjectClient);
         try {
             restUtility.postForLocation(DataLayerURI + "/api/removeAdmin", projectDataLayerHttpEntity);

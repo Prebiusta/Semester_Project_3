@@ -3,12 +3,12 @@ package ApplicationServer.Controllers;
 import ApplicationServer.Model.ClientModels.UserStoryClient;
 import ApplicationServer.Model.DataLayerModels.UserStoryDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,5 +55,24 @@ public class UserStoryController extends ControllerConfiguration {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "/userStory", method = RequestMethod.POST)
+    public ResponseEntity<?> createUserStory(
+            @RequestBody UserStoryClient userStoryClient
+    ){
+        System.out.println(userStoryClient.toString());
+        HttpEntity<UserStoryClient> userStoryClientHttpEntity = new HttpEntity<>(userStoryClient);
+        try {
+            restUtility.postForLocation(DataLayerURI + "/api/userStory", userStoryClientHttpEntity);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 }
