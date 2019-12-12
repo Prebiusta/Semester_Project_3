@@ -9,6 +9,10 @@
     list-style: none;
 }
 
+a:not([href]) {
+    color: #007bff;
+}
+
 /*Flex row display*/
 .flex-row {
     display: flex !important;

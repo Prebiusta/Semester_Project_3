@@ -161,10 +161,22 @@ public class ProjectController extends ControllerConfiguration{
     public ResponseEntity<List<UserForDisplay>> getUsersOutsideProjects(
             @RequestParam(value = "projectId") Integer projectId
     ){
-        String jsonUsersOutsideProjects = restUtility.getForObject(DataLayerURI + "/api/usersNotInProjects?projectId=" + projectId, String.class);
+        String jsonUsersInProjects = restUtility.getForObject(DataLayerURI + "/api/usersInProjects?projectId=" + projectId, String.class);
+        String jsonUsers = restUtility.getForObject(DataLayerURI + "/api/users", String.class);
+
         try {
-            List<UserForDisplay> usersForDisplay = jsonMapper.readValue(jsonUsersOutsideProjects, new TypeReference<List<UserForDisplay>>(){});
-            return new ResponseEntity<>(usersForDisplay, HttpStatus.OK);
+            List<UserForDisplay> allUsersInProject = jsonMapper.readValue(jsonUsersInProjects, new TypeReference<List<UserForDisplay>>(){});
+            List<UserForDisplay> allUsers = jsonMapper.readValue(jsonUsers, new TypeReference<List<UserForDisplay>>(){});
+
+            for (int i = 0; i < allUsersInProject.size(); i ++){
+                for (int a = 0; a < allUsers.size(); a++){
+                    if(allUsersInProject.get(i).getUsername().equals(allUsers.get(a).getUsername())){
+                        allUsers.remove(a);
+                    }
+                }
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(allUsers);
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -183,6 +195,7 @@ public class ProjectController extends ControllerConfiguration{
     public ResponseEntity<UserProjectClient> addUserToProject(
             @RequestBody UserProjectClient userProjectClient
     ) {
+        System.out.println(userProjectClient.getUsername() + " , " + userProjectClient.getProjectId());
         HttpEntity<UserProjectClient> projectDataLayerHttpEntity = new HttpEntity<>(userProjectClient);
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         try {
