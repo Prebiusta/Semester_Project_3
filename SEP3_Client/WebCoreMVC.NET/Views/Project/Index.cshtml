@@ -9,37 +9,45 @@
 
 </head>
 <body>
-<h1>Projects</h1>
-<div class="row">
-    <div class="structure">
-        <div class="create_project">
-            <h3>Create New Project</h3>
-            <button id="create" class="w3-button w3-xlarge w3-black w3-card-4" onclick="location.href='@Url.Action("CreateProject")'">+</button>
+    <h1>Projects</h1>
+    <div class="row">
+        <div class="structure">
+            <div class="create_project">
+                <h3 id="projectHeader">Create New Project</h3>
+                <button id="create" class="w3-button w3-xlarge w3-black w3-card-4" onclick="location.href='@Url.Action("CreateProject")'">+</button>
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+            @foreach (var item in Model) {
+                <div class="project">
+                    <h1>@Html.DisplayFor(modelItem => item.name)</h1>
+                    @if(item.isAdministrator == true)
+                    {
+                        <div class="admin">Admin</div>
+                    }
+                <div class="buttonContainer">
+                    <button class="example_c" onclick="location.href='@Url.Action("Index", "Sprint", new {item.projectId})'">Sprints</button>
+                    <button class="example_c" onclick="location.href='@Url.Action("BacklogFromLastSprint", "Backlog", new {item.projectId})'">Product Backlog</button>
+                    <div class="break"> </div>
+                    <button class="example_c">Burndown Chart</button>
+                    <button class="example_c">Edit Project</button>
+                    <div class="break"> </div>
+                    @if (item.isAdministrator == true)
+                    {
+                    <button class="example_c" onclick="location.href = '@Url.Action("Index", "Members", new { item.projectId })'">Edit Members</button>
+                    }
+                    <button class="example_c" onclick="location.href='@Url.Action("LeaveProject", "Project", new {item.projectId})'">Leave Project</button>
+                </div>
+                </div>
+            }
+
         </div>
-        @foreach (var item in Model) {
-            <div class="project">
-                <h1>@Html.DisplayFor(modelItem => item.name)</h1>
-                @if(item.isAdministrator == true)
-                {
-                    <div class="admin">Admin</div>
-                }
-            <div class="buttonContainer">
-                <button class="example_c" onclick="location.href='@Url.Action("Index", "Sprint", new {item.projectId})'">Sprints</button>
-                <button class="example_c" onclick="location.href='@Url.Action("BacklogFromLastSprint", "Backlog", new {item.projectId})'">Product Backlog</button>
-                <div class="break"> </div>
-                <button class="example_c">Burndown Chart</button>
-                <button class="example_c">Edit Project</button>
-                <div class="break"> </div>
-                @if (item.isAdministrator == true)
-                {
-                <button class="example_c" onclick="location.href = '@Url.Action("Index", "Members", new { item.projectId })'">Edit Members</button>
-                }
-                <button class="example_c" onclick="location.href='@Url.Action("LeaveProject", "Project", new {item.projectId})'">Leave Project</button>
-            </div>
-            </div>
-        }
 
     </div>
 
-</div>
+    <script>
+        //$(document).ready(function () {
+        //    let button = '<button id="createJS" class="w3 - button w3 - xlarge w3 - black w3 - card - 4" onclick="getGenericController(\'createJS\', \'/Project/GetProjectsString\')">JavaScript</button>';
+        //    document.getElementById("projectHeader").insertAdjacentHTML("afterend", button);
+        //});
+    </script>
 </body>

@@ -88,8 +88,28 @@ namespace WebCoreMVC.NET.Controllers {
             }
         }
 
+        public string GetUsersOutiseProjectJsonString(int projectId)
+        {
+            var content = GetUsersOutiseProject(projectId).Result;
+            return content;
+        }
+
+      
+        public string SendMemberDataJS(UserProject user)
+        {
+            Debug.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!chupacabra");
+            Debug.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!JAVASCRIPT JSON: " + user.ToString());
+            var content = SendMemberData(user).Result;
+            if (content.IsSuccessStatusCode)
+            {
+                return "{\"status\":\"ok\"}";
+            }
+            return "{\"status\":\"error\"}";
+        }
+
         [HttpPost]
         private async Task<HttpResponseMessage> SendMemberData(UserProject user) {
+            Debug.WriteLine(user.ToString());
             var httpContent = await PostData(user, "api/addUser");
             return httpContent;
         }

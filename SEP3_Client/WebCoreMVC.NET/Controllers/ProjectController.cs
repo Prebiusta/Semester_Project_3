@@ -62,6 +62,11 @@ namespace WebCoreMVC.NET.Controllers {
             var content = await GetJsonData("api/project?username=" + username);
             return content;
         }
+
+        public String GetProjectsString()
+        {
+            return GetProjectsByUsername().Result;
+        }
         private async Task<string> GetProjectsByStatus(string status)
         {
             var content = await GetJsonData("api/project?username=" + username + "&status=" + status);

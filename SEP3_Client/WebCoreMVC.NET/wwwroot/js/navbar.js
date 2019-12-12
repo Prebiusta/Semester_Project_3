@@ -43,7 +43,3 @@ $(function () {
 
     }());
 });
-
-function goToPreviousWebsite() {
-    history.go(-1);
-}

@@ -8,102 +8,101 @@
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css">
 </head>
-<body> @if (User.Identity.IsAuthenticated)
-       {
+<body>
+    @if(User.Identity.IsAuthenticated) {
 
-           <aside class="side-nav" id="show-side-navigation1">
-               <i class="fa fa-bars close-aside hidden-sm hidden-md hidden-lg" data-close="show-side-navigation1"></i>
-               <div class="heading">
-                   <img src="https://yt3.ggpht.com/-v6ueJEAFe5E/AAAAAAAAAAI/AAAAAAAAAAA/QexJ3Y8Xxtc/s900-c-k-no-rj-c0xffffff/photo.jpg" alt="">
+        <aside class="side-nav" id="show-side-navigation1">
+            <i class="fa fa-bars close-aside hidden-sm hidden-md hidden-lg" data-close="show-side-navigation1"></i>
+            <div class="heading">
+                <img src="https://yt3.ggpht.com/-v6ueJEAFe5E/AAAAAAAAAAI/AAAAAAAAAAA/QexJ3Y8Xxtc/s900-c-k-no-rj-c0xffffff/photo.jpg" alt="">
 
-                   <div id="bla" class="info">
-                       <h3>
-                           <a href="#">@User.Identity.Name</a>
-                       </h3>
-                       <p>Via University College</p>
-                   </div>
+                <div id="bla" class="info">
+                    <h3>
+                        <a href="#">@User.Identity.Name</a>
+                    </h3>
+                    <p>Via University College</p>
+                </div>
 
-               </div>
+            </div>
 
-               <ul class="categories">
-                   <li>
-                       <i class="fa fa-home fa-fw" aria-hidden="true"></i><a href="#"> About us</a>
+            <ul class="categories">
+                <li>
+                    <i class="fa fa-home fa-fw" aria-hidden="true"></i><a href="#"> About us</a>
 
-                   </li>
-                   <li>
-                       <i class="fa fa-support fa-fw"></i>
-                       <a asp-area="" asp-controller="Project" asp-action="Index">Projects</a>
-                   </li>
-                   <li>
-                       <i class="fa fa-envelope fa-fw"></i><a href="#"> Calendar</a>
-                   </li>
-                   <li>
-                       <i class="fa fa-bolt fa-fw"></i><a href="#"> Tasks</a>
-                   </li>
-               </ul>
+                </li>
+                <li>
+                    <i class="fa fa-support fa-fw"></i>
+                    <a asp-area="" asp-controller="Project" asp-action="Index">Projects</a>
+                </li>
+                <li>
+                    <i class="fa fa-envelope fa-fw"></i><a href="#"> Calendar</a>
+                </li>
+                <li>
+                    <i class="fa fa-bolt fa-fw"></i><a href="#"> Tasks</a>
+                </li>
+            </ul>
 
-           </aside>
-           <section id="contents">
-               <nav class="navbar navbar-default">
-                   <div class="container-fluid">
-                       <div class="navbar-header">
-                           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                               <i class="fa fa-align-right"></i>
-                           </button>
-                           <a class="navbar-brand" asp-controller="Home" asp-action="Index">VIA<span class="main-color"> Scrum</span></a>
-                       </div>
-                       <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-                           <ul class="nav navbar-nav">
-                               <li class="dropdown">
-                                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My profile <span class="caret"></span></a>
-                                   <ul class="dropdown-menu">
-                                       <li>
-                                           <a href="#"><i class="fa fa-user-o fw"></i> My account</a>
-                                       </li>
-                                       <li>
-                                           <a href="#"><i class="fa fa-envelope-o fw"></i> My inbox</a>
-                                       </li>
-                                       <li>
-                                           <a href="#"><i class="fa fa-question-circle-o fw"></i> Help</a>
-                                       </li>
-                                   </ul>
-                               </li>
+        </aside>
+        <section id="contents">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <i class="fa fa-align-right"></i>
+                        </button>
+                        <a class="navbar-brand" asp-controller="Home" asp-action="Index">VIA<span class="main-color"> Scrum</span></a>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My profile <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#"><i class="fa fa-user-o fw"></i> My account</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-envelope-o fw"></i> My inbox</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fa fa-question-circle-o fw"></i> Help</a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                               <li>
-                                   <a href="#">
-                                       <i class="fa fa-bell-o"></i><span>98</span>
-                                   </a>
-                               </li>
-                               <li>
-                                   <a asp-controller="Login" asp-action="LogOut"><i class="fa fa-sign-out" ></i> Log out</a>
-                               </li>
-                               <li>
-                                   <a href="#">
-                                       <i data-show="show-side-navigation1" class="fa fa-bars show-side-btn"></i>
-                                   </a>
-                               </li>
-                           </ul>
-                       </div>
-                   </div>
-               </nav>
-               <main role="main" class="pb-3">
-                   @RenderBody()
-               </main>
-           </section>
-}
-       else
-       {
-           <main role="main" class="pb-3">
-               @RenderBody()
-           </main>
-       }
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-bell-o"></i><span>98</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-controller="Login" asp-action="LogOut"><i class="fa fa-sign-out"></i> Log out</a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i data-show="show-side-navigation1" class="fa fa-bars show-side-btn"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </section>
+    } else {
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    }
 
 
-<script src="https://code.jquery.com/jquery-latest.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-<script type="text/javascript" src="~/js/navbar.js"></script>
-@RenderSection("Scripts", false)
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+    <script type="text/javascript" src="~/js/navbar.js"></script>
+    <script type="text/javascript" src="~/js/utility.js"></script>
+    @RenderSection("Scripts", false)
 
 </body>
 </html>

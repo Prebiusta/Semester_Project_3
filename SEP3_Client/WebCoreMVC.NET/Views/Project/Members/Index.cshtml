@@ -14,12 +14,18 @@
 <body>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <h1>Members</h1>
-    <div class="row margin-left-80px">
+    <h6 id="membersError" class="text-danger"></h6>
+    <div class="row margin-left-80px" id="divMembers">
         <button class="w3-button w3-black w3-card-4" onclick="goToPreviousWebsite()">< Back</button>
         <br />
         <br />
         <button id="addMember" class="w3-button w3-xlarge w3-black w3-card-4" onclick="location.href='@Url.Action("AddMember", "Members", new {projectId = Model.id })'">+</button>
-        <ul>
+        <br />
+        <br />
+        <button id="addMemberJS" class="w3-button w3-xlarge w3-black w3-card-4" onclick="getUsersOutsideProject('addMemberJS', @Model.id)">JavaScriptList</button>
+        <div id="addMembersDiv"></div>
+        <hr />
+        <ul id="membersInTheProjectList">
             @foreach (var item in Model.accessList)
             {
                 <li class="flex-row">
