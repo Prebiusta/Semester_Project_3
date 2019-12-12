@@ -1,6 +1,7 @@
 package ApplicationServer.Controllers;
 
 import ApplicationServer.JPA.UserRepository;
+import ApplicationServer.Model.RegisterSocketProtocol.RegisterSocketServer;
 import ApplicationServer.Model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,9 @@ public class AuthenticationController {
 
     public AuthenticationController(UserRepository userRepository) {
         this.userRepository = userRepository;
+        Thread registerSocketThread = new Thread(new RegisterSocketServer(5595, userRepository));
+        registerSocketThread.setDaemon(true);
+        registerSocketThread.start();
     }
 
     //region Register POST
@@ -32,25 +36,25 @@ public class AuthenticationController {
      *      "profilePicture": "profilePicture"
      * }
      *
-     * @param user User object parsed from JSON format received from Client
      * @return HTTP Response Status with Relevant message
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<String> register(@RequestBody User user) {
-        // Checks if the username already exists in the database
-        // In case some result is returned, skip the body
-        if (userRepository.findByUsername(user.getUsername()) != null){
-            // Returns HTTP Response Status with code '400 Bad Request' and relevant message so client can react accordingly
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username with username " + user.getUsername() + " already exists");
-        }
-
-        // Saves User object to database, if there is no error, HTTP Response Status with code '200 OK' and relevant message is returned to client
-        if (userRepository.save(user) != null){
-            return ResponseEntity.status(HttpStatus.OK).body("Account created");
-        }
-
-        // If anything above goes wrong,
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registration failed");
+    public void register() {
+//
+//        // Checks if the username already exists in the database
+//        // In case some result is returned, skip the body
+//        if (userRepository.findByUsername(user.getUsername()) != null){
+//            // Returns HTTP Response Status with code '400 Bad Request' and relevant message so client can react accordingly
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username with username " + user.getUsername() + " already exists");
+//        }
+//
+//        // Saves User object to database, if there is no error, HTTP Response Status with code '200 OK' and relevant message is returned to client
+//        if (userRepository.save(user) != null){
+//            return ResponseEntity.status(HttpStatus.OK).body("Account created");
+//        }
+//
+//        // If anything above goes wrong,
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registration failed");
     }
     //endregion
 

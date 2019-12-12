@@ -2,12 +2,15 @@ package ApplicationServer.Controllers;
 
 import ApplicationServer.Model.ClientModels.UserRegisterClient;
 import ApplicationServer.Model.DataLayerModels.UserDataLayer;
+import ApplicationServer.Model.RegisterSocketProtocol.RegisterClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
@@ -34,23 +37,29 @@ public class AuthenticationController extends ControllerConfiguration{
      */
 
     @RequestMapping(value = "/register", produces = "application/json", method = RequestMethod.POST)
-    public ResponseEntity<UserDataLayer> register(@RequestBody UserRegisterClient user) {
+    public ResponseEntity<?> register(@RequestBody UserRegisterClient user) {
         UserDataLayer userForDataLayer = new UserDataLayer(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getBirthday(), user.getDateJoined(), user.getProfilePicture());
-        HttpEntity<UserDataLayer> userDataLayerHttpEntity = new HttpEntity<>(userForDataLayer);
+
         try {
-            restUtility.postForLocation(DataLayerURI + "/auth/register", userDataLayerHttpEntity);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (HttpClientErrorException e) {
+            ResponseEntity<?> result = new RegisterClient().registerUser(userForDataLayer);
+            return result;
+        } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("User couldn't be created");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        } catch (RestClientException e) {
-            System.out.println("Some internal json issue but user created successfully");
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-
-
+//        HttpEntity<UserDataLayer> userDataLayerHttpEntity = new HttpEntity<>(userForDataLayer);
+//        try {
+//            restUtility.postForLocation(DataLayerURI + "/auth/register", userDataLayerHttpEntity);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        } catch (HttpClientErrorException e) {
+//            e.printStackTrace();
+//            System.out.println("User couldn't be created");
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        } catch (RestClientException e) {
+//            System.out.println("Some internal json issue but user created successfully");
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        }
     }
 
     /**

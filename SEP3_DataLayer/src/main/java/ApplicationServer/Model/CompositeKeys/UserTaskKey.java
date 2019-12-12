@@ -3,6 +3,7 @@ package ApplicationServer.Model.CompositeKeys;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class UserTaskKey implements Serializable {
@@ -42,5 +43,19 @@ public class UserTaskKey implements Serializable {
                 "taskId=" + taskId +
                 ", username='" + username + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserTaskKey)) return false;
+        UserTaskKey that = (UserTaskKey) o;
+        return getTaskId() == that.getTaskId() &&
+                Objects.equals(getUsername(), that.getUsername());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTaskId(), getUsername());
     }
 }
