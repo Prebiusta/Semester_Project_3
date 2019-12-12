@@ -22,7 +22,7 @@ namespace WebCoreMVC.NET.Controllers {
         }
 
         public IActionResult AddMember(int projectId) {
-            var list = GetUsersOutiseProject(projectId).Result;
+            var list = GetUsersOutsideProject(projectId).Result;
             var result = JsonConvert.DeserializeObject<List<UserWithName>>(list);
             ContainerForListAndId<UserWithName> containerForListAndId = new ContainerForListAndId<UserWithName>(result, projectId);
             return View("~/Views/Project/Members/AddMember.cshtml", containerForListAndId);
@@ -90,7 +90,7 @@ namespace WebCoreMVC.NET.Controllers {
 
         public string GetUsersOutiseProjectJsonString(int projectId)
         {
-            var content = GetUsersOutiseProject(projectId).Result;
+            var content = GetUsersOutsideProject(projectId).Result;
             return content;
         }
 
@@ -136,7 +136,7 @@ namespace WebCoreMVC.NET.Controllers {
             var content = await GetJsonData("api/usersInProject?projectId=" + projectId);
             return content;
         }
-        private async Task<string> GetUsersOutiseProject(int projectId) {
+        private async Task<string> GetUsersOutsideProject(int projectId) {
             var content = await GetJsonData("api/usersOutsideProject?projectId=" + projectId);
             return content;
         }

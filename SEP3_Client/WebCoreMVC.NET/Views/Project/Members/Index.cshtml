@@ -15,7 +15,7 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <h1>Members</h1>
     <h6 id="membersError" class="text-danger"></h6>
-    <div class="row margin-left-80px" id="divMembers">
+    <div id="divMembers">
         <button class="w3-button w3-black w3-card-4" onclick="goToPreviousWebsite()">< Back</button>
         <br />
         <br />
@@ -25,19 +25,32 @@
         <button id="addMemberJS" class="w3-button w3-xlarge w3-black w3-card-4" onclick="getUsersOutsideProject('addMemberJS', @Model.id)">JavaScriptList</button>
         <div id="addMembersDiv"></div>
         <hr />
-        <ul id="membersInTheProjectList">
-            @foreach (var item in Model.accessList)
-            {
-                <li class="flex-row">
-                    <p>- @item.username   @item.firstName @item.lastName</p>
-                    @if (!(@item.username.Equals(User.Identity.Name)))
-                    {
-                        <button class="deleteMemberButton w3-button w3-black w3-card-4" onclick="location.href='@Url.Action("DeleteMember", "Members", new UserProject(@Model.id, @item.username))'">Delete member from the project</button>
-                    }
-                </li>
-
-            }
-        </ul>
+        <div class="row">
+        <div id="membersInTheProjectList" class="structure">
+                @foreach(var item in Model.accessList) {
+                    <div class="member">
+                        <img src="https://yt3.ggpht.com/-v6ueJEAFe5E/AAAAAAAAAAI/AAAAAAAAAAA/QexJ3Y8Xxtc/s-c-k-no-rj-c0xffffffphoto.jpg" alt="red"/>
+                        <div class="member_info">
+                            <div class="column">
+                                <p> @item.firstName @item.lastName</p>
+                                <p class="username">@item.username</p>
+                            </div>
+                        </div>
+                        <div class="member_buttons">
+                            <div class="column">
+                                @if (!(@item.username.Equals(User.Identity.Name))) {
+                                    <button class="deleteMemberButton w3-button w3-black w3-card-4" onclick="location.href='@Url.Action("DeleteMember", "Members", new UserProject(@Model.id, @item.username))'">Delete member</button>
+                                }
+                                <div class="break"> </div>
+                                <button class="assignRolesButton w3-button w3-black w3-card-4">Assign Role</button>
+                                <div class="break"> </div>
+                                <button class="detailsButton w3-button w3-black w3-card-4">Details</button>
+                            </div>                        
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </body>
 </html>
