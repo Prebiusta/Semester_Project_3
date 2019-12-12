@@ -94,11 +94,11 @@ namespace WebCoreMVC.NET.Controllers {
             return content;
         }
 
-      
+        [HttpPost]
         public string SendMemberDataJS(UserProject user)
         {
             Debug.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!chupacabra");
-            Debug.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!JAVASCRIPT JSON: " + user.ToString());
+            Debug.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!JAVASCRIPT JSON: " + user.username + ' ' + user.projectId);
             var content = SendMemberData(user).Result;
             if (content.IsSuccessStatusCode)
             {
