@@ -67,7 +67,7 @@ function postMemberData(username, firstname, lastname, listID) {
                 $('#' + listID).remove();
                 let newMember = '<li class="flex-row">';
                 newMember += '<p>- ' + username + '   ' + firstname + ' ' + lastname + '</p > '
-                newMember += ' <button class="deleteMemberButton w3-button w3-black w3-card-4" onclick="location.href=\'/Members/DeleteMember?projectId=' + globalProjectID + '&username=' + username + '\'">Delete member from the project</button>';
+                //newMember += ' <button class="deleteMemberButton w3-button w3-black w3-card-4" onclick="deleteMemberFromTheProject(\'' + username + '\', ' + globalProjectID + ')">Delete member from the project</button>';
                 newMember += '</li >';
                 document.getElementById('membersInTheProjectList').insertAdjacentHTML('afterbegin', newMember);
             } else {
@@ -80,11 +80,43 @@ function postMemberData(username, firstname, lastname, listID) {
     });
 }
 
-function deleteMemberFromTheProject() {
+//function postMemberData(username, firstname, lastname, listID) {
+//    let userProject = '"projectId":' + globalProjectID + ', "username": ' + username;
+//    $.ajax({
+//        type: "POST",
+//        dataType: "json",
+//        url: '/Members/SendMemberDataJS,
+//        data: userProject,
+//        contentType: 'application/json; charset=utf-8',
+//        headers: {
+//            RequestVerificationToken:
+//                $('input:hidden[name="__RequestVerificationToken"]').val()
+//        },
+//        success: function (result, status, xhr) {
+//            console.log(userProject + ' , result: ' + result);
+//            console.log('success');
+//            if (result['status'] == 'ok') {
+//                $('#' + listID).remove();
+//                let newMember = '<li class="flex-row">';
+//                newMember += '<p>- ' + username + '   ' + firstname + ' ' + lastname + '</p > '
+//                newMember += ' <button class="deleteMemberButton w3-button w3-black w3-card-4" onclick="location.href=\'/Members/DeleteMember?projectId=' + globalProjectID + '&username=' + username + '\'">Delete member from the project</button>';
+//                newMember += '</li >';
+//                document.getElementById('membersInTheProjectList').insertAdjacentHTML('afterbegin', newMember);
+//            } else {
+//                document.getElementById("membersError").innerHTML = "Error while adding a member. Try to refresh the website"
+//            }
+//        },
+//        error: function (xhr, status, error) {
+//            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+//        }
+//    });
+//}
+
+function deleteMemberFromTheProject(username, projectID) {
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: '/Members/SendMemberDataJS?projectId=' + globalProjectID + '&username=' + username,
+        url: '/Members/DeleteMemberRequestJS?projectId=' + projectID + '&username=' + username,
         contentType: 'application/json; charset=utf-8',
         headers: {
             RequestVerificationToken:
@@ -92,14 +124,9 @@ function deleteMemberFromTheProject() {
         },
         success: function (result, status, xhr) {
             if (result['status'] == 'ok') {
-                $('#' + listID).remove();
-                let newMember = '<li class="flex-row">';
-                newMember += '<p>- ' + username + '   ' + firstname + ' ' + lastname + '</p > '
-                newMember += ' <button class="deleteMemberButton w3-button w3-black w3-card-4" onclick="location.href=\'/Members/DeleteMember?projectId=' + globalProjectID + '&username=' + username + '\'">Delete member from the project</button>';
-                newMember += '</li >';
-                document.getElementById('membersInTheProjectList').insertAdjacentHTML('afterbegin', newMember);
+                $('#memberInTheProject' + username).remove();
             } else {
-                document.getElementById("membersError").innerHTML = "Error while adding a member. Try to refresh the website"
+                document.getElementById("membersError").innerHTML = "Error while deleting a member. Try to refresh the website";
             }
         },
         error: function (xhr, status, error) {

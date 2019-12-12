@@ -97,10 +97,18 @@ namespace WebCoreMVC.NET.Controllers {
         [HttpPost]
         public string SendMemberDataJS(UserProject user)
         {
-            Debug.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!chupacabra");
-            Debug.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!JAVASCRIPT JSON: " + user.username + ' ' + user.projectId);
             var content = SendMemberData(user).Result;
             if (content.IsSuccessStatusCode)
+            {
+                return "{\"status\":\"ok\"}";
+            }
+            return "{\"status\":\"error\"}";
+        }
+
+        public string DeleteMemberRequestJS(UserProject user)
+        {
+            var response = DeleteMemberRequest(user).Result;
+            if (response.IsSuccessStatusCode)
             {
                 return "{\"status\":\"ok\"}";
             }
