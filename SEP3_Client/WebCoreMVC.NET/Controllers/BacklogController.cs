@@ -18,10 +18,19 @@ namespace WebCoreMVC.NET.Controllers {
         public IActionResult Index(int projectId)
         {
             this.projectId = projectId;
-            var list = GetUserStories(projectId).Result;
+            var list = GetUserStoriesForProject(projectId).Result;
             var result = JsonConvert.DeserializeObject<List<UserStory>>(list);
             ContainerForListAndId<UserStory> containerForListAndId = new ContainerForListAndId<UserStory>(result, projectId);
             return View("~/Views/Project/Backlog/Index.cshtml", containerForListAndId);
+        }
+
+        public IActionResult SprintIndex(int sprintId)
+        {
+            this.sprintId = projectId;
+            var list = GetUserStoriesForSprint(sprintId).Result;
+            var result = JsonConvert.DeserializeObject<List<UserStory>>(list);
+            ContainerForListAndId<UserStory> containerForListAndId = new ContainerForListAndId<UserStory>(result, projectId);
+            return View("~/Views/Project/Sprint/Backlog/Index.cshtml", containerForListAndId);
         }
 
         public IActionResult AddUserStory(int sprintId)
@@ -53,10 +62,10 @@ namespace WebCoreMVC.NET.Controllers {
             var response = DeleteUserStoryRequest(userStory.userStoryId).Result;
             if (response.IsSuccessStatusCode)
             {
-                return Index(sprintId);
+                return Index(userStory.projectId);
             }
 
-            return Index(sprintId);
+            return Index(userStory.projectId);
         }
 
         public IActionResult BacklogFromLastSprint(int projectId)
@@ -65,11 +74,33 @@ namespace WebCoreMVC.NET.Controllers {
             return Index(projectId);
         }
 
-        private async Task<string> GetUserStories(int projectId) {
+        public string AddUserStoryToProjectJS(UserStory userStory)
+        {
+            var content = AddUserStoryRequest(userStory).Result;
+            if (content.IsSuccessStatusCode)
+            {
+                return "{\"status\":\"ok\"}";
+            }
+            return "{\"status\":\"error\"}";
+        }
+
+        public string GetUserStoriesForProjectJS(int projectId)
+        {
+            var content = GetUserStoriesForProject(projectId).Result;
+            return content;
+        }
+
+        private async Task<string> GetUserStoriesForProject(int projectId) {
             var content = await GetJsonData("api/userStory?projectId="+projectId);
             return content;
         }
-        
+
+        private async Task<string> GetUserStoriesForSprint(int sprintId)
+        {
+            var httpContent = await GetJsonData("api/sprintUserStory?sprintId=" + sprintId);
+            return httpContent;
+        }
+
         private async Task<HttpResponseMessage> AddUserStoryRequest(UserStory userStory) {
             var httpContent = await PostData(userStory, "api/userStory");
             return httpContent;
@@ -79,11 +110,5 @@ namespace WebCoreMVC.NET.Controllers {
             var httpContent = await PostData(userStoryId, "api/usersInProjectDelete=");
             return httpContent;
         }
-
-        private async Task<HttpResponseMessage> GetProductBacklogId(int sprintId)
-        {
-            var httpContent = await PostData(sprintId, "api/sprintId=" + sprintId);
-            return httpContent;
-        } 
     }
 }

@@ -10,6 +10,7 @@ using WebCoreMVC.NET.Models;
 namespace WebCoreMVC.NET.Controllers {
     [Authorize(Policy= "MustBeUser")]
     public class SprintController : CustomController {
+        private int projectId;
         public IActionResult Index(int projectId) {
             var list = GetSprints(projectId).Result;
             var result = JsonConvert.DeserializeObject<List<Sprint>>(list);
@@ -43,6 +44,25 @@ namespace WebCoreMVC.NET.Controllers {
             }
         }
 
+        public IActionResult SprintBacklog(int sprintId)
+        {
+            var list = GetSprintUSerStories(sprintId).Result;
+            var result = JsonConvert.DeserializeObject<List<UserStory>>(list);
+            ContainerForListAndId<UserStory> containerForListAndId = new ContainerForListAndId<UserStory>(result, sprintId);
+            ViewData.Add("projectId", projectId);
+            return View("~/Views/Project/Sprint/Backlog/Index.cshtml", containerForListAndId);
+        }
+
+        public string AssignUserStoryToSprintJS(AssignUserStory assignUserStory)
+        {
+            var content = AssignUserStoryToSprint(assignUserStory).Result;
+            if (content.IsSuccessStatusCode)
+            {
+                return "{\"status\":\"ok\"}";
+            }
+            return "{\"status\":\"error\"}";
+        }
+
         private async Task<string> GetSprints(int projectId) {
             var content = await GetJsonData("api/sprint?projectId=" + projectId + "&username=" + username);
             return content;
@@ -50,6 +70,18 @@ namespace WebCoreMVC.NET.Controllers {
 
         private async Task<HttpResponseMessage> SendSprintData(Sprint sprint) {
             var httpContent = await PostData(sprint, "api/createSprint");
+            return httpContent;
+        }
+
+        private async Task<string> GetSprintUSerStories(int sprintId)
+        {
+            var httpContent = await GetJsonData("api/sprintUserStory?sprintId=" + sprintId);
+            return httpContent;
+        }
+
+        private async Task<HttpResponseMessage> AssignUserStoryToSprint(AssignUserStory assignUserStory)
+        {
+            var httpContent = await PostData(assignUserStory, "api/sprintUserStory");
             return httpContent;
         }
     }

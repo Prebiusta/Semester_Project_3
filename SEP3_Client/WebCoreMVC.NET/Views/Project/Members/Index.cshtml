@@ -17,7 +17,7 @@
     <div class="margin-left-80px" id="divMembers">
         <br />
         <br />
-        <button id="addMemberJS" class="btn btn-primary" data-toggle="modal" data-target="#addMemberModal" onclick="getUsersOutsideProject('addMemberJS', @Model.id)">JavaScriptList</button>
+        <button id="addMemberJS" class="btn btn-primary" data-toggle="modal" data-target="#addMemberModal" onclick="getUsersOutsideProject(@Model.id)">JavaScriptList</button>
         <hr />
         <div class="row">
             <div id="membersInTheProjectList" class="structure">
@@ -49,10 +49,6 @@
             </div>
         </div>
     </div>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addMemberModal">
-        Launch demo modal
-    </button>
 
     <!-- Modal -->
     <div class="modal fade" id="addMemberModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
