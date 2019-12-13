@@ -405,6 +405,9 @@ body {
 .member:hover {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
+.add_member_div:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
 
 
 /*Roles that are displayed in the project and sprints*/
@@ -478,13 +481,39 @@ body {
     flex-basis: 100%;
 }
 
-.member_info {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap !important;
-    flex-flow: row wrap !important;
+.add_member_div {
+    overflow: hidden;
+    background-color: #d2d2d3;
+    padding: 10px;
+    height: 70px;
+    width: 100%;
+    margin: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+
+.add_member_div img {
+    width: 7%;
+    margin-right: 5%;
+    float: left;
+    border-radius: 50%;
+}
+
+.add_member_info {
     height: 100%;
     float: left;
+    width: 300px;
+}
+
+.member_info {
+    height: 100%;
+    float: left;
+    width: 200px;
+}
+
+.member_name {
+    overflow-wrap: break-word;
 }
 
 .member_buttons {
@@ -499,6 +528,7 @@ body {
     font-weight: 300;
     margin-top: 0;
 }
+
 .member img {
     width: 23%;
     margin-right: 5%;
@@ -514,6 +544,16 @@ body {
     flex-flow: row wrap !important;
     align-content: flex-end !important;
     margin-left: 20px;
+}
+
+
+.structureModal {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    flex-flow: row wrap !important;
+    align-content: flex-end !important;
+    margin-left: 2px;
 }
 
 h1 {
@@ -639,6 +679,18 @@ h1 {
     text-align: center;
     width: 150px;
     margin-bottom: 10px;
+}
+
+.addMemberButton {
+    background-color: #1a943c !important;
+    color: white !important;
+    border-radius: 10px;
+    margin-left: 3px;
+    margin-right: 3px;
+    float: right;
+    text-align: center;
+    margin-bottom: 10px;
+
 }
 
 .backButton {

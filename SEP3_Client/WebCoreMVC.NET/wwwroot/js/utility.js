@@ -32,17 +32,30 @@ function getUsersOutsideProject(buttonID, projectID) {
     console.log('users outside project function called');
     globalProjectID = projectID;
     getGenericController(buttonID, '/Members/GetUsersOutiseProjectJsonString?projectId=' + projectID, displayUsersOutsideProject);
-    $('#addMemberModal').on('shown.bs.modal', function () {
-        $('#myInput').trigger('focus')
-    })
+    $('#addMemberModal').on('shown.bs.modal',
+        function() {
+            $('#myInput').trigger('focus')
+        });
 }
 
 //Creates a list of users with possibility to add them to the project !!!!WARNING: Calls wrong method right now so it adds user but also redirects you. Instead of "PostMember" it should call c# function that doesn't change the view. REMEMBER to delete the line with suer after deleting him. You can also refresh entire list although it is 2/10
 function displayUsersOutsideProject(json) {
-    let list = "<ul>";
+    let list = "<ul id='listMember'>";
     for (var i = 0; i < json.length; i++) {
         var obj = json[i];
-        list += '<li id="listMember' + i + '">- <a onclick="postMemberData(\'' + obj['username'] + '\', \'' + obj['firstName'] + '\', \'' + obj['lastName'] + '\', \'listMember' + i + '\')" > ' + obj['username'] + '</a >' + ', ' + obj['firstName'] + ', ' + obj['lastName'] + "</li>";
+        list += '<div class=\'structureModal\'>';
+        list += '<div class="add_member_div" id="listMember ' + i + '">' + '<img src="https://yt3.ggpht.com/-v6ueJEAFe5E/AAAAAAAAAAI/AAAAAAAAAAA/QexJ3Y8Xxtc/s-c-k-no-rj-c0xffffffphoto.jpg" alt="red">';
+        list += '<div class="add_member_info">';
+        list += '<div class="column">';
+        list += '<p class="member_name">' + obj['firstName']  + ' ' + obj['lastName'] + '</p>';
+        list += '<p class="username">' + obj['username'] + '</p>';
+        list += '</div>';
+        list += '</div>';
+        list += '<div class="member_buttons">';
+        list += '<button class="addMemberButton w3-button w3-black w3-card-4" onclick="postMemberData(\'' + obj['username'] + '\', \'' + obj['firstName'] + '\', \'' + obj['lastName'] + '\', \'listMember' + i + '\')" > Add </button>';
+        list += '</div>';
+        list += '</div>';
+        list += '</div>';
     }
     list += '</ul>';
     document.getElementById("addMembersDiv").innerHTML = list;
@@ -65,10 +78,21 @@ function postMemberData(username, firstname, lastname, listID) {
             console.log('success');
             if (result['status'] == 'ok') {
                 $('#' + listID).remove();
-                let newMember = '<li class="flex-row">';
-                newMember += '<p>- ' + username + '   ' + firstname + ' ' + lastname + '</p > '
+                let newMember = '<div class="member">';
+                newMember += '<img src="https://yt3.ggpht.com/-v6ueJEAFe5E/AAAAAAAAAAI/AAAAAAAAAAA/QexJ3Y8Xxtc/s-c-k-no-rj-c0xffffffphoto.jpg" alt="red"/>';
+                newMember += '<div class="member_info" >';
+                newMember += '<div class="column">';
+                newMember += '<p>' + firstname + ' ' + lastname + '</p>';
+                newMember += '<p class="username">' + username + '</p>';
+                newMember += '</div>';
+                newMember += '</div>';
+                newMember += '<div class="member_buttons">';
+                newMember += '<div class="column">';
+                newMember += '<button class="detailsButton w3-button w3-black w3-card-4">Details</button>';
+                newMember += '</div>';
+                newMember += '</div>';
                 //newMember += ' <button class="deleteMemberButton w3-button w3-black w3-card-4" onclick="deleteMemberFromTheProject(\'' + username + '\', ' + globalProjectID + ')">Delete member from the project</button>';
-                newMember += '</li >';
+                newMember += '</div >';
                 document.getElementById('membersInTheProjectList').insertAdjacentHTML('afterbegin', newMember);
             } else {
                 document.getElementById("membersError").innerHTML = "Error while adding a member. Try to refresh the website"
