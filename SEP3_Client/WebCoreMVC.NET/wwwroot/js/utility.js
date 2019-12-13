@@ -44,8 +44,9 @@ function displayUsersOutsideProject(json) {
     let list = "<ul id='listMember'>";
     for (var i = 0; i < json.length; i++) {
         var obj = json[i];
+        list += '<li id="listMember' + i + '">';
         list += '<div class=\'structureModal\'>';
-        list += '<div class="add_member_div" id="listMember ' + i + '">' + '<img src="https://yt3.ggpht.com/-v6ueJEAFe5E/AAAAAAAAAAI/AAAAAAAAAAA/QexJ3Y8Xxtc/s-c-k-no-rj-c0xffffffphoto.jpg" alt="red">';
+        list += '<div class="add_member_div">' + '<img src="https://yt3.ggpht.com/-v6ueJEAFe5E/AAAAAAAAAAI/AAAAAAAAAAA/QexJ3Y8Xxtc/s-c-k-no-rj-c0xffffffphoto.jpg" alt="red">';
         list += '<div class="add_member_info">';
         list += '<div class="column">';
         list += '<p class="member_name">' + obj['firstName']  + ' ' + obj['lastName'] + '</p>';
@@ -57,6 +58,7 @@ function displayUsersOutsideProject(json) {
         list += '</div>';
         list += '</div>';
         list += '</div>';
+        list += '</li>'
     }
     list += '</ul>';
     document.getElementById("addMembersDiv").innerHTML = list;
@@ -85,6 +87,7 @@ function postMemberData(username, firstname, lastname, listID) {
                 newMember += '<div class="column">';
                 newMember += '<p>' + firstname + ' ' + lastname + '</p>';
                 newMember += '<p class="username">' + username + '</p>';
+                newMember += '<p class="text-success h6">User will be added to the project</p>';
                 newMember += '</div>';
                 newMember += '</div>';
                 newMember += '<div class="member_buttons">';

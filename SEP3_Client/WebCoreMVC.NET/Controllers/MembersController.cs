@@ -37,7 +37,7 @@ namespace WebCoreMVC.NET.Controllers {
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Server sent a bad request: " + result.Content);
+                ModelState.AddModelError(string.Empty, "Delete member Server sent a bad request: " + result.Content);
                 return Index(user.projectId);
             }
         }
@@ -48,7 +48,7 @@ namespace WebCoreMVC.NET.Controllers {
                 case HttpStatusCode.OK:
                     return AddMember(user.projectId);
                 case HttpStatusCode.BadRequest:
-                    ModelState.AddModelError(string.Empty, "Server sent a bad request: " + response.Content);
+                    ModelState.AddModelError(string.Empty, "Post Member Server sent a bad request: " + response.Content);
                     return AddMember(user.projectId);
                 default:
                     ModelState.AddModelError(string.Empty, "Server is not answering");
@@ -64,7 +64,7 @@ namespace WebCoreMVC.NET.Controllers {
                 case HttpStatusCode.OK: 
                     return AddMember(user.projectId);
                 case HttpStatusCode.BadRequest:
-                    ModelState.AddModelError(string.Empty, "Server sent a bad request: " + response.Content);
+                    ModelState.AddModelError(string.Empty, "Add Administrator Server sent a bad request: " + response.Content);
                     return AddMember(user.projectId);
                 default:
                     ModelState.AddModelError(string.Empty, "Server is not answering");

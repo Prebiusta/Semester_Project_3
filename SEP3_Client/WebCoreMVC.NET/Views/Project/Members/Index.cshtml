@@ -32,13 +32,16 @@
                         </div>
                         <div class="member_buttons">
                             <div class="column">
-                                @if(!(@item.username.Equals(User.Identity.Name))) {
+                                @if (!(@item.username.Equals(User.Identity.Name)))
+                                {
                                     <button class="deleteMemberButton w3-button w3-black w3-card-4" onclick="location.href='@Url.Action("DeleteMember", "Members", new UserProject(@Model.id, @item.username))'">Delete member</button>
                                 }
                                 <div class="break"> </div>
                                 <button class="detailsButton w3-button w3-black w3-card-4">Details</button>
-                                <div class="break"> </div>
-                                <button class="assignRolesButton w3-button w3-black w3-card-4">Make Admin</button>
+                                <!-- YOU DIDN'T DO ANY CHECK IF USERS ARE ALREADY ADMINS, NOT EVEN IF STATEMENT TO CHECK IF YOU ARE ADMIN SO YOU CAN MAKE YOURSELF ADMIN AGAIN? NO FUNCTIONALITY IMPLEMENTED BUT WE HAVE DESIGN 10/10'
+                                    <div class="break"> </div>
+                                    <button class="assignRolesButton w3-button w3-black w3-card-4">Make Admin</button>
+                                    -->
                             </div>                        
                         </div>
                     </div>
