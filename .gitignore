@@ -12,3 +12,6 @@ tags
 .vs
 *.dll
 *.cache
+SEP3_Client/WebCoreMVC.NET/obj/Debug/netcoreapp3.0/WebCoreMVC.NET.pdb
+*.dll
+*.cache

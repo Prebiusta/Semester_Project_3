@@ -195,6 +195,7 @@ public class ProjectController extends ControllerConfiguration{
     public ResponseEntity<UserProjectClient> addUserToProject(
             @RequestBody UserProjectClient userProjectClient
     ) {
+        System.out.println(userProjectClient.getUsername() + " , " + userProjectClient.getProjectId());
         HttpEntity<UserProjectClient> projectDataLayerHttpEntity = new HttpEntity<>(userProjectClient);
         //--------------------------------------------------------------------||--------------------------------------------------------------------
         try {
