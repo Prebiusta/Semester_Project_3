@@ -536,3 +536,4 @@ C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Backlog\Index.cshtml.g.cs
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Members\Hello.cshtml.g.cs
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\WebCoreMVC.NET.csprojAssemblyReference.cache
+C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\Tasks\Index.cshtml.g.cs

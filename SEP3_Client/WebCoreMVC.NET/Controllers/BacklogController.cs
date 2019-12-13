@@ -14,12 +14,13 @@ namespace WebCoreMVC.NET.Controllers {
     public class BacklogController : CustomController
     {
         private int sprintId;
-        public IActionResult Index(int sprintId)
+        private int projectId;
+        public IActionResult Index(int projectId)
         {
-            this.sprintId = sprintId;
-            var list = GetUserStories(sprintId).Result;
+            this.projectId = projectId;
+            var list = GetUserStories(projectId).Result;
             var result = JsonConvert.DeserializeObject<List<UserStory>>(list);
-            ContainerForListAndId<UserStory> containerForListAndId = new ContainerForListAndId<UserStory>(result, sprintId);
+            ContainerForListAndId<UserStory> containerForListAndId = new ContainerForListAndId<UserStory>(result, projectId);
             return View("~/Views/Project/Backlog/Index.cshtml", containerForListAndId);
         }
 
@@ -37,7 +38,7 @@ namespace WebCoreMVC.NET.Controllers {
             //TODO
             int productBacklogId = 1;
             //-----------------------
-            UserStory userStory = new UserStory(-1, productBacklogId, priority, description, difficulty, "ongoing");
+            UserStory userStory = new UserStory(-1, productBacklogId, priority, description, difficulty, "ONGOING");
             var response = AddUserStoryRequest(userStory).Result;
             if(response.IsSuccessStatusCode)
             {
@@ -65,7 +66,7 @@ namespace WebCoreMVC.NET.Controllers {
         }
 
         private async Task<string> GetUserStories(int projectId) {
-            var content = await GetJsonData("api/userStory?backlogId="+projectId);
+            var content = await GetJsonData("api/userStory?projectId="+projectId);
             return content;
         }
         

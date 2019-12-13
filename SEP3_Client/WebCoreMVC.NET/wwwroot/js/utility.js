@@ -38,6 +38,7 @@ function getUsersOutsideProject(buttonID, projectID) {
         });
 }
 
+
 //Creates a list of users with possibility to add them to the project !!!!WARNING: Calls wrong method right now so it adds user but also redirects you. Instead of "PostMember" it should call c# function that doesn't change the view. REMEMBER to delete the line with suer after deleting him. You can also refresh entire list although it is 2/10
 function displayUsersOutsideProject(json) {
     let list = "<ul id='listMember'>";
@@ -104,6 +105,19 @@ function postMemberData(username, firstname, lastname, listID) {
     });
 }
 
+function postAdmin(username) {
+    let userProject = '"projectId":' + globalProjectID +', "username": ' + username;
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/Members/SendAdminDataJS?projectId=' + globalProjectID + '&username=' + username,
+        contentType: 'application/json; charset=utf-8',
+        headers: {
+            RequestVerificationToken:
+                $('input:hidden[name="__RequestVerificationToken"]').val()
+        }
+    });
+}
 //function postMemberData(username, firstname, lastname, listID) {
 //    let userProject = '"projectId":' + globalProjectID + ', "username": ' + username;
 //    $.ajax({
@@ -159,6 +173,15 @@ function deleteMemberFromTheProject(username, projectID) {
     });
 }
 
+// function displayUsersInProject(json) {
+//     let list = "<ul";
+//     for (var i = 0; i < json.length; i++) {
+//         var obj = json[i];
+//         list += '<option>' + obj['firstName'] + ' ' + obj['lastName'] + '</option';
+//     }
+//     list += '</ul>';
+//     document.getElementById("assignProductOwner").innerHTML = list;
+// }
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //Garbage/test code environment

@@ -23,6 +23,8 @@
     <_ContentIncludedByDefault Remove="Views\Home\Project\CreateProject.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\Project\Index.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Home\Project\Members.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Project\Tasks\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Project\Tasks\PlanSprint.cshtml" />
   </ItemGroup>
 
 </Project>
