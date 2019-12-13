@@ -2,7 +2,7 @@ package ApplicationServer.Model.DataLayerModels;
 
 public class UserStoryDataLayer {
     private int userStoryId;
-    private int projectBacklogId;
+    private int productBacklogId;
     private String priority;
     private String description;
     private int difficulty;
@@ -11,9 +11,9 @@ public class UserStoryDataLayer {
     public UserStoryDataLayer() {
     }
 
-    public UserStoryDataLayer(int userStoryId, int projectBacklogId, String priority, String description, int difficulty, String status) {
+    public UserStoryDataLayer(int userStoryId, int productBacklogId, String priority, String description, int difficulty, String status) {
         this.userStoryId = userStoryId;
-        this.projectBacklogId = projectBacklogId;
+        this.productBacklogId = productBacklogId;
         this.priority = priority;
         this.description = description;
         this.difficulty = difficulty;
@@ -24,8 +24,8 @@ public class UserStoryDataLayer {
         return userStoryId;
     }
 
-    public int getProjectBacklogId() {
-        return projectBacklogId;
+    public int getProductBacklogId() {
+        return productBacklogId;
     }
 
     public String getPriority() {

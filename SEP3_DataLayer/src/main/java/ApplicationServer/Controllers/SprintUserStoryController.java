@@ -24,15 +24,17 @@ public class SprintUserStoryController {
     /**
      * Returns List of Sprint User Story entries from backlog with provided id.
      *
-     * @param sprintBacklogId id of Sprint Backlog from where are the Sprint User Stories returned.
+     * @param sprintId id of Sprint Backlog from where are the Sprint User Stories returned.
      * @return <i>HTTP 200 - OK</i> code with List of Sprint User Stories. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/sprintUserStory", method = RequestMethod.GET)
-    public ResponseEntity<?> getSprintUserStoriesForSprintBacklog(
-            @RequestParam(value = "sprintBacklogId") Integer sprintBacklogId){
+    public ResponseEntity<?> getSprintUserStories(
+            @RequestParam(value = "sprintId") Integer sprintId){
         try {
+            int sprintBacklogId = sprintBacklogRepository.findBySprintId(sprintId).getSprintBacklogId();
             return ResponseEntity.status(HttpStatus.OK).body(sprintUserStoryRepository.findAllBySprintBacklogId(sprintBacklogId));
         } catch (Exception e){
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error " + e.getMessage());
         }
     }

@@ -26,18 +26,19 @@ public class UserStoryController extends ControllerConfiguration {
      * Example
      * http://localhost:8081/api/userStory?backlogId=1
      *
-     * @param backlogId of the project, which is unique for all the projects
+     * @param projectId of the project, which is unique for all the projects
+     * @param userStoryId Id of User Story for getting all info
      * @return returns a list of user stories depending on the backlog ID
      */
     @RequestMapping(value = "/userStory", method = RequestMethod.GET)
     public ResponseEntity<?> getUserStory(
-            @RequestParam(value = "backlogId", required = false) Integer backlogId,
-            @RequestParam(value = "sprintId", required = false) Integer sprintId) {
+            @RequestParam(value = "projectId", required = false) Integer projectId,
+            @RequestParam(value = "userStoryId", required = false) Integer userStoryId) {
         String jsonUserStories;
-        if (sprintId != null) {
-            jsonUserStories = restUtility.getForObject(DataLayerURI + "/api/userStory?id=" + sprintId, String.class);
-        } else if(backlogId != null) {
-            jsonUserStories = restUtility.getForObject(DataLayerURI + "/api/userStory?backlogId=" + backlogId, String.class);
+        if (projectId != null) {
+            jsonUserStories = restUtility.getForObject(DataLayerURI + "/api/userStory?projectId=" + projectId, String.class);
+        } else if(userStoryId != null) {
+            jsonUserStories = restUtility.getForObject(DataLayerURI + "/api/userStory?userStoryId=" + userStoryId, String.class);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -47,7 +48,7 @@ public class UserStoryController extends ControllerConfiguration {
             //--------------------------------------------------------------------||--------------------------------------------------------------------
             List<UserStoryClient> userStoryForClient = new ArrayList<>();
             for(UserStoryDataLayer userStory : userStoryFromDataLayer) {
-                userStoryForClient.add(new UserStoryClient(userStory.getUserStoryId(), userStory.getProjectBacklogId(), userStory.getPriority(), userStory.getDescription(), userStory.getDifficulty(), userStory.getStatus()));
+                userStoryForClient.add(new UserStoryClient(userStory.getUserStoryId(), userStory.getProductBacklogId(), userStory.getPriority(), userStory.getDescription(), userStory.getDifficulty(), userStory.getStatus()));
             }
             String jsonForClient = jsonMapper.writeValueAsString(userStoryForClient);
             return new ResponseEntity<>(jsonForClient, HttpStatus.OK);

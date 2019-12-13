@@ -19,45 +19,6 @@ public class AuthenticationController {
         registerSocketThread.start();
     }
 
-    //region Register POST
-    /**
-     * Register user method, processing data in JSON form sent from Client site of the system. Register user to the system database
-     * in case all the conditions ale fulfilled. Returns HTTP Response Status with code '400 Bad Request' or '200 OK' and relevant
-     * message so client can react accordingly
-     *
-     * JSON Template
-     * {
-     * 	    "username": "username",
-     * 	    "password": "password",
-     *      "firstName": "firstName",
-     *      "lastName": "lastName",
-     *      "birthday": "YYYY-MM-DD",
-     *      "dateJoined": "YYYY-MM-DD",
-     *      "profilePicture": "profilePicture"
-     * }
-     *
-     * @return HTTP Response Status with Relevant message
-     */
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void register() {
-//
-//        // Checks if the username already exists in the database
-//        // In case some result is returned, skip the body
-//        if (userRepository.findByUsername(user.getUsername()) != null){
-//            // Returns HTTP Response Status with code '400 Bad Request' and relevant message so client can react accordingly
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username with username " + user.getUsername() + " already exists");
-//        }
-//
-//        // Saves User object to database, if there is no error, HTTP Response Status with code '200 OK' and relevant message is returned to client
-//        if (userRepository.save(user) != null){
-//            return ResponseEntity.status(HttpStatus.OK).body("Account created");
-//        }
-//
-//        // If anything above goes wrong,
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Registration failed");
-    }
-    //endregion
-
     //region Login POST
     /**
      * Method for login user. It is processing POST request with User object in format of JSON as an argument.

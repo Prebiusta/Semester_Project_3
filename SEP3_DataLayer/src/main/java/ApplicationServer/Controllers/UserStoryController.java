@@ -38,9 +38,9 @@ public class UserStoryController {
             @RequestParam(value = "userStoryId", required = false) Integer userStoryId) {
         try {
             if (projectId != null) {
-                var productBacklogEntry = productBacklogRepository.findByProjectId(projectId);
-                System.out.println("Product backlog id" + productBacklogEntry.getProductBacklogId());
-                return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findAllByProductBacklogId(productBacklogEntry.getProductBacklogId()));
+                var productBacklogId = productBacklogRepository.findByProjectId(projectId).getProductBacklogId();
+                System.out.println("Product backlog id" + productBacklogId);
+                return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findAllByProductBacklogId(productBacklogId));
             } else if (userStoryId != null) {
                 return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findByUserStoryId(userStoryId));
             }
