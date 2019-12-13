@@ -2,7 +2,7 @@ package ApplicationServer.Model.ClientModels;
 
 public class UserStoryClient {
     private int userStoryId;
-    private int productBacklogId;
+    private int projectId;
     private String priority;
     private String description;
     private int difficulty;
@@ -11,17 +11,17 @@ public class UserStoryClient {
     public UserStoryClient() {
     }
 
-    public UserStoryClient(int productBacklogId, String priority, String description, int difficulty, String status) {
-        this.productBacklogId = productBacklogId;
+    public UserStoryClient(int projectId, String priority, String description, int difficulty, String status) {
+        this.projectId = projectId;
         this.priority = priority;
         this.description = description;
         this.difficulty = difficulty;
         this.status = status;
     }
 
-    public UserStoryClient(int userStoryId, int productBacklogId, String priority, String description, int difficulty, String status) {
+    public UserStoryClient(int userStoryId, int projectId, String priority, String description, int difficulty, String status) {
         this.userStoryId = userStoryId;
-        this.productBacklogId = productBacklogId;
+        this.projectId = projectId;
         this.priority = priority;
         this.description = description;
         this.difficulty = difficulty;
@@ -32,8 +32,8 @@ public class UserStoryClient {
         return userStoryId;
     }
 
-    public int getProductBacklogId() {
-        return productBacklogId;
+    public int getProjectId() {
+        return projectId;
     }
 
     public String getPriority() {
@@ -56,7 +56,7 @@ public class UserStoryClient {
     public String toString() {
         return "UserStoryClient{" +
                 "userStoryId=" + userStoryId +
-                ", projectBacklogId=" + productBacklogId +
+                ", projectBacklogId=" + projectId +
                 ", priority='" + priority + '\'' +
                 ", description='" + description + '\'' +
                 ", difficulty=" + difficulty +

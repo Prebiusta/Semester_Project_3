@@ -62,7 +62,6 @@ public class UserStoryController extends ControllerConfiguration {
     public ResponseEntity<?> createUserStory(
             @RequestBody UserStoryClient userStoryClient
     ){
-        System.out.println(userStoryClient.toString());
         HttpEntity<UserStoryClient> userStoryClientHttpEntity = new HttpEntity<>(userStoryClient);
         try {
             restUtility.postForLocation(DataLayerURI + "/api/userStory", userStoryClientHttpEntity);

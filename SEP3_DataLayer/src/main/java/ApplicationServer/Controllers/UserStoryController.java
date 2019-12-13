@@ -78,6 +78,8 @@ public class UserStoryController {
             @RequestBody UserStory userStory
     ){
         try {
+            int productBacklogId = productBacklogRepository.findByProjectId(userStory.getProductBacklogId()).getProductBacklogId();
+            userStory.setProductBacklogId(productBacklogId);
             UserStory savedUserStory = userStoryRepository.save(userStory);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUserStory);
         } catch (Exception e){
