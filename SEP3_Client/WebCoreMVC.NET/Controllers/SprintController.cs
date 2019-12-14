@@ -12,6 +12,7 @@ namespace WebCoreMVC.NET.Controllers {
     public class SprintController : CustomController {
         private int projectId;
         public IActionResult Index(int projectId) {
+            this.projectId = projectId;
             var list = GetSprints(projectId).Result;
             var result = JsonConvert.DeserializeObject<List<Sprint>>(list);
             ContainerForListAndId<Sprint> containerForListAndId = new ContainerForListAndId<Sprint>(result, projectId);
@@ -61,6 +62,17 @@ namespace WebCoreMVC.NET.Controllers {
                 return "{\"status\":\"ok\"}";
             }
             return "{\"status\":\"error\"}";
+        }
+        public string GetUserStoriesNotAssignedToTheSprintJS(int projectId)
+        {
+            var content = GetUserStoriesNotAssignedToTheSprint(projectId).Result;
+            return content;
+        }
+
+        private async Task<string> GetUserStoriesNotAssignedToTheSprint(int sprintId)
+        {
+            var content = await GetJsonData("api/userStoryOutsideOfSprint?sprintId=" + sprintId);
+            return content;
         }
 
         private async Task<string> GetSprints(int projectId) {

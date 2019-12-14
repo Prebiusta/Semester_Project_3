@@ -15,3 +15,7 @@ tags
 SEP3_Client/WebCoreMVC.NET/obj/Debug/netcoreapp3.0/WebCoreMVC.NET.pdb
 *.dll
 *.cache
+SEP3_Client/WebCoreMVC.NET/obj/WebCoreMVC.NET.csproj.nuget.g.props
+SEP3_Client/WebCoreMVC.NET/bin/Debug/netcoreapp3.0/WebCoreMVC.NET.pdb
+SEP3_Client/WebCoreMVC.NET/obj/Debug/netcoreapp3.0/WebCoreMVC.NET.csproj.FileListAbsolute.txt
+SEP3_Client/WebCoreMVC.NET/obj/Debug/netcoreapp3.0/WebCoreMVC.NET.csprojAssemblyReference.cache

@@ -1,5 +1,6 @@
 package ApplicationServer.Controllers;
 
+import ApplicationServer.Model.ClientModels.UserStoryClient;
 import ApplicationServer.Model.DataLayerModels.AssignUserStory;
 import ApplicationServer.Model.DataLayerModels.SprintDataLayer;
 import ApplicationServer.Model.DataLayerModels.UserStoryDataLayer;
@@ -12,6 +13,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -53,15 +55,40 @@ public class SprintUserStoryController extends ControllerConfiguration {
     public ResponseEntity<?> getSprintUserStory(
             @RequestParam(value = "sprintId") Integer sprintId
     ){
-        String jsonSpringUserStories = restUtility.getForObject(DataLayerURI + "/api/sprintUserStory?sprintId=" + sprintId, String.class);
+//        String jsonSpringUserStories = restUtility.getForObject(DataLayerURI + "/api/sprintUserStory?sprintId=" + sprintId, String.class);
+//
+//        try {
+//            List<UserStoryDataLayer> sprintUserStories = jsonMapper.readValue(jsonSpringUserStories, new TypeReference<List<UserStoryDataLayer>>(){});
+//
+//            return ResponseEntity.status(HttpStatus.OK).body(sprintUserStories);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
-        try {
-            List<UserStoryDataLayer> sprintUserStories = jsonMapper.readValue(jsonSpringUserStories, new TypeReference<List<UserStoryDataLayer>>(){});
+        //Dummy data for testing
+        UserStoryClient userStoryClient1 = new UserStoryClient(1, 2, "LOW", "UserStory1", 3, "ONGOING");
+        UserStoryClient userStoryClient2 = new UserStoryClient(2, 2, "MEDIUM", "UserStory2", 5, "ONGOING");
+        UserStoryClient userStoryClient3 = new UserStoryClient(3, 2, "HIGH", "UserStory3", 6, "ONGOING");
+        List<UserStoryClient> userStoryClientList = new ArrayList<>();
+        userStoryClientList.add(userStoryClient1);
+        userStoryClientList.add(userStoryClient2);
+        userStoryClientList.add(userStoryClient3);
+        return ResponseEntity.status(HttpStatus.OK).body(userStoryClientList);
+    }
 
-            return ResponseEntity.status(HttpStatus.OK).body(sprintUserStories);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    @RequestMapping(value = "/userStoryOutsideOfSprint", method = RequestMethod.GET)
+    public ResponseEntity<?> getUserStoriesOutsideOfSprint(
+            @RequestParam(value = "sprintId") Integer sprintId
+    ){
+        //Dummy data for testing
+        UserStoryClient userStoryClient1 = new UserStoryClient(1, 2, "LOW", "UserStoryOutside1", 3, "ONGOING");
+        UserStoryClient userStoryClient2 = new UserStoryClient(2, 2, "MEDIUM", "UserStoryOutside2", 5, "ONGOING");
+        UserStoryClient userStoryClient3 = new UserStoryClient(3, 2, "HIGH", "UserStoryOutside3", 6, "ONGOING");
+        List<UserStoryClient> userStoryClientList = new ArrayList<>();
+        userStoryClientList.add(userStoryClient1);
+        userStoryClientList.add(userStoryClient2);
+        userStoryClientList.add(userStoryClient3);
+        return ResponseEntity.status(HttpStatus.OK).body(userStoryClientList);
     }
 }
