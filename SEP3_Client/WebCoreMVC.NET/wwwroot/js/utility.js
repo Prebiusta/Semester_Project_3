@@ -2,6 +2,8 @@
 //Variables
 //ID of the project client currently works on
 var globalProjectID;
+var globalSprintID;
+var globalSprintUserStoryId;
 
 //Goes to the last website loaded from the server 
 function goToPreviousWebsite() {
@@ -9,7 +11,7 @@ function goToPreviousWebsite() {
 }
 
 //Generic GET request function. Takes ID of the button, path to c# controller and a function that has to be called on a successful ajax call
-function getGenericController(buttonID, controllerPath, successFunction) {
+function getGenericController(controllerPath, successFunction) {
         $.ajax({
             type: "GET",
             url: controllerPath,
@@ -28,10 +30,9 @@ function getGenericController(buttonID, controllerPath, successFunction) {
 }
 
 //Calls generic GET function to get all users outside the project and then calls a function to display all suers to the website. Assigns current projectID variable.
-function getUsersOutsideProject(buttonID, projectID) {
-    console.log('users outside project function called');
+function getUsersOutsideProject(projectID) {
     globalProjectID = projectID;
-    getGenericController(buttonID, '/Members/GetUsersOutiseProjectJsonString?projectId=' + projectID, displayUsersOutsideProject);
+    getGenericController('/Members/GetUsersOutiseProjectJsonString?projectId=' + projectID, displayUsersOutsideProject);
     $('#addMemberModal').on('shown.bs.modal',
         function() {
             $('#myInput').trigger('focus')
@@ -121,38 +122,8 @@ function postAdmin(username) {
         }
     });
 }
-//function postMemberData(username, firstname, lastname, listID) {
-//    let userProject = '"projectId":' + globalProjectID + ', "username": ' + username;
-//    $.ajax({
-//        type: "POST",
-//        dataType: "json",
-//        url: '/Members/SendMemberDataJS,
-//        data: userProject,
-//        contentType: 'application/json; charset=utf-8',
-//        headers: {
-//            RequestVerificationToken:
-//                $('input:hidden[name="__RequestVerificationToken"]').val()
-//        },
-//        success: function (result, status, xhr) {
-//            console.log(userProject + ' , result: ' + result);
-//            console.log('success');
-//            if (result['status'] == 'ok') {
-//                $('#' + listID).remove();
-//                let newMember = '<li class="flex-row">';
-//                newMember += '<p>- ' + username + '   ' + firstname + ' ' + lastname + '</p > '
-//                newMember += ' <button class="deleteMemberButton w3-button w3-black w3-card-4" onclick="location.href=\'/Members/DeleteMember?projectId=' + globalProjectID + '&username=' + username + '\'">Delete member from the project</button>';
-//                newMember += '</li >';
-//                document.getElementById('membersInTheProjectList').insertAdjacentHTML('afterbegin', newMember);
-//            } else {
-//                document.getElementById("membersError").innerHTML = "Error while adding a member. Try to refresh the website"
-//            }
-//        },
-//        error: function (xhr, status, error) {
-//            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-//        }
-//    });
-//}
 
+//Deletes member from the project asynchronously
 function deleteMemberFromTheProject(username, projectID) {
     $.ajax({
         type: "POST",
@@ -168,6 +139,151 @@ function deleteMemberFromTheProject(username, projectID) {
                 $('#memberInTheProject' + username).remove();
             } else {
                 document.getElementById("membersError").innerHTML = "Error while deleting a member. Try to refresh the website";
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+        }
+    });
+}
+
+//User story is added to project backlog and new item is displayed on the list
+function addUserStoryToProjectBacklog(projectID) {
+    let userStoryDescription = document.getElementById("projectUserStoryDescription").value;
+    let userStoryPriority = document.getElementById("selectPriorityOfTheUserStory").value;
+    let userStoryDifficulty = document.getElementById("selectDifficultyOfTheUserStory").value;
+
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/Backlog/AddUserStoryToProjectJS?userStoryId=-1&projectId=' + projectID + '&priority=' + userStoryPriority + '&description=' + userStoryDescription + '&difficulty=' + userStoryDifficulty + '&status=ONGOING',
+        contentType: 'application/json; charset=utf-8',
+        headers: {
+            RequestVerificationToken:
+                $('input:hidden[name="__RequestVerificationToken"]').val()
+        },
+        success: function (result, status, xhr) {
+            console.log('success');
+            if (result['status'] == 'ok') {
+                let newUserStoryElement = '<li class="flex-row">';
+                newUserStoryElement += '<p>' + userStoryDescription + '</p>';
+                newUserStoryElement += '<p class="text-success h6 padding-left-30px">User story will be added to the project</p>';
+                newUserStoryElement += '</li>';
+                document.getElementById('listOfProjectUserStories').insertAdjacentHTML('afterbegin', newUserStoryElement);
+                document.getElementById("projectUserStoryDescription").value = ' ';
+                document.getElementById("selectPriorityOfTheUserStory").value = 'LOW';
+                document.getElementById("selectDifficultyOfTheUserStory").value = '1';
+            } else {
+                document.getElementById("projectBacklogError").innerHTML = "Error while adding user story. Try to refresh the website";
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+        }
+    });
+}
+
+//NOT INTEGRATED WITH DATA LAYER YET. Loads all user stories from the project into sprint backlog view
+function loadProjectUserStoriesIntoSprint(projectId, sprintID) {
+    globalProjectID = projectId;
+    globalSprintID = sprintID;
+    getGenericController('/Sprint/GetUserStoriesNotAssignedToTheSprintJS?projectId=' + sprintID, displayUserStoriesFromProject);
+    
+}
+
+//Display user stories inside the modal
+function displayUserStoriesFromProject(json) {
+    let list = '<ul id="listOfProjectUserStories">';
+
+    for (var i = 0; i < json.length; i++) {
+        var obj = json[i];
+        list += '<li class="flex-row">';
+        list += '<p class="text-primary">' + obj['description'] + '</p>';
+        list += '<p class="text-info padding-left-30px">Priority: ' +obj['priority'] + ', Difficulty: ' + obj['difficulty'] + '</p>';
+        list += '<button class="btn btn-primary" onclick="assignUserStoryToSprint(' + obj + ')">Assign user story to the sprint</button>';
+        list += '</li>';
+    }
+    list += '</ul>';
+    document.getElementById("listOfProjectUserStoriesInsideSprint").innerHTML = list;
+}
+
+//Assigns user story to the sprint 
+function assignUserStoryToSprint(jsonSprint) {
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/Sprint/AssignUserStoryToSprintJS?userStoryId=' + jsonSprint['userStoryId'] + '&sprintId=' + globalSprintID,
+        contentType: 'application/json; charset=utf-8',
+        headers: {
+            RequestVerificationToken:
+                $('input:hidden[name="__RequestVerificationToken"]').val()
+        },
+        success: function (result, status, xhr) {
+            console.log('success');
+            if (result['status'] == 'ok') {
+                let newUserStoryElement = '<li class="flex-row">';
+                newUserStoryElement += '<p>' + jsonSprint['description'] + '</p>';
+                newUserStoryElement += '<p class="text-success h6 padding-left-30px">User story will be assigned to the sprint</p>';
+                newUserStoryElement += '</li>';
+                document.getElementById('listOfSprinttUserStories').insertAdjacentHTML('afterbegin', newUserStoryElement);
+            } else {
+                document.getElementById("projectBacklogError").innerHTML = "Error while adding user story. Try to refresh the website";
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+        }
+    });
+}
+
+//Opens modal with tasks and displays all tasks inside
+function openTasksModal(sprintUserStoryId) {
+    globalSprintUserStoryId = sprintUserStoryId;
+    getGenericController('/Tasks/GetTasksForUserStoryJS?sprintUserStoryId=' + sprintUserStoryId, displayTasksForTheUserStory);
+    $("#userStoryTasks").modal();
+}
+
+//Displays all tasks inside of the modal
+function displayTasksForTheUserStory(json) {
+    let list = '<ul id="listOfTasks">';
+    for (var i = 0; i < json.length; i++) {
+        var obj = json[i];
+        list += '<li class="flex-row">';
+        list += '<p class="text-primary">' + obj['description'] + '</p>';
+        list += '<p class="text-info padding-left-30px">Status: ' + obj['status'] + '</p>';
+        list += '<button class="btn btn-primary margin-left-30px" onclick="applyForApproval()">Apply for approval</button>';
+        list += '</li>';
+    }
+    list += '</ul>';
+    document.getElementById("listOfTasksForTheUserStory").innerHTML = list;
+}
+
+function applyForApproval() {
+    alert('If someone feels like implementing go ahead (you can also pay me and I will do that)');
+}
+
+//Adds new task to the user story
+function addTaskToTheUserStory() {
+    let taskDescription = document.getElementById('newTaskForTheUserStory').value;
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/Tasks/AddTaskToTheUserStoryJS?taskId=' + '-1' + '&sprintUserStoryId=' + globalSprintUserStoryId + '&description=' + taskDescription + '&status=UNDONE',
+        contentType: 'application/json; charset=utf-8',
+        headers: {
+            RequestVerificationToken:
+                $('input:hidden[name="__RequestVerificationToken"]').val()
+        },
+        success: function (result, status, xhr) {
+            console.log('success');
+            if (result['status'] == 'ok') {
+                let newUserStoryElement = '<li class="flex-row">';
+                newUserStoryElement += '<p>' + taskDescription + '</p>';
+                newUserStoryElement += '<p class="text-success h6 padding-left-30px">Task will be assigned to the user story</p>';
+                newUserStoryElement += '</li>';
+                document.getElementById('listOfTasks').insertAdjacentHTML('afterbegin', newUserStoryElement);
+            } else {
+                document.getElementById("sprintBacklogError").innerHTML = "Error while adding the task. Try to refresh the website";
             }
         },
         error: function (xhr, status, error) {
