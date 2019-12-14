@@ -1,6 +1,7 @@
 package ApplicationServer.Controllers;
 
 import ApplicationServer.Model.ClientModels.UserStoryClient;
+import ApplicationServer.Model.DataLayerModels.SprintUserStoryDataLayer;
 import ApplicationServer.Model.DataLayerModels.UserStoryDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.http.HttpEntity;
@@ -33,12 +34,17 @@ public class UserStoryController extends ControllerConfiguration {
     @RequestMapping(value = "/userStory", method = RequestMethod.GET)
     public ResponseEntity<?> getUserStory(
             @RequestParam(value = "projectId", required = false) Integer projectId,
-            @RequestParam(value = "userStoryId", required = false) Integer userStoryId) {
-        String jsonUserStories;
+            @RequestParam(value = "userStoryId", required = false) Integer userStoryId,
+            @RequestParam(value = "sprintId", required = false) Integer sprintId
+    ){
+        String jsonUserStories = "";
         if (projectId != null) {
             jsonUserStories = restUtility.getForObject(DataLayerURI + "/api/userStory?projectId=" + projectId, String.class);
         } else if(userStoryId != null) {
             jsonUserStories = restUtility.getForObject(DataLayerURI + "/api/userStory?userStoryId=" + userStoryId, String.class);
+        } else if (sprintId != null){
+            List<UserStoryDataLayer> userStoriesNotInSprint = getUserStoriesNotInSprint(sprintId);
+            return new ResponseEntity<>(userStoriesNotInSprint, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -58,6 +64,30 @@ public class UserStoryController extends ControllerConfiguration {
         }
     }
 
+    private List<UserStoryDataLayer> getUserStoriesNotInSprint(int sprintId) {
+        String jsonAllUserStories = restUtility.getForObject(DataLayerURI + "/api/userStory?sprintId=" + sprintId, String.class);
+        String jsonSpringUserStories = restUtility.getForObject(DataLayerURI + "/api/sprintUserStory?sprintId=" + sprintId, String.class);
+
+        try {
+            List<UserStoryDataLayer> allUserStoryFromDataLayer = jsonMapper.readValue(jsonAllUserStories, new TypeReference<List<UserStoryDataLayer>>() {
+            });
+            List<SprintUserStoryDataLayer> allSprintUserStories = jsonMapper.readValue(jsonSpringUserStories, new TypeReference<List<SprintUserStoryDataLayer>>() {
+            });
+
+            for (int i = 0; i < allSprintUserStories.size(); i++) {
+                for (int a = 0; a < allUserStoryFromDataLayer.size(); a++) {
+                    if (allSprintUserStories.get(i).getUserStoryId() == allUserStoryFromDataLayer.get(a).getUserStoryId()) {
+                        allUserStoryFromDataLayer.remove(a);
+                    }
+                }
+            }
+
+            return allUserStoryFromDataLayer;
+        } catch (Exception e){
+            throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
     @RequestMapping(value = "/userStory", method = RequestMethod.POST)
     public ResponseEntity<?> createUserStory(
             @RequestBody UserStoryClient userStoryClient
@@ -74,5 +104,19 @@ public class UserStoryController extends ControllerConfiguration {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @RequestMapping(value = "/userStory", method = RequestMethod.DELETE)
+    public ResponseEntity<?> removeUserStory(@RequestParam(value = "userStoryId") Integer userStoryId){
+        try{
+            restUtility.delete(DataLayerURI + "/api/userStory?userStoryId=" + userStoryId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

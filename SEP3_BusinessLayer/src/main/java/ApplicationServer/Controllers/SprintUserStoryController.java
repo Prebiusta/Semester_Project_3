@@ -1,7 +1,10 @@
 package ApplicationServer.Controllers;
 
+import ApplicationServer.Model.ClientModels.SprintUserStoryClient;
+import ApplicationServer.Model.ClientModels.UserStoryClient;
 import ApplicationServer.Model.DataLayerModels.AssignUserStory;
 import ApplicationServer.Model.DataLayerModels.SprintDataLayer;
+import ApplicationServer.Model.DataLayerModels.SprintUserStoryDataLayer;
 import ApplicationServer.Model.DataLayerModels.UserStoryDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.http.HttpEntity;
@@ -12,6 +15,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClientException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -56,9 +60,20 @@ public class SprintUserStoryController extends ControllerConfiguration {
         String jsonSpringUserStories = restUtility.getForObject(DataLayerURI + "/api/sprintUserStory?sprintId=" + sprintId, String.class);
 
         try {
-            List<UserStoryDataLayer> sprintUserStories = jsonMapper.readValue(jsonSpringUserStories, new TypeReference<List<UserStoryDataLayer>>(){});
+            List<SprintUserStoryDataLayer> sprintUserStories = jsonMapper.readValue(jsonSpringUserStories, new TypeReference<List<SprintUserStoryDataLayer>>(){});
 
-            return ResponseEntity.status(HttpStatus.OK).body(sprintUserStories);
+            List<SprintUserStoryClient> clientSprintUserStories = new ArrayList<>();
+
+            for(SprintUserStoryDataLayer USDataLayer : sprintUserStories){
+                String jsonUserStoryDataLayer = restUtility.getForObject(DataLayerURI + "/api/userStory?userStoryId=" + USDataLayer.getUserStoryId(), String.class);
+
+                List<UserStoryDataLayer> userStoryFromDataLayer = jsonMapper.readValue(jsonUserStoryDataLayer, new TypeReference<List<UserStoryDataLayer>>(){});
+
+                SprintUserStoryClient sprintUserStoryClient = new SprintUserStoryClient(USDataLayer.getSprintUserStoryId(), userStoryFromDataLayer.get(0), USDataLayer.getSprintBacklogId());
+                clientSprintUserStories.add(sprintUserStoryClient);
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(clientSprintUserStories);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package ApplicationServer.Controllers;
 
 import ApplicationServer.JPA.ProductBacklogRepository;
 import ApplicationServer.JPA.SprintBacklogRepository;
+import ApplicationServer.JPA.SprintRepository;
 import ApplicationServer.JPA.UserStoryRepository;
 import ApplicationServer.Model.UserStory;
 import org.springframework.http.HttpStatus;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserStoryController {
     private UserStoryRepository userStoryRepository;
     private ProductBacklogRepository productBacklogRepository;
+    private SprintRepository sprintRepository;
 
-    public UserStoryController(UserStoryRepository userStoryRepository, ProductBacklogRepository productBacklogRepository) {
+    public UserStoryController(UserStoryRepository userStoryRepository, ProductBacklogRepository productBacklogRepository, SprintRepository sprintRepository) {
         this.userStoryRepository = userStoryRepository;
         this.productBacklogRepository = productBacklogRepository;
+        this.sprintRepository = sprintRepository;
     }
 
     //region Get User Story     ARGS: ID/ProjectBacklogId   METHOD: GET
@@ -35,14 +38,19 @@ public class UserStoryController {
     @RequestMapping(value = "/userStory", method = RequestMethod.GET)
     public ResponseEntity<?> getUserStory(
             @RequestParam(value = "projectId", required = false) Integer projectId,
-            @RequestParam(value = "userStoryId", required = false) Integer userStoryId) {
+            @RequestParam(value = "userStoryId", required = false) Integer userStoryId,
+            @RequestParam(value = "sprintId", required = false) Integer sprintId
+    ) {
         try {
             if (projectId != null) {
                 var productBacklogId = productBacklogRepository.findByProjectId(projectId).getProductBacklogId();
-                System.out.println("Product backlog id" + productBacklogId);
                 return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findAllByProductBacklogId(productBacklogId));
             } else if (userStoryId != null) {
                 return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findByUserStoryId(userStoryId));
+            } else if (sprintId != null){
+                int idOfProject = sprintRepository.findBySprintId(sprintId).get(0).getProjectId();
+                var productBacklogId = productBacklogRepository.findByProjectId(idOfProject).getProductBacklogId();
+                return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findAllByProductBacklogId(productBacklogId));
             }
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id not specified");
         } catch (Exception e){
@@ -87,4 +95,17 @@ public class UserStoryController {
         }
     }
     //endregion
+
+    //region Remove User Story
+    @RequestMapping(value = "/userStory", method = RequestMethod.DELETE)
+    public ResponseEntity<?> removeUserStory(@RequestParam(value = "userStoryId") Integer userStoryId){
+        try{
+            UserStory userStoryToDelete = userStoryRepository.findByUserStoryId(userStoryId).get(0);
+            userStoryRepository.delete(userStoryToDelete);
+            return ResponseEntity.status(HttpStatus.OK).body("Deleted");
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error " + e.getMessage());
+        }
+    }
+    //region
 }

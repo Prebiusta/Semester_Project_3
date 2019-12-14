@@ -4,10 +4,7 @@ import ApplicationServer.JPA.TaskRepository;
 import ApplicationServer.Model.Tasks;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -36,4 +33,16 @@ public class TaskController {
         }
     }
     //endregion
+
+    //region Get Tasks for Sprint User Story
+    @RequestMapping(value = "/task", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllTasks(
+            @RequestParam(value = "sprintUserStoryId") Integer sprintUserStoryId
+    ){
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(taskRepository.getAllBySprintUserStoryId(sprintUserStoryId));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error " + e.getMessage());
+        }
+    }
 }
