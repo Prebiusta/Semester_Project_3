@@ -1,4 +1,4 @@
-@model ContainerForListAndId<UserStory>
+@model ContainerForListAndId<SprintUserStory>
 
 @{
     ViewData["Title"] = "Sprint Backlog";
@@ -16,7 +16,7 @@
     <br />
     <br />
     <h1>User Stories @ViewData["projectId"]</h1>
-    <button class="btn btn-primary" data-toggle="modal" data-target="#assignUserStoryToSprintModal" onclick="loadProjectUserStoriesIntoSprint(@ViewData["projectId"], @Model.id)">Add a user story</button>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#assignUserStoryToSprintModal" onclick="loadProjectUserStoriesIntoSprint(@Convert.ToInt32(ViewData["projectId"]), @Model.id)">Add a user story</button>
     <h6 id="sprintBacklogError" class="text-danger"></h6>
     <div class="row">
         <div class="structure">
@@ -26,8 +26,8 @@
                     <li class="flex-row">
                         <p>@item.description</p>
                         <p class="text-info padding-left-30px">Priority: @item.priority, Difficulty: @item.difficulty</p>
-                        <button class="btn btn-warning margin-left-80px" onclick="openTasksModal(@item.userStoryId)">Tasks</button>
-                        <button class="btn btn-warning margin-left-80px" onclick="">Delete user story from sprint (not implemented)</button>
+                        <button class="btn btn-warning margin-left-80px" onclick="openTasksModal(@item.sprintUserStoryId)">Tasks</button>
+                        <!--<button class="btn btn-warning margin-left-80px" onclick="location.href='@Url.Action("DeleteUserStory", "Sprint", new DeleteSprintUserStory (@Convert.ToInt32(ViewData["projectId"]), Model.id, item.userStoryId))'">Delete user story from sprint (not implemented)</button>-->
                     </li>
                 }
             </ul>

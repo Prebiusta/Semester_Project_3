@@ -40,7 +40,7 @@ function getUsersOutsideProject(projectID) {
 }
 
 
-//Creates a list of users with possibility to add them to the project !!!!WARNING: Calls wrong method right now so it adds user but also redirects you. Instead of "PostMember" it should call c# function that doesn't change the view. REMEMBER to delete the line with suer after deleting him. You can also refresh entire list although it is 2/10
+//Creates a list of users with possibility to add them to the project 
 function displayUsersOutsideProject(json) {
     let list = "<ul id='listMember'>";
     for (var i = 0; i < json.length; i++) {
@@ -96,7 +96,6 @@ function postMemberData(username, firstname, lastname, listID) {
                 newMember += '<button class="detailsButton w3-button w3-black w3-card-4">Details</button>';
                 newMember += '</div>';
                 newMember += '</div>';
-                //newMember += ' <button class="deleteMemberButton w3-button w3-black w3-card-4" onclick="deleteMemberFromTheProject(\'' + username + '\', ' + globalProjectID + ')">Delete member from the project</button>';
                 newMember += '</div >';
                 document.getElementById('membersInTheProjectList').insertAdjacentHTML('afterbegin', newMember);
             } else {
@@ -109,21 +108,7 @@ function postMemberData(username, firstname, lastname, listID) {
     });
 }
 
-function postAdmin(username) {
-    let userProject = '"projectId":' + globalProjectID +', "username": ' + username;
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: '/Members/SendAdminDataJS?projectId=' + globalProjectID + '&username=' + username,
-        contentType: 'application/json; charset=utf-8',
-        headers: {
-            RequestVerificationToken:
-                $('input:hidden[name="__RequestVerificationToken"]').val()
-        }
-    });
-}
-
-//Deletes member from the project asynchronously
+//Deletes member from the project asynchronously and deletes him from the list
 function deleteMemberFromTheProject(username, projectID) {
     $.ajax({
         type: "POST",
@@ -183,11 +168,11 @@ function addUserStoryToProjectBacklog(projectID) {
     });
 }
 
-//NOT INTEGRATED WITH DATA LAYER YET. Loads all user stories from the project into sprint backlog view
+//Loads all user stories from the project that are ont included into sprint and calls a method to display them into modal
 function loadProjectUserStoriesIntoSprint(projectId, sprintID) {
     globalProjectID = projectId;
     globalSprintID = sprintID;
-    getGenericController('/Sprint/GetUserStoriesNotAssignedToTheSprintJS?projectId=' + sprintID, displayUserStoriesFromProject);
+    getGenericController('/Sprint/GetUserStoriesNotAssignedToTheSprintJS?sprintID=' + sprintID, displayUserStoriesFromProject);
     
 }
 
@@ -197,22 +182,22 @@ function displayUserStoriesFromProject(json) {
 
     for (var i = 0; i < json.length; i++) {
         var obj = json[i];
-        list += '<li class="flex-row">';
+        list += '<li class="flex-row" id="userStoryOutsideOfSprintId' + obj['userStoryId'] + '">';
         list += '<p class="text-primary">' + obj['description'] + '</p>';
         list += '<p class="text-info padding-left-30px">Priority: ' +obj['priority'] + ', Difficulty: ' + obj['difficulty'] + '</p>';
-        list += '<button class="btn btn-primary" onclick="assignUserStoryToSprint(' + obj + ')">Assign user story to the sprint</button>';
+        list += '<button class="btn btn-primary" onclick="assignUserStoryToSprint(' + obj['userStoryId'] + ', \'' + obj['description'] + '\')">Assign user story to the sprint</button>';
         list += '</li>';
     }
     list += '</ul>';
     document.getElementById("listOfProjectUserStoriesInsideSprint").innerHTML = list;
 }
 
-//Assigns user story to the sprint 
-function assignUserStoryToSprint(jsonSprint) {
+//Assigns a user story to the sprint 
+function assignUserStoryToSprint(userStoryId, description) {
     $.ajax({
         type: "POST",
         dataType: "json",
-        url: '/Sprint/AssignUserStoryToSprintJS?userStoryId=' + jsonSprint['userStoryId'] + '&sprintId=' + globalSprintID,
+        url: '/Sprint/AssignUserStoryToSprintJS?userStoryId=' + userStoryId + '&sprintId=' + globalSprintID,
         contentType: 'application/json; charset=utf-8',
         headers: {
             RequestVerificationToken:
@@ -221,8 +206,9 @@ function assignUserStoryToSprint(jsonSprint) {
         success: function (result, status, xhr) {
             console.log('success');
             if (result['status'] == 'ok') {
+                $('#userStoryOutsideOfSprintId' + userStoryId).remove();
                 let newUserStoryElement = '<li class="flex-row">';
-                newUserStoryElement += '<p>' + jsonSprint['description'] + '</p>';
+                newUserStoryElement += '<p>' + description + '</p>';
                 newUserStoryElement += '<p class="text-success h6 padding-left-30px">User story will be assigned to the sprint</p>';
                 newUserStoryElement += '</li>';
                 document.getElementById('listOfSprinttUserStories').insertAdjacentHTML('afterbegin', newUserStoryElement);
@@ -236,7 +222,7 @@ function assignUserStoryToSprint(jsonSprint) {
     });
 }
 
-//Opens modal with tasks and displays all tasks inside
+//Opens modal with tasks and calls a method to display all tasks inside
 function openTasksModal(sprintUserStoryId) {
     globalSprintUserStoryId = sprintUserStoryId;
     getGenericController('/Tasks/GetTasksForUserStoryJS?sprintUserStoryId=' + sprintUserStoryId, displayTasksForTheUserStory);
@@ -279,9 +265,10 @@ function addTaskToTheUserStory() {
             if (result['status'] == 'ok') {
                 let newUserStoryElement = '<li class="flex-row">';
                 newUserStoryElement += '<p>' + taskDescription + '</p>';
-                newUserStoryElement += '<p class="text-success h6 padding-left-30px">Task will be assigned to the user story</p>';
+                newUserStoryElement += '<p class="text-success h6 padding-left-30px">Task "' + document.getElementById('newTaskForTheUserStory').value + '" will be assigned to the user story</p>';
                 newUserStoryElement += '</li>';
                 document.getElementById('listOfTasks').insertAdjacentHTML('afterbegin', newUserStoryElement);
+                document.getElementById('newTaskForTheUserStory').value = '';
             } else {
                 document.getElementById("sprintBacklogError").innerHTML = "Error while adding the task. Try to refresh the website";
             }
@@ -290,22 +277,6 @@ function addTaskToTheUserStory() {
             console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
         }
     });
-}
-
-// function displayUsersInProject(json) {
-//     let list = "<ul";
-//     for (var i = 0; i < json.length; i++) {
-//         var obj = json[i];
-//         list += '<option>' + obj['firstName'] + ' ' + obj['lastName'] + '</option';
-//     }
-//     list += '</ul>';
-//     document.getElementById("assignProductOwner").innerHTML = list;
-// }
-
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//Garbage/test code environment
-function testButton() {
-    console.log("test button clicked");
 }
  
 
