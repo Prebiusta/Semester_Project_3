@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -11,11 +12,10 @@ namespace WebCoreMVC.NET.Controllers {
     [Authorize(Policy = "MustBeUser")]
     public class TasksController : CustomController {
         public IActionResult Index(int sprintId) {
-            var list = GetTasksForUserStory(sprintId).Result;
+            var list = GetTasksForSprint(sprintId).Result;
             var result = JsonConvert.DeserializeObject<List<Task>>(list);
             return View("~/Views/Project/Sprint/Tasks/Index.cshtml", result);
         }
-
         public string GetTasksForUserStoryJS(int sprintUserStoryId)
         {
             var content = GetTasksForUserStory(sprintUserStoryId).Result;
@@ -39,6 +39,12 @@ namespace WebCoreMVC.NET.Controllers {
         private async Task<HttpResponseMessage> AddTaskToTheUserStory(Task task)
         {
             var content = await PostData(task, "api/task");
+            return content;
+        }
+
+        private async Task<string> GetTasksForSprint(int sprintId)
+        {
+            var content = await GetJsonData("api/task?sprintId=" + sprintId);
             return content;
         }
     }

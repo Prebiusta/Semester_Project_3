@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -45,13 +46,19 @@ namespace WebCoreMVC.NET.Controllers {
             }
         }
 
-        public IActionResult SprintBacklog(int sprintId)
+        public IActionResult SprintBacklog(IDcontainer idContainer)
         {
-            var list = GetSprintUSerStories(sprintId).Result;
-            var result = JsonConvert.DeserializeObject<List<UserStory>>(list);
-            ContainerForListAndId<UserStory> containerForListAndId = new ContainerForListAndId<UserStory>(result, sprintId);
-            ViewData.Add("projectId", projectId);
+            var list = GetSprintUSerStories(idContainer.sprintId).Result;
+            var result = JsonConvert.DeserializeObject<List<SprintUserStory>>(list);
+            ContainerForListAndId<SprintUserStory> containerForListAndId = new ContainerForListAndId<SprintUserStory>(result, idContainer.sprintId);
+            ViewData.Add("projectId", idContainer.projectId);
             return View("~/Views/Project/Sprint/Backlog/Index.cshtml", containerForListAndId);
+        }
+
+        public IActionResult DeleteUserStory(DeleteSprintUserStory deleteSprintUserStory)
+        {
+            var response = DeleteUserStoryFromSprint(deleteSprintUserStory.userStoryId).Result;
+            return SprintBacklog(new IDcontainer(deleteSprintUserStory.projectId, deleteSprintUserStory.sprintId));
         }
 
         public string AssignUserStoryToSprintJS(AssignUserStory assignUserStory)
@@ -63,15 +70,24 @@ namespace WebCoreMVC.NET.Controllers {
             }
             return "{\"status\":\"error\"}";
         }
-        public string GetUserStoriesNotAssignedToTheSprintJS(int projectId)
+        public string GetUserStoriesNotAssignedToTheSprintJS(int sprintID)
         {
-            var content = GetUserStoriesNotAssignedToTheSprint(projectId).Result;
+            Debug.WriteLine("!!!!!!!!!!!!! " + sprintID);
+            var content = GetUserStoriesNotAssignedToTheSprint(sprintID).Result;
+            return content;
+        }
+
+        //removeUserStory
+
+        private async Task<HttpResponseMessage> DeleteUserStoryFromSprint(int userStoryID)
+        {
+            var content = await DeleteData("api/userStory?sprintId" + userStoryID);
             return content;
         }
 
         private async Task<string> GetUserStoriesNotAssignedToTheSprint(int sprintId)
         {
-            var content = await GetJsonData("api/userStoryOutsideOfSprint?sprintId=" + sprintId);
+            var content = await GetJsonData("api/userStory?sprintId=" + sprintId);
             return content;
         }
 

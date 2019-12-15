@@ -33,11 +33,6 @@ namespace WebCoreMVC.NET.Controllers {
             return View("~/Views/Project/Sprint/Backlog/Index.cshtml", containerForListAndId);
         }
 
-        public IActionResult AddUserStory(int sprintId)
-        {
-            return View("~/Views/Project/Backlog/AddUserStory.cshtml", sprintId);
-        }
-
         public IActionResult PostUserStory()
         {
             string priority = Request.Form["priority"];
@@ -107,7 +102,7 @@ namespace WebCoreMVC.NET.Controllers {
         }
         
         private async Task<HttpResponseMessage> DeleteUserStoryRequest(int userStoryId) {
-            var httpContent = await PostData(userStoryId, "api/usersInProjectDelete=");
+            var httpContent = await DeleteData("api/userStory?userStoryId=" + userStoryId);
             return httpContent;
         }
     }
