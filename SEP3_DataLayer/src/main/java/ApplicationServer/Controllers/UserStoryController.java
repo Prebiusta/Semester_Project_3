@@ -28,12 +28,14 @@ public class UserStoryController {
      * If specified backlogId, returns List of User Stories for Project Backlog with given ID.
      *
      * EXAMPLE:
-     *  http://{host}:6969/api/userStory?id=52
-     *  http://{host}:6969/api/userStory?backlogId=7
+     *  http://{host}:6969/api/userStory?userStoryId=52
+     *  http://{host}:6969/api/userStory?projectId=7
+     *  http://{host}:6969/api/userStory?sprintId=7
      *
-     * @param projectId Id of the Project
+     * @param projectId Id of the desired Project
      * @param userStoryId Id of desired User Story
-     * @return List of User Stories or specific User Story
+     * @param sprintId Id of the desired Sprint
+     * @return <i>HTTP 200 - OK</i> code with all relevant User Stories. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/userStory", method = RequestMethod.GET)
     public ResponseEntity<?> getUserStory(
@@ -48,6 +50,7 @@ public class UserStoryController {
             } else if (userStoryId != null) {
                 return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findByUserStoryId(userStoryId));
             } else if (sprintId != null){
+                System.out.println("Sprint id: " + sprintId);
                 int idOfProject = sprintRepository.findBySprintId(sprintId).get(0).getProjectId();
                 var productBacklogId = productBacklogRepository.findByProjectId(idOfProject).getProductBacklogId();
                 return ResponseEntity.status(HttpStatus.OK).body(userStoryRepository.findAllByProductBacklogId(productBacklogId));
@@ -62,7 +65,6 @@ public class UserStoryController {
     //endregion
 
     //region Create User Story     ARGS: UserStory RequestBody METHOD: POST
-
     /**
      * Creates User Story in Project Backlog. Requires RequestBody with JSON UserStory object.
      *
@@ -96,9 +98,21 @@ public class UserStoryController {
     }
     //endregion
 
-    //region Remove User Story
+    //region Remove User Story DELETE   ARGS: UserStoryId METHOD: DELETE
+
+    /**
+     * Remove user story with provided ID
+     *
+     * EXAMPLE:
+     *      http://{host}:6969/api/userStory?userStoryId=8
+     *
+     * @param userStoryId Id of User Story
+     * @return <i>HTTP 200 - OK</i> code if User Story was deleted. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
+     */
     @RequestMapping(value = "/userStory", method = RequestMethod.DELETE)
-    public ResponseEntity<?> removeUserStory(@RequestParam(value = "userStoryId") Integer userStoryId){
+    public ResponseEntity<?> removeUserStory(
+            @RequestParam(value = "userStoryId") Integer userStoryId
+    ){
         try{
             UserStory userStoryToDelete = userStoryRepository.findByUserStoryId(userStoryId).get(0);
             userStoryRepository.delete(userStoryToDelete);
@@ -107,5 +121,5 @@ public class UserStoryController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error " + e.getMessage());
         }
     }
-    //region
+    //endregion
 }

@@ -58,4 +58,14 @@ public class Tasks {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Tasks{" +
+                "taskId=" + taskId +
+                ", sprintUserStoryId=" + sprintUserStoryId +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

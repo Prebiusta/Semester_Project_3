@@ -12,6 +12,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
     private UserRepository userRepository;
 
+    /**
+     * Constructor for AuthenticationController. Using dependency injection for initializing JPA UserRepository.
+     * Starts new Thread with RegisterSocketServer class.
+     *
+     * @see RegisterSocketServer
+     * @param userRepository Dependency Injection for UserRepository from JPA Spring
+     */
     public AuthenticationController(UserRepository userRepository) {
         this.userRepository = userRepository;
         Thread registerSocketThread = new Thread(new RegisterSocketServer(5595, userRepository));
@@ -21,13 +28,20 @@ public class AuthenticationController {
 
     //region Login POST
     /**
-     * Method for login user. It is processing POST request with User object in format of JSON as an argument.
+     * Post Method for login user. It is processing POST request with User object in format of JSON as an argument.
      * <p>
-     *  Examples:
-     *  http://<b>{host}</b>:8080/api/auth as a POST request with User object converted to JSON in a body.
+     *  <b>EXAMPLE</b>:
+     *
+     *  http://{host}:8080/api/auth/login
+     *
+     *  <b>BODY</b>:
+     *  {
+     * 	    "username": "David",
+     * 	    "password": "123456"
+     *  }
      * </p>
      *
-     * @param user User object in format of JSON
+     * @param user User object in JSON format
      * @return <i>HTTP 200 - OK</i> code if credentials are verified. Returns <i>HTTP 400 - BAD_REQUEST</i> if credentials are incorrect.
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)

@@ -27,7 +27,9 @@ public class UserTasksController {
      * @return <i>HTTP 200 - OK</i> code with User Task entry. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/userTask", method = RequestMethod.GET)
-    public ResponseEntity<?> getUserTasksForUsername(@RequestParam(value = "username") String username){
+    public ResponseEntity<?> getUserTasksForUsername(
+            @RequestParam(value = "username") String username
+    ){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(userTasksRepository.getAllByUserTaskKeyUsername(username));
         } catch (Exception e){
@@ -46,7 +48,7 @@ public class UserTasksController {
      *  Body:
      *  {
      * 	    "taskId": 11,
-     * 	    "username": "david"
+     * 	    "username": "David"
      *  }
      *
      * @param userTaskKey UserTaskKey object in JSON format

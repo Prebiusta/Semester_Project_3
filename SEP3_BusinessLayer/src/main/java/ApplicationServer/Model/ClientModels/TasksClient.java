@@ -56,4 +56,14 @@ public class TasksClient {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "TasksClient{" +
+                "taskId=" + taskId +
+                ", sprintUserStoryId=" + sprintUserStoryId +
+                ", description='" + description + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

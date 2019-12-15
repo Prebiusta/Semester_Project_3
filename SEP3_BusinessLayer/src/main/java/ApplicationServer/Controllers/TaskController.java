@@ -45,13 +45,20 @@ public class TaskController extends ControllerConfiguration {
 
     @RequestMapping(value = "/task", method = RequestMethod.GET)
     public ResponseEntity<?> getAllTasks(
-            @RequestParam(value = "sprintUserStoryId") Integer sprintUserStoryId
+            @RequestParam(value = "sprintUserStoryId", required = false) Integer sprintUserStoryId,
+            @RequestParam(value = "sprintId", required = false) Integer sprintId
     ){
-        String jsonTasksForSprintUserStory = restUtility.getForObject(DataLayerURI + "/api/task?sprintUserStoryId=" + sprintUserStoryId, String.class);
-
+        String jsonTasks = "";
+        if (sprintUserStoryId != null){
+            jsonTasks = restUtility.getForObject(DataLayerURI + "/api/task?sprintUserStoryId=" + sprintUserStoryId, String.class);
+        } else if (sprintId != null){
+            jsonTasks = restUtility.getForObject(DataLayerURI + "/api/sprintTasks?sprintId=" + sprintId, String.class);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
-            List<TasksDataLayer> tasksForSprintUserStory = jsonMapper.readValue(jsonTasksForSprintUserStory, new TypeReference<List<TasksDataLayer>>() {});
-            return ResponseEntity.status(HttpStatus.OK).body(tasksForSprintUserStory);
+            List<TasksDataLayer> allTasks = jsonMapper.readValue(jsonTasks, new TypeReference<List<TasksDataLayer>>() {});
+            return ResponseEntity.status(HttpStatus.OK).body(allTasks);
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

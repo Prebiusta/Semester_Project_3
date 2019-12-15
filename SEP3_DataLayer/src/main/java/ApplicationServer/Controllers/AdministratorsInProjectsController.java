@@ -19,14 +19,18 @@ public class AdministratorsInProjectsController {
     //region Assign Admin POST
     /**
      * Post method assigning administrator privileges to the project by passing AdministratorProjectKey object body as JSON.
-     * EXAMPLE
+     *
+     * <p>
+     *  <b>EXAMPLE</b>:
      *  http://{host}:6969/api/assignAdmin
      *
-     *  Body:
+     *  <b>BODY</b>:
      *  {
      *      "username" : "David",
      *      "projectId" : 4
      *  }
+     * </p>
+     *
      *
      * @param adminEntry AdministratorProjectKey object containing username and projectId
      * @return <i>HTTP 201 - CREATED</i> code if administrator is added. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
@@ -49,16 +53,18 @@ public class AdministratorsInProjectsController {
     /**
      * Removes admin privileges from user. Deletes entry in database.
      *
-     * EXAMPLE:
+     * <p>
+     *  <b>EXAMPLE</b>:
      *  http://{host}:6969/api/removeAdmin
      *
-     *  Body:
+     *  <b>BODY</b>:
      *  {
      *      "username" : "David",
      *      "projectId" : 4
      *  }
+     *  </p>
      *
-     * @param adminEntry AdministratorProjectKey object containing username and projectId
+     * @param entryToDelete AdministratorProjectKey object containing username and projectId
      * @return <i>HTTP 200 - OK</i> code if administrator is removed. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/removeAdmin", method = RequestMethod.POST)

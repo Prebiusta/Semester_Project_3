@@ -35,14 +35,16 @@ public class ProjectController {
     //region Add User POST
     /**
      * Add new entry to UsersInProjects table. Takes UserProjectKey object as an argument
-     * EXAMPLE:
-     *  http://{host}:6969/api/addUser
+     * <p>
+     *  <b>EXAMPLE</b>:
+     *      http://{host}:6969/api/addUser
      *
-     *  Body:
-     *  {
-     *      "username" : "David",
-     *      "projectId" : 1
-     *  }
+     *  <b>BODY</b>:
+     *      {
+     *          "username" : "David",
+     *          "projectId" : 1
+     *      }
+     *  </p>
      *
      * @param userEntry UserProjectKey object containing username of new user and project id
      * @return <i>HTTP 201 - CREATED</i> code with saved object in body if user is added to the project. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
@@ -89,10 +91,12 @@ public class ProjectController {
 
     //region Get Project GET
     /**
-     * Finds all projects by status, specific one by project ID or all projects for user.
+     * Finds all projects by status, specific one by project ID or all projects for username.
      *
      * EXAMPLE:
      *  http://{host}:8080/api/project?status=completed
+     *  http://{host}:8080/api/project?id=5
+     *  http://{host}:8080/api/project?username=David
      *
      * @param status status of the project (ongoing/completed).
      * @param id id of the project.
@@ -156,19 +160,21 @@ public class ProjectController {
     //region Create Project POST
     /**
      * Method for creating a new project. Processing data in JSON form sent from client site of the system.
-     * Creates a project and saves it to the database.
+     * Creates a project and saves it to the database. Creates all relevant data for project such as Product Backlog,
+     * Sprint, Sprint Backlog.
+     * Assigns creator as an administrator and user of the project.
      * If the project was created successfully it returns  a HTTP Response Status with code '200 OK'
      * If the project failed to be created  it returns  a HTTP Response Status with code '400 Bad Request'
      *
      * Example:
-     *  POST METHOD: http://{host}:6969/api/project?username={existing username}
-     *  BODY:
+     *  http://{host}:6969/api/project?username=David
      *
+     *  BODY:
      *     {
-     * 	    "name": "{Project name}",
-     * 	    "status": "completed / ongoing",
-     * 	    "numberOfIterations": {integer},
-     * 	    "lengthOfSprint": {integer}
+     * 	        "name": "{Project name}",
+     * 	        "status": "completed / ongoing",
+     * 	        "numberOfIterations": {integer},
+     * 	        "lengthOfSprint": {integer}
      *     }
      *
      * @param project Project object in format of Json received from client

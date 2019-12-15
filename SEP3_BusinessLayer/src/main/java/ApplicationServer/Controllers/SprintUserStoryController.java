@@ -67,16 +67,17 @@ public class SprintUserStoryController extends ControllerConfiguration {
             for(SprintUserStoryDataLayer USDataLayer : sprintUserStories){
                 String jsonUserStoryDataLayer = restUtility.getForObject(DataLayerURI + "/api/userStory?userStoryId=" + USDataLayer.getUserStoryId(), String.class);
 
-                List<UserStoryDataLayer> userStoryFromDataLayer = jsonMapper.readValue(jsonUserStoryDataLayer, new TypeReference<List<UserStoryDataLayer>>(){});
+                List<UserStoryDataLayer> userStoryFromDataLayerList = jsonMapper.readValue(jsonUserStoryDataLayer, new TypeReference<List<UserStoryDataLayer>>(){});
+                UserStoryDataLayer userStoryDataLayer = userStoryFromDataLayerList.get(0);
 
-                SprintUserStoryClient sprintUserStoryClient = new SprintUserStoryClient(USDataLayer.getSprintUserStoryId(), userStoryFromDataLayer.get(0), USDataLayer.getSprintBacklogId());
+                SprintUserStoryClient sprintUserStoryClient = new SprintUserStoryClient(USDataLayer.getSprintUserStoryId(), userStoryDataLayer.getUserStoryId(), userStoryDataLayer.getPriority(), userStoryDataLayer.getDescription(), userStoryDataLayer.getDifficulty(), userStoryDataLayer.getStatus(), USDataLayer.getSprintBacklogId());
                 clientSprintUserStories.add(sprintUserStoryClient);
             }
 
             return ResponseEntity.status(HttpStatus.OK).body(clientSprintUserStories);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 }

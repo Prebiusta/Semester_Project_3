@@ -22,9 +22,13 @@ public class SprintUserStoryController {
 
     //region Get Sprint User Story GET
     /**
-     * Returns List of Sprint User Story entries from backlog with provided id.
+     * Returns List of Sprint User Story entries from backlog with provided sprint id.
      *
-     * @param sprintId id of Sprint Backlog from where are the Sprint User Stories returned.
+     * <b>EXAMPLE</b>:
+     *  http://{host}:6969/api/sprintUserStory?sprintId=3
+     *
+     *
+     * @param sprintId id of Sprint from where are the Sprint User Stories returned.
      * @return <i>HTTP 200 - OK</i> code with List of Sprint User Stories. Returns <i>HTTP 400 - BAD_REQUEST</i> if error occurred.
      */
     @RequestMapping(value = "/sprintUserStory", method = RequestMethod.GET)
@@ -61,8 +65,8 @@ public class SprintUserStoryController {
             @RequestBody AssignUserStory assignUserStory
     ){
         try {
-            SprintBacklog sprintBacklog = sprintBacklogRepository.findBySprintId(assignUserStory.getSprintId());
-            SprintUserStory savedSprintUserStory = sprintUserStoryRepository.save(new SprintUserStory(assignUserStory.getUserStoryId(), sprintBacklog.getSprintBacklogId()));
+            int sprintBacklogId = sprintBacklogRepository.findBySprintId(assignUserStory.getSprintId()).getSprintBacklogId();
+            SprintUserStory savedSprintUserStory = sprintUserStoryRepository.save(new SprintUserStory(assignUserStory.getUserStoryId(), sprintBacklogId));
             return ResponseEntity.status(HttpStatus.CREATED).body(savedSprintUserStory);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error " + e.getMessage());

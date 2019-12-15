@@ -53,7 +53,8 @@ public class SprintController {
      *
      * EXAMPLE:
      *  http://{host}:6969/api/sprint
-     * Body:
+     *
+     * BODY:
      *  {
      *      "projectId" : 8,
      *      "sprintNumber" : 1,
