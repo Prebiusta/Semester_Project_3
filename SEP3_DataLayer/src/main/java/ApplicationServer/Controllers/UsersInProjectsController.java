@@ -1,6 +1,7 @@
 package ApplicationServer.Controllers;
 
 import ApplicationServer.JPA.AdministratorsInProjectsRepository;
+import ApplicationServer.JPA.SprintRepository;
 import ApplicationServer.JPA.UserRepository;
 import ApplicationServer.JPA.UsersInProjectsRepository;
 import ApplicationServer.Model.AdministratorsInProjects;
@@ -21,10 +22,12 @@ import java.util.ArrayList;
 public class UsersInProjectsController {
     private UsersInProjectsRepository usersInProjectsRepository;
     private UserRepository userRepository;
+    private SprintRepository sprintRepository;
 
-    public UsersInProjectsController(UsersInProjectsRepository usersInProjectsRepository, UserRepository userRepository) {
+    public UsersInProjectsController(UsersInProjectsRepository usersInProjectsRepository, UserRepository userRepository, SprintRepository sprintRepository) {
         this.usersInProjectsRepository = usersInProjectsRepository;
         this.userRepository = userRepository;
+        this.sprintRepository = sprintRepository;
     }
 
     //region Get Users In Project GET
@@ -39,8 +42,18 @@ public class UsersInProjectsController {
      */
     @RequestMapping(value = "/usersInProjects", method = RequestMethod.GET)
     public ResponseEntity<?> getUsersInProjects(
-            @RequestParam(value = "projectId") Integer projectId) {
-        var usersInProjectsEntries = usersInProjectsRepository.findByUserProjectKeyProjectId(projectId);
+            @RequestParam(value = "projectId", required = false) Integer projectId,
+            @RequestParam(value = "sprintId", required = false) Integer sprintId
+    ){
+        int lookupProjectId;
+        if (sprintId != null){
+            lookupProjectId = sprintRepository.findBySprintId(sprintId).get(0).getProjectId();
+        } else if (projectId != null){
+            lookupProjectId = projectId;
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        var usersInProjectsEntries = usersInProjectsRepository.findByUserProjectKeyProjectId(lookupProjectId);
 
         ArrayList<UserPublicInfo> usersInProject = new ArrayList<>();
 

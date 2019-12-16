@@ -4,6 +4,7 @@ import ApplicationServer.Model.ClientModels.ProjectClient;
 import ApplicationServer.Model.ClientModels.UserForDisplay;
 import ApplicationServer.Model.ClientModels.UserProjectClient;
 import ApplicationServer.Model.DataLayerModels.ProjectDataLayer;
+import ApplicationServer.Model.DataLayerModels.SprintDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -124,25 +125,59 @@ public class ProjectController extends ControllerConfiguration{
      *
      * Example of request
      * http://localhost:8081/api/usersInProjects?projectId={id}
+     * http://localhost:8081/api/usersInProjects?sprintId={id}
      *
      * @param projectId specifying project ID
      * @return returns a list of all users or specific user if parameter is used
      */
     @RequestMapping(value = "/usersInProject", method = RequestMethod.GET)
     public ResponseEntity<List<UserForDisplay>> getUsersInProjects(
-            @RequestParam(value = "projectId", required = false) Integer projectId) {
-        String jsonUsersInProjects;
+            @RequestParam(value = "projectId", required = false) Integer projectId,
+            @RequestParam(value = "sprintId", required = false) Integer sprintId
+    ){
         if(projectId != null) {
-            jsonUsersInProjects = restUtility.getForObject(DataLayerURI + "/api/usersInProjects?projectId=" + projectId, String.class);
+            return new ResponseEntity<>(getAllUsersForProject(projectId), HttpStatus.OK);
+        } else if (sprintId != null){
+            return new ResponseEntity<>(getAllUsersWithRoles(sprintId), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);        }
-        try {
-            List<UserForDisplay> usersInProjectsFromDataLayer = jsonMapper.readValue(jsonUsersInProjects, new TypeReference<List<UserForDisplay>>(){});
-            return new ResponseEntity<>(usersInProjectsFromDataLayer, HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    private List<UserForDisplay> getAllUsersForProject(int projectId){
+        String jsonUsersInProjects = restUtility.getForObject(DataLayerURI + "/api/usersInProjects?projectId=" + projectId, String.class);
+
+        try {
+            return jsonMapper.readValue(jsonUsersInProjects, new TypeReference<List<UserForDisplay>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
+    private List<UserForDisplay> getAllUsersWithRoles(int sprintId){
+        String jsonUsersInProjects = restUtility.getForObject(DataLayerURI + "/api/usersInProjects?sprintId=" + sprintId, String.class);
+        String jsonSprint = restUtility.getForObject(DataLayerURI + "/api/sprint?id=" + sprintId, String.class);
+        try {
+            List<UserForDisplay> usersInProjectsFromDataLayer = jsonMapper.readValue(jsonUsersInProjects, new TypeReference<List<UserForDisplay>>(){});
+            List<SprintDataLayer> sprintDataLayerList = jsonMapper.readValue(jsonSprint, new TypeReference<List<SprintDataLayer>>(){});
+            SprintDataLayer sprintDataLayer = sprintDataLayerList.get(0);
+
+            String scrumMasterUsername = sprintDataLayer.getscrumMasterUsername();
+            String productOwnerUsername = sprintDataLayer.getproductOwnerUsername();
+
+            for (UserForDisplay users : usersInProjectsFromDataLayer){
+                if (users.getUsername().equals(scrumMasterUsername))
+                    users.setScrumMaster(true);
+                if (users.getUsername().equals(productOwnerUsername))
+                    users.setProductOwner(true);
+            }
+
+            return usersInProjectsFromDataLayer;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     /**
