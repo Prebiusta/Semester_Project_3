@@ -171,6 +171,7 @@ public class ProjectController extends ControllerConfiguration{
                     users.setScrumMaster(true);
                 if (users.getUsername().equals(productOwnerUsername))
                     users.setProductOwner(true);
+                System.out.println("User " + users.getUsername() + ", is product owner: " + users.isProductOwner() + ", is Scrum master: " + users.isScrumMaster());
             }
 
             return usersInProjectsFromDataLayer;

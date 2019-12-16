@@ -101,6 +101,7 @@ public class SprintController {
             @RequestBody ScrumRole scrumRole
     ){
         try {
+            System.out.println("Trying to make a product owner out of " + scrumRole.getUsername());
             var originalSprint = sprintRepository.findBySprintId(scrumRole.getSprintId()).get(0);
             originalSprint.setProductOwnerUsername(scrumRole.getUsername());
             var updatedSprint = sprintRepository.save(originalSprint);

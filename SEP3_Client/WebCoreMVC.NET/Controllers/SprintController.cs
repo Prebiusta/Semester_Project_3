@@ -48,9 +48,41 @@ namespace WebCoreMVC.NET.Controllers {
         public IActionResult AssignRoles(int sprintId)
         {
             var list = GetUsersInSprint(sprintId).Result;
-            var result = JsonConvert.DeserializeObject<List<UserWithNameAndRoles>>(list);
-            ContainerForListAndId<UserWithNameAndRoles> containerForListAndId = new ContainerForListAndId<UserWithNameAndRoles>(result, sprintId);
+            var result = JsonConvert.DeserializeObject<List<UserWithName>>(list);
+            ContainerForListAndId<UserWithName> containerForListAndId = new ContainerForListAndId<UserWithName>(result, sprintId);
             return View("~/Views/Project/Sprint/AssignRoles/Index.cshtml", containerForListAndId);
+        }
+
+        public IActionResult AssignScrumMaster(AssignRole assignRole)
+        {
+            var postResponse = AssignScrumMasterRequest(assignRole).Result;
+            switch (postResponse.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    return AssignRoles(assignRole.sprintId);
+                case System.Net.HttpStatusCode.BadRequest:
+                    ModelState.AddModelError(string.Empty, "Server sent a bad request: " + postResponse.Content);
+                    return AssignRoles(assignRole.sprintId);
+                default:
+                    ModelState.AddModelError(string.Empty, "Server is not answering");
+                    return AssignRoles(assignRole.sprintId);
+            }
+        }
+
+        public IActionResult AssignProductOwner(AssignRole assignRole)
+        {
+            var postResponse = AssignProductOwnerRequest(assignRole).Result;
+            switch (postResponse.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    return AssignRoles(assignRole.sprintId);
+                case System.Net.HttpStatusCode.BadRequest:
+                    ModelState.AddModelError(string.Empty, "Server sent a bad request: " + postResponse.Content);
+                    return AssignRoles(assignRole.sprintId);
+                default:
+                    ModelState.AddModelError(string.Empty, "Server is not answering");
+                    return AssignRoles(assignRole.sprintId);
+            }
         }
 
         public IActionResult PlanSprint(Sprint sprint) {
@@ -91,38 +123,6 @@ namespace WebCoreMVC.NET.Controllers {
         {
             var response = DeleteUserStoryFromSprint(deleteSprintUserStory.userStoryId).Result;
             return SprintBacklog(new IDcontainer(deleteSprintUserStory.projectId, deleteSprintUserStory.sprintId));
-        }
-
-        public IActionResult AssignScrumMaster(AssignRole assignRole)
-        {
-            var postResponse = AssignScrumMasterRequest(assignRole).Result;
-            switch (postResponse.StatusCode)
-            {
-                case System.Net.HttpStatusCode.OK:
-                    return RedirectToAction("AssignRoles", "Sprint");
-                case System.Net.HttpStatusCode.BadRequest:
-                    ModelState.AddModelError(string.Empty, "Server sent a bad request: " + postResponse.Content);
-                    return AssignRoles(assignRole.sprintId);
-                default:
-                    ModelState.AddModelError(string.Empty, "Server is not answering");
-                    return AssignRoles(assignRole.sprintId);
-            }
-        }
-
-        public IActionResult AssignProductOwner(AssignRole assignRole)
-        {
-            var postResponse = AssignProductOwnerRequest(assignRole).Result;
-            switch (postResponse.StatusCode)
-            {
-                case System.Net.HttpStatusCode.OK:
-                    return AssignRoles(assignRole.sprintId);
-                case System.Net.HttpStatusCode.BadRequest:
-                    ModelState.AddModelError(string.Empty, "Server sent a bad request: " + postResponse.Content);
-                    return AssignRoles(assignRole.sprintId);
-                default:
-                    ModelState.AddModelError(string.Empty, "Server is not answering");
-                    return AssignRoles(assignRole.sprintId);
-            }
         }
 
         public string AssignUserStoryToSprintJS(AssignUserStory assignUserStory)

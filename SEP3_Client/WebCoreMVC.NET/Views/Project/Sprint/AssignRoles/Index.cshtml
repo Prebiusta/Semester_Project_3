@@ -1,4 +1,4 @@
-@model ContainerForListAndId<UserWithNameAndRoles>
+@model ContainerForListAndId<UserWithName>
 @{
     ViewData["Title"] = "Members Sprint";
 }
@@ -26,8 +26,8 @@
                         <div class="member_info">
                             <div class="column">
                                 <p class="member_name"> @item.firstName @item.lastName</p>
-                                <p class="username">@item.username</p>
-                                @if (!item.isProductOwner)
+                                <p class="username">@item.username  is product owner? @item.productOwner, is scrum master? @item.scrumMaster</p>
+                                @if (item.productOwner == false)
                                 {
                                     <button class="btn btn-primary" onclick="location.href='@Url.Action("AssignProductOwner", "Sprint", new AssignRole(@item.username, @Model.id))'">Make Product Owner</button>
                                 }
@@ -35,7 +35,7 @@
                                 {
                                     <p class="text-success">User is a product owner</p>
                                 }
-                                @if (!item.isScrumMaster)
+                                @if (item.scrumMaster == false)
                                 {
                                     <button class="btn btn-primary" onclick="location.href='@Url.Action("AssignScrumMaster", "Sprint", new AssignRole(@item.username, @Model.id))'">Make Scrum Master</button>
                                 }
