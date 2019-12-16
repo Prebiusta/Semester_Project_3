@@ -420,7 +420,7 @@ body {
     background: #5CB85C;
     position: absolute;
     margin-left: 310px;
-    margin-top: -100px;
+    margin-top: -90px;
     border-radius: 50px;
     text-align: center;
     padding: 4px;
@@ -430,16 +430,77 @@ body {
     z-index: 1000;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    width: 110px;
+    width: 120px;
     height: 30px;
     background: #337AB7;
     position: absolute;
-    margin-left: 310px;
-    margin-top: -100px;
+    margin-left: 300px;
+    margin-top: -90px;
     border-radius: 50px;
     text-align: center;
     padding: 4px;
 }
+
+.member_team_member {
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    width: 120px;
+    height: 30px;
+    background: #b7b333;
+    position: absolute;
+    margin-left: 450px;
+    margin-top: -25px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 4px;
+}
+
+.member_product_owner {
+    z-index: 1001;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    width: 120px;
+    height: 30px;
+    background: #337AB7;
+    position: absolute;
+    margin-left: 450px;
+    margin-top: -25px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 4px;
+}
+
+.member_scrum_master {
+    z-index: 1001;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    width: 120px;
+    height: 30px;
+    background: #5CB85C;
+    position: absolute;
+    margin-left: 450px;
+    margin-top: -25px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 4px
+}
+
+.team_member {
+    z-index: 1000;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    width: 140px;
+    height: 30px;
+    background: #b7b333;
+    position: absolute;
+    margin-left: 280px;
+    margin-top: -90px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 4px;
+}
+
 
 .admin {
     z-index: 1000;
@@ -682,6 +743,48 @@ h1 {
     width: 150px;
     height: 32px;
     margin-bottom: 10px;
+}
+
+.makeScrumMasterButton {
+    background-color: #1a943c !important;
+    color: white !important;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 10px;
+    float: right;
+    text-align: center;
+    width: 170px;
+    height: 32px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.deleteRoleButton {
+    background-color: #940707 !important;
+    color: white !important;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 10px;
+    float: right;
+    text-align: center;
+    width: 170px;
+    height: 32px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+
+.makeProductOwnerButton {
+    background-color: #2a2e94 !important;
+    color: white !important;
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 10px;
+    float: right;
+    text-align: center;
+    width: 170px;
+    height: 32px;
+    margin-bottom: 10px;
+    margin-top: 15px;
 }
 
 .addMemberButton {
