@@ -26,7 +26,7 @@
                         <div class="admin">Admin</div>
                     }
                     <div class="buttonContainer">
-                        <button class="example_c" onclick="location.href='@Url.Action("Index", "Sprint", new {item.projectId})'">Sprints</button>
+                        <button class="example_c" onclick="location.href='@Url.Action("Index", "Sprint", new ProjectIDandAdministrator(item.projectId, item.isAdministrator))'">Sprints</button>
                         <button class="example_c" onclick="location.href='@Url.Action("Index", "Backlog", new {item.projectId})'">Product Backlog</button>
                         <div class="break"> </div>
                         <button class="example_c">Burndown Chart</button>

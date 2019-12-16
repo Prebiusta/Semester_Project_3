@@ -176,6 +176,83 @@ function loadProjectUserStoriesIntoSprint(projectId, sprintID) {
     
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------
+//PRODUCT OWNER
+//Loads all user stories from the project that are ont included into sprint and calls a method to display them into modal
+function loadProjectUserStoriesIntoSprintForProductOwner(projectId, sprintID) {
+    globalProjectID = projectId;
+    globalSprintID = sprintID;
+    getGenericController('/Sprint/GetUserStoriesNotAssignedToTheSprintJS?sprintID=' + sprintID, displayUserStoriesFromProjectForProductOwner);
+
+}
+
+//Display user stories inside the modal
+function displayUserStoriesFromProjectForProductOwner(json) {
+    let list = '<ul id="listOfProjectUserStories">';
+
+    for (var i = 0; i < json.length; i++) {
+        var obj = json[i];
+        list += '<li class="flex-row" id="userStoryOutsideOfSprintId' + obj['userStoryId'] + '">';
+        list += '<p class="text-primary">' + obj['description'] + '</p>';
+        list += '<p class="text-info padding-left-30px">Priority: ' + obj['priority'] + ', Difficulty: ' + obj['difficulty'] + '</p>';
+        list += '<button class="btn btn-primary" onclick="assignUserStoryToSprint(' + obj['userStoryId'] + ', \'' + obj['description'] + '\')">Assign user story to the sprint</button>';
+        list += '</li>';
+    }
+    list += '</ul>';
+    document.getElementById("listOfProjectUserStoriesInsideSprint").innerHTML = list;
+}
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------------------------------
+//SCRUM MASTER
+function loadProjectUserStoriesIntoSprintForScrumMaster(projectId, sprintID) {
+    globalProjectID = projectId;
+    globalSprintID = sprintID;
+    getGenericController('/Sprint/GetUserStoriesNotAssignedToTheSprintJS?sprintID=' + sprintID, displayUserStoriesFromProjectForScrumMaster);
+
+}
+
+//Display user stories inside the modal
+function displayUserStoriesFromProjectForScrumMaster(json) {
+    let list = '<ul id="listOfProjectUserStories">';
+
+    for (var i = 0; i < json.length; i++) {
+        var obj = json[i];
+        list += '<li class="flex-row" id="userStoryOutsideOfSprintId' + obj['userStoryId'] + '">';
+        list += '<p class="text-primary">' + obj['description'] + '</p>';
+        list += '<p class="text-info padding-left-30px">Priority: ' + obj['priority'] + ', Difficulty: ' + obj['difficulty'] + '</p>';
+        list += '</li>';
+    }
+    list += '</ul>';
+    document.getElementById("listOfProjectUserStoriesInsideSprint").innerHTML = list;
+}
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------------------------------------------------------------
+//TEAM MEMBER
+function loadProjectUserStoriesIntoSprintForTeamMember(projectId, sprintID) {
+    globalProjectID = projectId;
+    globalSprintID = sprintID;
+    getGenericController('/Sprint/GetUserStoriesNotAssignedToTheSprintJS?sprintID=' + sprintID, displayUserStoriesFromProjectForYeamMember);
+
+}
+
+//Display user stories inside the modal
+function displayUserStoriesFromProjectForYeamMember(json) {
+    let list = '<ul id="listOfProjectUserStories">';
+
+    for (var i = 0; i < json.length; i++) {
+        var obj = json[i];
+        list += '<li class="flex-row" id="userStoryOutsideOfSprintId' + obj['userStoryId'] + '">';
+        list += '<p class="text-primary">' + obj['description'] + '</p>';
+        list += '<p class="text-info padding-left-30px">Priority: ' + obj['priority'] + ', Difficulty: ' + obj['difficulty'] + '</p>';
+        list += '</li>';
+    }
+    list += '</ul>';
+    document.getElementById("listOfProjectUserStoriesInsideSprint").innerHTML = list;
+}
+//------------------------------------------------------------------------------------------------------------------------------------------
+
 //Display user stories inside the modal
 function displayUserStoriesFromProject(json) {
     let list = '<ul id="listOfProjectUserStories">';

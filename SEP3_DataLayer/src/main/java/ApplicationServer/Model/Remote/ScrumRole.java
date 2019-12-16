@@ -4,6 +4,9 @@ public class ScrumRole {
     private String username;
     private int sprintId;
 
+    public ScrumRole() {
+    }
+
     public ScrumRole(String username, int sprintId) {
         this.username = username;
         this.sprintId = sprintId;

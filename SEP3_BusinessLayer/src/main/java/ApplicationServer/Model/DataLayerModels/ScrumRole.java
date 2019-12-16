@@ -9,6 +9,9 @@ public class ScrumRole {
         this.sprintId = sprintId;
     }
 
+    public ScrumRole() {
+    }
+
     public String getUsername() {
         return username;
     }

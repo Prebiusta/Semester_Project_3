@@ -11,14 +11,46 @@ using WebCoreMVC.NET.Models;
 namespace WebCoreMVC.NET.Controllers {
     [Authorize(Policy= "MustBeUser")]
     public class SprintController : CustomController {
-        private int projectId;
-        public IActionResult Index(int projectId) {
-            this.projectId = projectId;
-            var list = GetSprints(projectId).Result;
+        public IActionResult Index(ProjectIDandAdministrator projectIDandAdministrator) {
+            var list = GetSprints(projectIDandAdministrator.projectId).Result;
             var result = JsonConvert.DeserializeObject<List<Sprint>>(list);
-            ContainerForListAndId<Sprint> containerForListAndId = new ContainerForListAndId<Sprint>(result, projectId);
+            ContainerForListAndId<Sprint> containerForListAndId = new ContainerForListAndId<Sprint>(result, projectIDandAdministrator.projectId);
+            ViewData.Add("isAdmin", projectIDandAdministrator.isAdministrator);
             sprints = containerForListAndId;
             return View("~/Views/Project/Sprint/Index.cshtml", sprints);
+        }
+
+        public IActionResult ViewBacklogForProductOwner(IDcontainer idContainer)
+        {
+            var list = GetSprintUSerStories(idContainer.sprintId).Result;
+            var result = JsonConvert.DeserializeObject<List<SprintUserStory>>(list);
+            ContainerForListAndId<SprintUserStory> containerForListAndId = new ContainerForListAndId<SprintUserStory>(result, idContainer.sprintId);
+            ViewData.Add("projectId", idContainer.projectId);
+            return View("~/Views/Project/Sprint/Backlog/ViewBacklogProductOwner.cshtml", containerForListAndId);
+        }
+        public IActionResult ViewBacklogForScrumMaster(IDcontainer idContainer)
+        {
+            var list = GetSprintUSerStories(idContainer.sprintId).Result;
+            var result = JsonConvert.DeserializeObject<List<SprintUserStory>>(list);
+            ContainerForListAndId<SprintUserStory> containerForListAndId = new ContainerForListAndId<SprintUserStory>(result, idContainer.sprintId);
+            ViewData.Add("projectId", idContainer.projectId);
+            return View("~/Views/Project/Sprint/Backlog/ViewBacklogScrumMaster.cshtml", containerForListAndId);
+        }
+        public IActionResult ViewBacklogForTeamMember(IDcontainer idContainer)
+        {
+            var list = GetSprintUSerStories(idContainer.sprintId).Result;
+            var result = JsonConvert.DeserializeObject<List<SprintUserStory>>(list);
+            ContainerForListAndId<SprintUserStory> containerForListAndId = new ContainerForListAndId<SprintUserStory>(result, idContainer.sprintId);
+            ViewData.Add("projectId", idContainer.projectId);
+            return View("~/Views/Project/Sprint/Backlog/ViewBacklogTeamMember.cshtml", containerForListAndId);
+        }
+
+        public IActionResult AssignRoles(int sprintId)
+        {
+            var list = GetUsersInSprint(sprintId).Result;
+            var result = JsonConvert.DeserializeObject<List<UserWithNameAndRoles>>(list);
+            ContainerForListAndId<UserWithNameAndRoles> containerForListAndId = new ContainerForListAndId<UserWithNameAndRoles>(result, sprintId);
+            return View("~/Views/Project/Sprint/AssignRoles/Index.cshtml", containerForListAndId);
         }
 
         public IActionResult PlanSprint(Sprint sprint) {
@@ -59,6 +91,38 @@ namespace WebCoreMVC.NET.Controllers {
         {
             var response = DeleteUserStoryFromSprint(deleteSprintUserStory.userStoryId).Result;
             return SprintBacklog(new IDcontainer(deleteSprintUserStory.projectId, deleteSprintUserStory.sprintId));
+        }
+
+        public IActionResult AssignScrumMaster(AssignRole assignRole)
+        {
+            var postResponse = AssignScrumMasterRequest(assignRole).Result;
+            switch (postResponse.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    return RedirectToAction("AssignRoles", "Sprint");
+                case System.Net.HttpStatusCode.BadRequest:
+                    ModelState.AddModelError(string.Empty, "Server sent a bad request: " + postResponse.Content);
+                    return AssignRoles(assignRole.sprintId);
+                default:
+                    ModelState.AddModelError(string.Empty, "Server is not answering");
+                    return AssignRoles(assignRole.sprintId);
+            }
+        }
+
+        public IActionResult AssignProductOwner(AssignRole assignRole)
+        {
+            var postResponse = AssignProductOwnerRequest(assignRole).Result;
+            switch (postResponse.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                    return AssignRoles(assignRole.sprintId);
+                case System.Net.HttpStatusCode.BadRequest:
+                    ModelState.AddModelError(string.Empty, "Server sent a bad request: " + postResponse.Content);
+                    return AssignRoles(assignRole.sprintId);
+                default:
+                    ModelState.AddModelError(string.Empty, "Server is not answering");
+                    return AssignRoles(assignRole.sprintId);
+            }
         }
 
         public string AssignUserStoryToSprintJS(AssignUserStory assignUserStory)
@@ -110,6 +174,23 @@ namespace WebCoreMVC.NET.Controllers {
         private async Task<HttpResponseMessage> AssignUserStoryToSprint(AssignUserStory assignUserStory)
         {
             var httpContent = await PostData(assignUserStory, "api/sprintUserStory");
+            return httpContent;
+        }
+
+        private async Task<string> GetUsersInSprint(int sprintId)
+        {
+            var httpContent = await GetJsonData("api/usersInProject?sprintId=" + sprintId);
+            return httpContent;
+        }
+
+        private async Task<HttpResponseMessage> AssignProductOwnerRequest(AssignRole assignRole)
+        {
+            var httpContent = await PostData(assignRole, "api/productOwner");
+            return httpContent;
+        }
+        private async Task<HttpResponseMessage> AssignScrumMasterRequest(AssignRole assignRole)
+        {
+            var httpContent = await PostData(assignRole, "api/scrumMaster");
             return httpContent;
         }
     }
