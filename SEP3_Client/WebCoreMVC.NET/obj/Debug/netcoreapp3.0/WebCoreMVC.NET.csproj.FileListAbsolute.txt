@@ -532,8 +532,12 @@ C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC
 E:\szkoła\SEP3\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Members\AddMember.cshtml.g.cs
 E:\szkoła\SEP3\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Backlog\Index.cshtml.g.cs
 E:\szkoła\SEP3\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Backlog\AddUserStory.cshtml.g.cs
-C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Backlog\AddUserStory.cshtml.g.cs
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Backlog\Index.cshtml.g.cs
-C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Members\Hello.cshtml.g.cs
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\WebCoreMVC.NET.csprojAssemblyReference.cache
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\Tasks\Index.cshtml.g.cs
+C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\AssignRoles\Index.cshtml.g.cs
+C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\Backlog\AddUserStory.cshtml.g.cs
+C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\Backlog\Index.cshtml.g.cs
+C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\Backlog\ViewBacklogProductOwner.cshtml.g.cs
+C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\Backlog\ViewBacklogScrumMaster.cshtml.g.cs
+C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\Backlog\ViewBacklogTeamMember.cshtml.g.cs
