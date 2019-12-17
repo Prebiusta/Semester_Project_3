@@ -31,9 +31,7 @@ public class ProjectController extends ControllerConfiguration{
      *  http://<b>{host}</b>:8081/api/project
      *
      * Example of request with nullable parameters
-     * http://<b>{host}</b>:8081/api/project?status=completed   To find by status
-     * http://<b>{host}</b>:8081/api/project?id=2               To find by Id
-     * http://<b>{host}</b>:8081/api/project                    To find all the existing projects
+     * http://<b>{host}</b>:8081/api/project?username=YourUsername               To find all the existing projects
      *
      * Json template{
      *          *
@@ -42,21 +40,14 @@ public class ProjectController extends ControllerConfiguration{
      *          *  "numberOfIterations":"numberOfIterations",
      *          *  "lengthOfSprint":"length"
      *          * }
-     * @param status specifying the status of the project ("completed", "ongoing")
-     * @param id of the project, which is unique for all the projects
+     * @param username username of the user who is asking for the project
      * @return returns a list of projects depending on the request that we made
      */
     @RequestMapping(value = "/project", method = RequestMethod.GET)
     public ResponseEntity<List<ProjectClient>> getProject(
-            @RequestParam(value = "status", required = false) String status,
-            @RequestParam(value = "id", required = false) Integer id,
             @RequestParam(value = "username", required = true) String username) {
         String jsonProjects;
-        if (status != null) {
-            jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project?status=" + status, String.class);
-        } else if (id != null) {
-            jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project?id=" + id, String.class);
-        } else if (username != null){
+        if (username != null){
             jsonProjects = restUtility.getForObject(DataLayerURI + "/api/project?username=" + username, String.class);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -14,7 +14,7 @@ import java.net.Socket;
 
 public class RegisterClient extends ControllerConfiguration {
     private final int PORT = 5595;
-    private final String HOST = "10.152.220.142";
+    private final String HOST = "localhost";
     private BufferedReader in;
     private PrintWriter out;
 

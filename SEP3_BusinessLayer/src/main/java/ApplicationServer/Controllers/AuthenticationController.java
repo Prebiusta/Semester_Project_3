@@ -76,7 +76,6 @@ public class AuthenticationController extends ControllerConfiguration{
     @RequestMapping(value = "/login", produces = "application/json", method = RequestMethod.POST)
     public ResponseEntity<UserDataLayer> login(@RequestBody UserRegisterClient user) {
         UserDataLayer userForDataLayer = new UserDataLayer(user.getUsername(), user.getPassword(), null, null, null, null, null);
-        HttpEntity<UserDataLayer> userDataLayerHttpEntity = new HttpEntity<>(userForDataLayer);
         try {
             restUtility.postForEntity(DataLayerURI + "/auth/login", userForDataLayer, userForDataLayer.getClass());
             return new ResponseEntity<>(HttpStatus.OK);
