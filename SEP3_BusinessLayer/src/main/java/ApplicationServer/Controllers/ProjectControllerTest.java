@@ -62,21 +62,8 @@ class ProjectControllerTest extends ControllerConfiguration {
         ProjectClient projectClient10 = new ProjectClient(-1, "NameOfTheProject8", "random String", 0, 0, admins);
         ProjectClient projectClient11 = new ProjectClient(-1, "NameOfTheProject8", "ONGOING", 0, 0, emptyAdmins);
         ProjectClient projectClient12 = new ProjectClient(-1, "NameOfTheProject8", "ONGOING", 0, 0, nonExistantUsersAsAdmins);
-        //Models for data tier
-        ProjectDataLayer projectForDataLayer1 = new ProjectDataLayer(projectClient1.getName(), projectClient1.getStatus(), projectClient1.getNumberOfIterations(), projectClient1.getLengthOfSprint(), projectClient1.getAdmins());
-        ProjectDataLayer projectForDataLayer2 = new ProjectDataLayer(projectClient2.getName(), projectClient2.getStatus(), projectClient2.getNumberOfIterations(), projectClient2.getLengthOfSprint(), projectClient2.getAdmins());
-        ProjectDataLayer projectForDataLayer3 = new ProjectDataLayer(projectClient3.getName(), projectClient3.getStatus(), projectClient3.getNumberOfIterations(), projectClient3.getLengthOfSprint(), projectClient3.getAdmins());
-        ProjectDataLayer projectForDataLayer4 = new ProjectDataLayer(projectClient4.getName(), projectClient4.getStatus(), projectClient4.getNumberOfIterations(), projectClient4.getLengthOfSprint(), projectClient4.getAdmins());
-        ProjectDataLayer projectForDataLayer5 = new ProjectDataLayer(projectClient5.getName(), projectClient5.getStatus(), projectClient5.getNumberOfIterations(), projectClient5.getLengthOfSprint(), projectClient5.getAdmins());
-        ProjectDataLayer projectForDataLayer6 = new ProjectDataLayer(projectClient6.getName(), projectClient6.getStatus(), projectClient6.getNumberOfIterations(), projectClient6.getLengthOfSprint(), projectClient6.getAdmins());
-        ProjectDataLayer projectForDataLayer7 = new ProjectDataLayer(projectClient7.getName(), projectClient7.getStatus(), projectClient7.getNumberOfIterations(), projectClient7.getLengthOfSprint(), projectClient7.getAdmins());
-        ProjectDataLayer projectForDataLayer8 = new ProjectDataLayer(projectClient8.getName(), projectClient8.getStatus(), projectClient8.getNumberOfIterations(), projectClient8.getLengthOfSprint(), projectClient8.getAdmins());
-        ProjectDataLayer projectForDataLayer9 = new ProjectDataLayer(projectClient9.getName(), projectClient9.getStatus(), projectClient9.getNumberOfIterations(), projectClient9.getLengthOfSprint(), projectClient9.getAdmins());
-        ProjectDataLayer projectForDataLayer10 = new ProjectDataLayer(projectClient10.getName(), projectClient10.getStatus(), projectClient10.getNumberOfIterations(), projectClient10.getLengthOfSprint(), projectClient10.getAdmins());
-        ProjectDataLayer projectForDataLayer11 = new ProjectDataLayer(projectClient11.getName(), projectClient11.getStatus(), projectClient11.getNumberOfIterations(), projectClient11.getLengthOfSprint(), projectClient11.getAdmins());
-        ProjectDataLayer projectForDataLayer12 = new ProjectDataLayer(projectClient12.getName(), projectClient12.getStatus(), projectClient12.getNumberOfIterations(), projectClient12.getLengthOfSprint(), projectClient12.getAdmins());
-
         
+
     }
 
     @Test
