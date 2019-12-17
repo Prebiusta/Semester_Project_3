@@ -78,7 +78,7 @@ public class AuthenticationController extends ControllerConfiguration{
         UserDataLayer userForDataLayer = new UserDataLayer(user.getUsername(), user.getPassword(), null, null, null, null, null);
         HttpEntity<UserDataLayer> userDataLayerHttpEntity = new HttpEntity<>(userForDataLayer);
         try {
-            restUtility.postForLocation(DataLayerURI + "/auth/login", userDataLayerHttpEntity);
+            restUtility.postForEntity(DataLayerURI + "/auth/login", userForDataLayer, userForDataLayer.getClass());
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (HttpClientErrorException e) {
             System.out.println("No user returned from DataLayer");
