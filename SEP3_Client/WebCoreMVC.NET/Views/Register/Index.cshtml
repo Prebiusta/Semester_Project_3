@@ -1,67 +1,67 @@
 ﻿@model ValidatedUser
 
 @{
-    ViewData["Title"] = "Index2";
+    ViewData["Title"] = "Register";
 }
-<link rel="stylesheet" href="css/cssLogin.css">
+<link rel="stylesheet" href="css/forms.css">
 
-    <div class="text-center container">
-        <h1>Register</h1>
-        <hr/>
+<div class="text-center container">
+    <h1>Register</h1>
+    <hr />
+    <div class="register">
         <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label class="control-label">Username</label>
-                <input asp-for="username" class="form-control" placeholder="Username" required="required"/>
+                <input asp-for="username" class="form-control" placeholder="Username" required="required" />
                 <span asp-validation-for="username" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Password</label>
-                <input asp-for="password" class="form-control" placeholder="Password" required="required"/>
+                <input asp-for="password" class="form-control" placeholder="Password" required="required" />
                 <span asp-validation-for="password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Confirm Password</label>
-                <input asp-for="confirmPassword" class="form-control" placeholder="Confirm Password" required="required"/>
+                <input asp-for="confirmPassword" class="form-control" placeholder="Confirm Password" required="required" />
                 <span asp-validation-for="confirmPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Firstname</label>
-                <input asp-for="firstName" class="form-control" placeholder="First Name" required="required"/>
+                <label class="control-label">First Name</label>
+                <input asp-for="firstName" class="form-control" placeholder="First Name" required="required" />
                 <span asp-validation-for="firstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Lastname</label>
-                <input asp-for="lastName" class="form-control" placeholder="Last Name" required="required"/>
+                <label class="control-label">Last Name</label>
+                <input asp-for="lastName" class="form-control" placeholder="Last Name" required="required" />
                 <span asp-validation-for="lastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Date picker has to be implemented for now we are sending todays date</label>
-                <input asp-for="birthday" class="form-control" type="hidden" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")"/>
+                <input asp-for="birthday" class="form-control" type="hidden" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")" />
                 <span asp-validation-for="birthday" class="text-danger"></span>
             </div>
-            <input asp-for="dateJoined" type="hidden" class="form-control" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")"/>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.birthday, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(model => model.birthday, new { @type="date", @class = "form-control datepicker" } )
-                                @Html.ValidationMessageFor(model => model.birthday, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+            <input asp-for="dateJoined" type="hidden" class="form-control" value="@Convert.ToDateTime(DateTime.Today.ToString("d")).ToString("yyyy-MM-dd")" />
+            @* <div class="form-group"> *@
+            @*     @Html.LabelFor(model => model.birthday, htmlAttributes: new {@class = "control-label col-md-2"}) *@
+            @*     <div class="col-md-10"> *@
+            @*         @Html.TextBoxFor(model => model.birthday, new {@type = "date", @class = "form-control datepicker"}) *@
+            @*         @Html.ValidationMessageFor(model => model.birthday, "", new {@class = "text-danger"}) *@
+            @*     </div> *@
+            @* </div> *@
 
             <div class="form-group">
-                <label asp-for="profilePicture" class="control-label">Chosen profile picture will send relative path for now it sens some default data</label>
-                <input asp-for="profilePicture" class="form-control" type="hidden" value="path"/>
+                <input asp-for="profilePicture" class="form-control" type="hidden" value="path" />
                 <span asp-validation-for="profilePicture" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary btn-block btn-large"/>
+                <input type="submit" value="Create" class="btn btn-primary btn-block btn-large" />
             </div>
         </form>
         <div>
             <p align="center" class="registerLabel">Back to <a asp-controller="Login" asp-action="Index">login</a>.</p>
         </div>
     </div>
+</div>
 
 
 

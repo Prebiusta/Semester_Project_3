@@ -23,16 +23,7 @@ namespace WebCoreMVC.NET.Controllers {
             ContainerForListAndId<UserStory> containerForListAndId = new ContainerForListAndId<UserStory>(result, projectId);
             return View("~/Views/Project/Backlog/Index.cshtml", containerForListAndId);
         }
-
-        public IActionResult SprintIndex(int sprintId)
-        {
-            this.sprintId = projectId;
-            var list = GetUserStoriesForSprint(sprintId).Result;
-            var result = JsonConvert.DeserializeObject<List<UserStory>>(list);
-            ContainerForListAndId<UserStory> containerForListAndId = new ContainerForListAndId<UserStory>(result, projectId);
-            return View("~/Views/Project/Sprint/Backlog/Index.cshtml", containerForListAndId);
-        }
-
+        
         public IActionResult PostUserStory()
         {
             string priority = Request.Form["priority"];
