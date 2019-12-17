@@ -67,7 +67,6 @@ function displayUsersOutsideProject(json) {
 
 //Asynchronously POST a member and delete him from the displayed list
 function postMemberData(username, firstname, lastname, listID) {
-    let userProject = '"projectId":' + globalProjectID +', "username": ' + username;
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -78,8 +77,6 @@ function postMemberData(username, firstname, lastname, listID) {
                 $('input:hidden[name="__RequestVerificationToken"]').val()
         },
         success: function (result, status, xhr) {
-            console.log(userProject + ' , result: ' + result);
-            console.log('success');
             if (result['status'] == 'ok') {
                 $('#' + listID).remove();
                 let newMember = '<div class="member">';

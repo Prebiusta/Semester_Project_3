@@ -138,7 +138,7 @@ namespace WebCoreMVC.NET.Controllers {
             var httpContent = await PostData(user, "api/removeAdmin");
             return httpContent;
         }
-
+        
         private async Task<string> GetUsersInProjects(int projectId) {
             Console.WriteLine("api/usersInProjects?projectId=" + projectId);
             var content = await GetJsonData("api/usersInProject?projectId=" + projectId);
