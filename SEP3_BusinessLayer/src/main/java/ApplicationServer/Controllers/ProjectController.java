@@ -115,8 +115,8 @@ public class ProjectController extends ControllerConfiguration{
      *  http://<b>{host}</b>:8081/api/usersInProjects?projectId={id}
      *
      * Example of request
-     * http://localhost:8081/api/usersInProjects?projectId={id}
-     * http://localhost:8081/api/usersInProjects?sprintId={id}
+     * http://localhost:8081/api/usersInProject?projectId={id}
+     * http://localhost:8081/api/usersInProject?sprintId={id}
      *
      * @param projectId specifying project ID
      * @return returns a list of all users or specific user if parameter is used
