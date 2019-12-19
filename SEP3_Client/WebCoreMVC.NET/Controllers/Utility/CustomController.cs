@@ -16,7 +16,7 @@ namespace WebCoreMVC.NET.Controllers {
 
         //All controllers are reusing the same http client and server ip so there is no need to create them multiple times
         protected readonly HttpClient client = new HttpClient();
-        protected readonly string serverUrl = "http://" + "localhost" + ":8081/";
+        protected readonly string serverUrl = "https://" + "localhost" + ":8081/";
         protected static string username { get; set; }
         protected List<Project> projects = new List<Project>();
         protected ContainerForListAndId<Sprint> sprints = new ContainerForListAndId<Sprint>();

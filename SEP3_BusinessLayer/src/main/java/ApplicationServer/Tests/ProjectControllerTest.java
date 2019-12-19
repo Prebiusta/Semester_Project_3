@@ -1,5 +1,6 @@
-package ApplicationServer.Controllers;
+package ApplicationServer.Tests;
 
+import ApplicationServer.Controllers.ControllerConfiguration;
 import ApplicationServer.Model.ClientModels.ProjectClient;
 import ApplicationServer.Model.DataLayerModels.ProjectDataLayer;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -62,7 +63,6 @@ class ProjectControllerTest extends ControllerConfiguration {
         ProjectClient projectClient10 = new ProjectClient(-1, "NameOfTheProject8", "random String", 0, 0, admins);
         ProjectClient projectClient11 = new ProjectClient(-1, "NameOfTheProject8", "ONGOING", 0, 0, emptyAdmins);
         ProjectClient projectClient12 = new ProjectClient(-1, "NameOfTheProject8", "ONGOING", 0, 0, nonExistantUsersAsAdmins);
-        
 
     }
 
