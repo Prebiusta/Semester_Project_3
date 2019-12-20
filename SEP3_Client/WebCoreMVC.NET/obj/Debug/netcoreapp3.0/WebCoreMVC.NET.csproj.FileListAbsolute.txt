@@ -541,3 +541,5 @@ C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\Backlog\ViewBacklogProductOwner.cshtml.g.cs
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\Backlog\ViewBacklogScrumMaster.cshtml.g.cs
 C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\obj\Debug\netcoreapp3.0\Razor\Views\Project\Sprint\Backlog\ViewBacklogTeamMember.cshtml.g.cs
+C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\bin\Debug\netcoreapp3.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\VALERA\source\repos\Prebiusta\Semester_Project_3\SEP3_Client\WebCoreMVC.NET\bin\Debug\netcoreapp3.0\runtimes\win\lib\netcoreapp2.1\System.Security.Cryptography.Pkcs.dll

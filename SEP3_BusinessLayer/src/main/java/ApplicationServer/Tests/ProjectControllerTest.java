@@ -1,5 +1,6 @@
-package ApplicationServer.Controllers;
+package ApplicationServer.Tests;
 
+import ApplicationServer.Controllers.ControllerConfiguration;
 import ApplicationServer.Model.ClientModels.ProjectClient;
 import ApplicationServer.Model.ClientModels.UserForDisplay;
 import ApplicationServer.Model.DataLayerModels.ProjectDataLayer;
